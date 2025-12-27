@@ -1,0 +1,35 @@
+# Worktrees
+.worktrees/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Data
+data/raw_financials/
+data/signals/
+data/stock_universe.csv
+data/fetch_errors.csv
+*.csv
+!input/*.csv
+
+# Output
+output/reports/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
