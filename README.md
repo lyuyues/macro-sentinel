@@ -1,20 +1,112 @@
-This project is for automatically calculate the price of a stcok base on the previous cashflow and statement
-and also automatically go through all the tickers to find the undervalued ones
+AI Stock Valuation Toolkit
 
-TODO:
-- Test TSLA when revenue  REVENUE_TAGS contains only "RevenueFromContractWithCustomerExcludingAssessedTax", missing several entries in _10K.csv, when includes both "RevenueFromContractWithCustomerExcludingAssessedTax"(1st) and "Revenues"(2nd), only Revenues in entries. unexpected result, as only missing entry shown tag "Revenues"
-- Understand all the revenues tags and  to better caluculate the data
+Automatically calculate stock fair value using SEC EDGAR financial data, then screen the entire US market for undervalued stocks.
 
+## Setup
 
-pip install pandas numpy requests yfinance  
-# yfinance 可选
+```bash
+pip install pandas numpy requests yfinance openpyxl
+```
+
+Python 3.9+ required. Uses `/Users/y32lyu/miniforge3/bin/python3` on this machine.
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `dcf_builder.py` | Core DCF engine — fetches SEC data, computes margins, runs 10-year 3-stage DCF |
+| `dcf_utils.py` | Helpers — Stooq prices, SIC-to-sector mapping, year-end prices (yfinance), WACC |
+| `valuation_builder.py` | Full valuation template — income statement, balance sheet, cash flow, ratios, DCF |
+| `dcf_screener.py` | Batch screener — runs DCF on many tickers, filters undervalued stocks |
+| `get_all_ticker.py` | Downloads all US ticker list from SEC |
+
+## Usage
+
+### 1. Single Stock DCF (quick)
+
+```bash
 python dcf_builder.py --ticker GOOGL --required 0.07 --perp 0.025 --avg-years 5
+```
 
-Python codes
+Or edit `dcf_builder.py` bottom and run directly:
+```python
+run_dcf_once(ticker="TSLA", sector="TECH")
+```
 
-dcf_builder.py \\main entry
-dcf_utils.py  \\helpers
-get_all_ticker.py  \\
+**Output files:**
+- `2026_dcf_TSLA_10K.csv` — historical financials (Revenue, Net Income, FCF, margins)
+- `2026_dcf_TSLA_proj.csv` — 10-year DCF projection (transposed: years as columns, metrics as rows)
+- `2026_dcf_TSLA_meta.json` — summary (fair value, growth rates, assumptions)
+
+**Optional flags:**
+- `--save-raw-json` — save full SEC companyfacts JSON
+- `--save-raw-csv` — save flattened SEC data as CSV
+- `--sector TECH` — manually override sector (TECH / CONSUMER / BANK / INSURANCE / ENERGY / PHARMA)
+
+### 2. Full Valuation Template (comprehensive)
+
+```bash
+python valuation_builder.py --ticker AMD
+```
+
+**Output:** `valuation_AMD.csv` with sections:
+- Company Info (ticker, sector, WACC, fair value)
+- Income Statement (Revenue, Gross Profit, Operating Income, EBITDA, D&A, Interest, Tax, Net Income, EPS, DPS, margins)
+- Balance Sheet (Cash, Short/Long-term Debt, Total Assets, Equity, Shares Outstanding)
+- Cash Flow (CFO, CapEx, FCF, FCF Margin)
+- Valuation Ratios (Market Cap, EV, P/E, P/S, P/B, EV/Revenue, EV/EBITDA, ROE, ROA, ROIC)
+- DCF Projection (10-year projected Revenue, FCF, discount factors, PV)
+
+**For Excel output** (separate sheets per section):
+```bash
+python valuation_builder.py --ticker AMD --excel
+```
+
+**All flags:**
+```
+--ticker       Stock ticker (required)
+--required     Discount rate, default 0.07
+--perp         Perpetual growth rate, default 0.025
+--avg-years    Years for averaging margins, default 5
+--projection-years  DCF projection years, default 10
+--output       Custom output filename
+--excel        Also save as .xlsx
+```
+
+### 3. Batch Screening (find undervalued stocks)
+
+Edit `dcf_screener.py` bottom to set parameters, then run:
+```bash
+python dcf_screener.py
+```
+
+Requires a ticker list CSV (from `get_all_ticker.py`). Outputs:
+- `dcf_screen_all_<timestamp>.csv` — all results
+- `dcf_screen_undervalued_<timestamp>.csv` — stocks with discount >= threshold
+
+### 4. Get All US Tickers
+
+```bash
+python get_all_ticker.py
+```
+
+Downloads the full SEC ticker list to `all_us_tickers_sec.csv`.
+
+## Examples
+
+```bash
+# Quick DCF for Apple
+python dcf_builder.py --ticker AAPL
+
+# Full valuation for NVIDIA with Excel
+python valuation_builder.py --ticker NVDA --excel
+
+# DCF with custom parameters
+python dcf_builder.py --ticker MSFT --required 0.08 --perp 0.02 --sector TECH
+
+# Full valuation with 15-year projection
+python valuation_builder.py --ticker GOOGL --projection-years 15
+```
 
 
 

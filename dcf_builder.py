@@ -376,18 +376,21 @@ def parse_fiscal_year_from_item(item: dict) -> Optional[int]:
             # 例如 CY2022 -> 取最后 4 位
             return int(s[-4:])
 
-        # 像 CY2022Q1 / CY2022Q4 这种会直接跳过，不当年度用
-        #（这里故意不再从里面提取“2022”，防止季度冒充年度）
+        # frame 存在但不是年度形式（如 CY2022Q1）→ 明确是季度，直接拒绝
+        # 不再 fallback 到 fy，防止季度数据冒充年度
+        return None
 
-    # 2) 次优：有 start / end，并且通过 is_true_annual_period 判定为“真·年度”
+    # 2) 次优：有 start / end，并且通过 is_true_annual_period 判定为"真·年度"
     if start and end:
         try:
             if is_true_annual_period(start, end):
                 return int(to_datetime(end).year)
         except Exception:
             pass
+        # start/end 存在但不是年度区间 → 拒绝，不 fallback 到 fy
+        return None
 
-    # 3) 最后兜底：退回 fy（有可能会有一点脏，但比完全没数据好）
+    # 3) 最后兜底：没有 frame 也没有 start/end 时，退回 fy
     if fy is not None:
         try:
             return int(fy)
@@ -462,12 +465,31 @@ def _series_from_tags(facts: dict, tags: List[str], unit: str = "USD") -> Tuple[
     if not all_series:
         return pd.Series(dtype="float64"), None, {}
 
-    # choose the series with most data
-    all_series.sort(key=lambda s: s.dropna().shape[0], reverse=True)
-    best = all_series[0]
-    best_tag = best.name
-    periods_for_best = per_tag_periods.get(best_tag, {})
-    return best, best_tag, periods_for_best
+    # Merge all tags: for each year, use the value from the first (highest
+    # priority) tag that has data.  This avoids gaps when a company switches
+    # XBRL tags over time (e.g. SalesRevenueNet -> Revenues).
+    # tags list order = priority order.
+    merged_values = {}   # year -> value
+    merged_tags = {}     # year -> tag name that provided the value
+    merged_periods = {}  # year -> (start, end)
+
+    # Build a lookup: tag_name -> series
+    tag_to_series = {s.name: s for s in all_series}
+
+    for tag in tags:  # iterate in priority order
+        if tag not in tag_to_series:
+            continue
+        s = tag_to_series[tag]
+        periods = per_tag_periods.get(tag, {})
+        for year in s.index:
+            if year not in merged_values:
+                merged_values[year] = float(s.loc[year])
+                merged_tags[year] = tag
+                merged_periods[year] = periods.get(year, (None, None))
+
+    combined = pd.Series(merged_values).sort_index()
+    combined.name = merged_tags.get(max(merged_values.keys())) if merged_values else None
+    return combined, merged_tags, merged_periods
 
 # =======================================
 #  Calculation layer: pure-ish functions
@@ -668,27 +690,31 @@ def build_dcf(
     cik = fetch_cik(ticker)
     facts = fetch_companyfacts(cik)
 
-    (
-        revenue,
-        net_income,
-        fcf,
-        revenue_tag,
-        net_income_tag,
-        cfo_tag,
-        capex_tag,
-        revenue_periods,
-        net_income_periods,
-        cfo_periods,
-        capex_periods,
-    ) = extract_financials(facts)
+    # Use extract_all_financials for full data access
+    all_data = extract_all_financials(facts)
 
-    # 得到net margin & FCF to margin 历史值 
+    revenue, revenue_tag, revenue_periods = all_data["revenue"]
+    net_income, net_income_tag, net_income_periods = all_data["net_income"]
+    _, cfo_tag, cfo_periods = all_data["cfo"]
+    _, capex_tag, capex_periods = all_data["capex"]
+    fcf = all_data["fcf"][0]
+
+    # Extra series + per-year tags for 10K output
+    gross_profit, gross_profit_tag, _ = all_data["gross_profit"]
+    eps_diluted, eps_tag, _ = all_data["eps_diluted"]
+    cash, cash_tag, _ = all_data["cash"]
+    total_debt = all_data["total_debt"][0]  # derived, no single tag
+    long_term_debt_tag = all_data["long_term_debt"][1]
+    short_term_debt_tag = all_data["short_term_debt"][1]
+    shares_tag = all_data["shares_outstanding"][1]
+
+    # 得到net margin & FCF to margin 历史值
     net_margin, fcf_to_ni, avg_net_margin, avg_fcf_to_ni = compute_margins(
         revenue, net_income, fcf, avg_years
     )
 
     # 流通股数
-    shares_series = extract_shares_outstanding(facts)
+    shares_series = all_data["shares_outstanding"][0]
     if shares_series is not None and not shares_series.empty:
         shares = float(shares_series.iloc[-1])
     else:
@@ -710,29 +736,58 @@ def build_dcf(
         except Exception:
             return np.nan
 
-    hist_df = pd.DataFrame({
-        "Year": years,
-        "Free Cash Flow (M)": [pick(fcf, y) / 1e6 for y in years],
-        "Revenue (M)": [pick(revenue, y) / 1e6 for y in years],
-        "Net Income (M)": [pick(net_income, y) / 1e6 for y in years],
-        "Net Profit Margin (%)": [pick_raw(net_margin, y) * 100 for y in years],
-        "FCF to Profit Margin (%)": [pick_raw(fcf_to_ni, y) * 100 for y in years],
-        # record which XBRL tag produced each series (same value for all rows)
-        "Revenue Tag": [revenue_tag or ""] * len(years),
-        "Net Income Tag": [net_income_tag or ""] * len(years),
-        "CFO Tag": [cfo_tag or ""] * len(years),
-        "CapEx Tag": [capex_tag or ""] * len(years),
-    })
+    # Helper: pick tag name for a given year from per-year tag dict
+    def pick_tag(tag_dict, y):
+        if isinstance(tag_dict, dict):
+            return tag_dict.get(y, "")
+        return tag_dict or ""
 
-    # Add per-year start/end if available (use revenue_periods as canonical source)
+    # Helper: pick period (start, end) for a given year
     def pick_period(periods: dict, y: int):
         p = periods.get(y)
         if not p:
             return (None, None)
         return p
 
-    hist_df["Start"] = [pick_period(revenue_periods, y)[0] for y in years]
-    hist_df["End"] = [pick_period(revenue_periods, y)[1] for y in years]
+    # Gross margin helper
+    def gross_margin_pct(y):
+        rev = pick(revenue, y)
+        gp = pick(gross_profit, y)
+        if np.isfinite(rev) and np.isfinite(gp) and rev != 0:
+            return gp / rev * 100
+        return np.nan
+
+    hist_df = pd.DataFrame({
+        "Year": years,
+        "Revenue (M)": [pick(revenue, y) / 1e6 for y in years],
+        "Gross Margin (%)": [gross_margin_pct(y) for y in years],
+        "Net Income (M)": [pick(net_income, y) / 1e6 for y in years],
+        "Net Profit Margin (%)": [pick_raw(net_margin, y) * 100 for y in years],
+        "Free Cash Flow (M)": [pick(fcf, y) / 1e6 for y in years],
+        "FCF to Profit Margin (%)": [pick_raw(fcf_to_ni, y) * 100 for y in years],
+        "EPS Diluted ($)": [pick(eps_diluted, y) for y in years],
+        "Cash (B)": [pick(cash, y) / 1e9 for y in years],
+        "Total Debt (B)": [pick(total_debt, y) / 1e9 for y in years],
+        "Shares Outstanding (M)": [pick(shares_series, y) / 1e6 for y in years],
+        # per-year XBRL tags — data source for each value
+        "Revenue Tag": [pick_tag(revenue_tag, y) for y in years],
+        "Net Income Tag": [pick_tag(net_income_tag, y) for y in years],
+        "CFO Tag": [pick_tag(cfo_tag, y) for y in years],
+        "CapEx Tag": [pick_tag(capex_tag, y) for y in years],
+        "Gross Profit Tag": [pick_tag(gross_profit_tag, y) for y in years],
+        "EPS Tag": [pick_tag(eps_tag, y) for y in years],
+        "Cash Tag": [pick_tag(cash_tag, y) for y in years],
+        "LT Debt Tag": [pick_tag(long_term_debt_tag, y) for y in years],
+        "ST Debt Tag": [pick_tag(short_term_debt_tag, y) for y in years],
+        "Shares Tag": [pick_tag(shares_tag, y) for y in years],
+        "Start": [pick_period(revenue_periods, y)[0] for y in years],
+        "End": [pick_period(revenue_periods, y)[1] for y in years],
+    })
+
+    # Transpose: years become columns (sorted ascending), metrics become rows
+    hist_df = hist_df.set_index("Year").T
+    hist_df = hist_df[sorted(hist_df.columns)]
+    hist_df.index.name = None
 
     # ---------- 预测期（10 年） ----------
     if revenue.empty:
@@ -781,6 +836,12 @@ def build_dcf(
     fair_value = todays_value / shares if (shares is not None and shares > 0) else np.nan
 
     # ---------- 预测表 ----------
+    # For projections, use the tag from the most recent year as the reference
+    latest_rev_tag = pick_tag(revenue_tag, last_year)
+    latest_cfo_tag = pick_tag(cfo_tag, last_year)
+    latest_capex_tag = pick_tag(capex_tag, last_year)
+    base_period = revenue_periods.get(last_year, (None, None))
+
     proj_df = pd.DataFrame({
         "Year": proj_years,
         "Revenue (M)": [x / 1e6 for x in proj_rev],
@@ -788,17 +849,12 @@ def build_dcf(
         "Growth Rate (%)": [g * 100 for g in growth_path[:projection_years]],
         "Discount Factor": [round(x, 2) for x in dfs],
         "PV of Future Cash Flow (M)": [x / 1e6 for x in pv_fcfs],
-        # include XBRL tag sources so consumers can see which tags were used
-        "Revenue Tag": [revenue_tag or ""] * len(proj_years),
-        "CFO Tag": [cfo_tag or ""] * len(proj_years),
-        "CapEx Tag": [capex_tag or ""] * len(proj_years),
+        "Revenue Tag": [latest_rev_tag] * len(proj_years),
+        "CFO Tag": [latest_cfo_tag] * len(proj_years),
+        "CapEx Tag": [latest_capex_tag] * len(proj_years),
+        "Base Start": [base_period[0]] * len(proj_years),
+        "Base End": [base_period[1]] * len(proj_years),
     })
-
-    # projection metadata: which revenue tag used and the base year's period
-    base_period = revenue_periods.get(last_year, (None, None))
-    proj_df["Revenue Tag"] = [revenue_tag or ""] * len(proj_df)
-    proj_df["Base Start"] = [base_period[0]] * len(proj_df)
-    proj_df["Base End"] = [base_period[1]] * len(proj_df)
 
     # ---------- 汇总元数据 ----------
     units = facts.get("facts", {}).get("us-gaap", {}).get("Revenues", {}).get("units", {})
@@ -811,10 +867,10 @@ def build_dcf(
         "Sector": sector if sector is not None else infer_sector_from_facts(facts, ticker),
         "Growth Model": "3-Stage 10-Year",
         # tags used to produce the core series
-        "Revenue Tag": revenue_tag,
-        "Net Income Tag": net_income_tag,
-        "CFO Tag": cfo_tag,
-        "CapEx Tag": capex_tag,
+        "Revenue Tag": latest_rev_tag,
+        "Net Income Tag": pick_tag(net_income_tag, last_year),
+        "CFO Tag": latest_cfo_tag,
+        "CapEx Tag": latest_capex_tag,
         "Adopted Growth Rate Year1 (%)": growth_path[0] * 100,
         "Adopted Growth Rate Year10 (%)": growth_path[-1] * 100,
         "Terminal Growth (%)": terminal_g * 100,
@@ -840,8 +896,8 @@ def main():
     ap.add_argument("--perp", type=float, default=0.025)
     ap.add_argument("--years", type=int, default=4)
     ap.add_argument("--avg-years", type=int, default=5)
-    ap.add_argument("--save-raw-json", action="store_true")
-    ap.add_argument("--save-raw-csv", action="store_true")
+    ap.add_argument("--no-raw-json", action="store_true", help="不保存原始 JSON")
+    ap.add_argument("--no-raw-csv", action="store_true", help="不保存原始 CSV")
     ap.add_argument("--sector", type=str, default=None,
                 help="手动指定行业 (TECH / CONSUMER / BANK / INSURANCE / ENERGY / PHARMA)。若不指定则自动根据 SIC 判定")
     args = ap.parse_args()
@@ -874,8 +930,8 @@ def main():
     )
 
     # Save DCF outputs (你的原代码)
-    hist.to_csv(base + ".csv", index=False)
-    proj.to_csv(base + "_proj.csv", index=False)
+    hist.to_csv(base + ".csv", index=True)
+    proj.to_csv(base + "_proj.csv", index=True)
     with open(base + "_meta.json", "w") as f:
         json.dump({
             k: (f"{v:,.2f}" if isinstance(v, (int, float)) else v)
@@ -883,7 +939,7 @@ def main():
         }, f, indent=2)
 
     # --- Save raw companyfacts JSON ---
-    if args.save_raw_json:
+    if not args.no_raw_json:
         cik = fetch_cik(args.ticker)
         facts = fetch_companyfacts(cik)
 
@@ -893,7 +949,7 @@ def main():
         # print(f"[Saved] {fname_json}")
 
     # --- Save raw CSV ---
-    if args.save_raw_csv:
+    if not args.no_raw_csv:
         cik = fetch_cik(args.ticker)
         facts = fetch_companyfacts(cik)
 
@@ -949,8 +1005,8 @@ def run_dcf_once(
     )
 
     # 保存 DCF 结果
-    hist.to_csv(base + "_10K.csv", index=False)
-    proj.to_csv(base + "_proj.csv", index=False)
+    hist.to_csv(base + "_10K.csv", index=True)
+    proj.to_csv(base + "_proj.csv", index=True)
     with open(base + "_meta.json", "w") as f:
         json.dump(
             {
@@ -982,15 +1038,6 @@ def run_dcf_once(
     print(f"\nAll done. Files saved with base name: {base}\n")
     return hist, proj, meta
 
-# 如果是直接运行这个文件，就默认跑一次 DCF
+# CLI entry point: supports --ticker, --required, --perp, etc.
 if __name__ == "__main__":
-    run_dcf_once(
-        ticker="TSLA",
-        sector="TECH",  # 手动指定行业
-        required_return=0.07,
-        perpetual_growth=0.025,
-        projection_years=4,
-        avg_years=5,
-        save_raw_json=True,   # 如果你想要 raw json/csv 改成 True
-        save_raw_csv=True,
-    )
+    main()
