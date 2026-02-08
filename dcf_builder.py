@@ -983,6 +983,128 @@ def build_dcf(
 
     return hist_df, proj_df, meta
 
+# =======================================
+#  Market data builder (stock market data, separate from 10-K)
+# =======================================
+
+def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
+    """Build historical + current market data table.
+
+    Uses yfinance for year-end prices and current market snapshot.
+    Combines with 10-K financial data to compute valuation ratios per year.
+    """
+    import yfinance as yf
+    from dcf_utils import get_historical_year_end_prices
+
+    years = sorted(years)
+    start_year = years[0]
+    end_year = years[-1]
+
+    # --- Historical year-end prices ---
+    prices = get_historical_year_end_prices(ticker, start_year, end_year)
+
+    # --- Current market data from yfinance ---
+    tk = yf.Ticker(ticker)
+    try:
+        info = tk.info
+    except Exception:
+        info = {}
+
+    # --- Extract financial series for ratio computation ---
+    revenue = all_data["revenue"][0]
+    net_income = all_data["net_income"][0]
+    eps_diluted = all_data["eps_diluted"][0]
+    shares = all_data["shares_outstanding"][0]
+    total_debt = all_data["total_debt"][0]
+    total_cash = all_data["total_cash"][0]
+    stockholders_equity = all_data["stockholders_equity"][0]
+    ebitda = all_data["ebitda"][0]
+    dividends_per_share = all_data["dividends_per_share"][0]
+
+    def _pick(s, y):
+        try:
+            return float(s.loc[y])
+        except Exception:
+            return np.nan
+
+    # --- Build historical rows ---
+    hist_rows = {}
+    for y in years:
+        price = _pick(prices, y) if y in prices.index else np.nan
+        rev = _pick(revenue, y)
+        ni = _pick(net_income, y)
+        eps = _pick(eps_diluted, y)
+        sh = _pick(shares, y)
+        debt = _pick(total_debt, y)
+        cash = _pick(total_cash, y)
+        equity = _pick(stockholders_equity, y)
+        ebitda_val = _pick(ebitda, y)
+        dps = _pick(dividends_per_share, y)
+
+        # Market Cap = Price * Shares
+        mkt_cap = price * sh if np.isfinite(price) and np.isfinite(sh) else np.nan
+        # Enterprise Value = Market Cap + Debt - Cash
+        ev = np.nan
+        if np.isfinite(mkt_cap):
+            ev = mkt_cap + (debt if np.isfinite(debt) else 0) - (cash if np.isfinite(cash) else 0)
+
+        hist_rows[y] = {
+            "Year-End Price ($)": round(price, 2) if np.isfinite(price) else np.nan,
+            "Market Cap (B)": mkt_cap / 1e9 if np.isfinite(mkt_cap) else np.nan,
+            "Enterprise Value (B)": ev / 1e9 if np.isfinite(ev) else np.nan,
+            "Trailing P/E": price / eps if np.isfinite(price) and np.isfinite(eps) and eps > 0 else np.nan,
+            "P/S": mkt_cap / rev if np.isfinite(mkt_cap) and np.isfinite(rev) and rev > 0 else np.nan,
+            "P/B": mkt_cap / equity if np.isfinite(mkt_cap) and np.isfinite(equity) and equity > 0 else np.nan,
+            "EV/Revenue": ev / rev if np.isfinite(ev) and np.isfinite(rev) and rev > 0 else np.nan,
+            "EV/EBITDA": ev / ebitda_val if np.isfinite(ev) and np.isfinite(ebitda_val) and ebitda_val > 0 else np.nan,
+            "Dividend Yield (%)": dps / price * 100 if np.isfinite(dps) and np.isfinite(price) and price > 0 else np.nan,
+        }
+
+    # Build DataFrame: metrics as rows, years as columns
+    market_df = pd.DataFrame(hist_rows)
+    market_df.index.name = None
+
+    # --- Add "Current" column from yfinance .info ---
+    current = {
+        "Year-End Price ($)": info.get("currentPrice"),
+        "Market Cap (B)": info.get("marketCap", 0) / 1e9 if info.get("marketCap") else np.nan,
+        "Enterprise Value (B)": info.get("enterpriseValue", 0) / 1e9 if info.get("enterpriseValue") else np.nan,
+        "Trailing P/E": info.get("trailingPE"),
+        "P/S": info.get("priceToSalesTrailing12Months"),
+        "P/B": info.get("priceToBook"),
+        "EV/Revenue": info.get("enterpriseToRevenue"),
+        "EV/EBITDA": info.get("enterpriseToEbitda"),
+        "Dividend Yield (%)": info.get("dividendYield", 0) * 100 if info.get("dividendYield") else np.nan,
+    }
+    market_df["Current"] = pd.Series(current)
+
+    # --- Add extra current-only rows ---
+    extra_current = {
+        "Forward P/E": info.get("forwardPE"),
+        "PEG Ratio": info.get("pegRatio"),
+        "Beta": info.get("beta"),
+        "52-Week High ($)": info.get("fiftyTwoWeekHigh"),
+        "52-Week Low ($)": info.get("fiftyTwoWeekLow"),
+        "Forward EPS ($)": info.get("forwardEps"),
+        "Trailing EPS ($)": info.get("trailingEps"),
+        "Revenue Growth (%)": info.get("revenueGrowth", 0) * 100 if info.get("revenueGrowth") else np.nan,
+        "Earnings Growth (%)": info.get("earningsGrowth", 0) * 100 if info.get("earningsGrowth") else np.nan,
+        "Analyst Target Mean ($)": info.get("targetMeanPrice"),
+        "Analyst Target High ($)": info.get("targetHighPrice"),
+        "Analyst Target Low ($)": info.get("targetLowPrice"),
+        "Analyst Recommendation": info.get("recommendationKey"),
+        "Number of Analysts": info.get("numberOfAnalystOpinions"),
+        "Short Ratio": info.get("shortRatio"),
+        "Debt/Equity": info.get("debtToEquity"),
+    }
+    for k, v in extra_current.items():
+        row = {y: np.nan for y in years}
+        row["Current"] = v
+        market_df.loc[k] = pd.Series(row)
+
+    return market_df
+
+
 #python dcf_builder.py --ticker GOOGL --required 0.07 --perp 0.025 --avg-years 5
 def main():
     ap = argparse.ArgumentParser()
@@ -1027,7 +1149,7 @@ def main():
         sector=sector,
     )
 
-    # Save DCF outputs (你的原代码)
+    # Save DCF outputs
     hist.to_csv(base + ".csv", index=True)
     proj.to_csv(base + "_proj.csv", index=True)
     with open(base + "_meta.json", "w") as f:
@@ -1036,10 +1158,18 @@ def main():
             for k, v in meta.items()
         }, f, indent=2)
 
+    # --- Build & save market data (separate from 10-K) ---
+    cik = fetch_cik(args.ticker)
+    facts = fetch_companyfacts(cik)
+    all_data = extract_all_financials(facts)
+    years = [int(c) for c in hist.columns if str(c).isdigit()]
+    market_df = build_market_data(args.ticker, all_data, years)
+    market_base = os.path.join(out_dir, f"{currYear}_market_{ticker_upper}")
+    market_df.to_csv(market_base + ".csv", index=True)
+    print(f"[Saved] {market_base}.csv")
+
     # --- Save raw companyfacts JSON ---
     if not args.no_raw_json:
-        cik = fetch_cik(args.ticker)
-        facts = fetch_companyfacts(cik)
 
         fname_json = base + "_raw.json"
         with open(fname_json, "w") as f:
@@ -1118,10 +1248,18 @@ def run_dcf_once(
             indent=2,
         )
 
+    # --- Build & save market data ---
+    cik = fetch_cik(ticker)
+    facts = fetch_companyfacts(cik)
+    all_data = extract_all_financials(facts)
+    years = [int(c) for c in hist.columns if str(c).isdigit()]
+    market_df = build_market_data(ticker, all_data, years)
+    market_base = os.path.join(out_dir, f"{curr_year}_market_{ticker_upper}")
+    market_df.to_csv(market_base + ".csv", index=True)
+    print(f"[Saved] {market_base}.csv")
+
     # --- 保存原始 companyfacts JSON ---
     if save_raw_json:
-        cik = fetch_cik(ticker)
-        facts = fetch_companyfacts(cik)
         fname_json = base + "_raw.json"
         with open(fname_json, "w") as f:
             json.dump(facts, f, indent=2)
@@ -1129,8 +1267,6 @@ def run_dcf_once(
 
     # --- 保存原始 CSV ---
     if save_raw_csv:
-        cik = fetch_cik(ticker)
-        facts = fetch_companyfacts(cik)
         raw_df = companyfacts_to_table(facts)
         fname_csv = base + "_raw.csv"
         raw_df.to_csv(fname_csv, index=False)
