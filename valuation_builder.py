@@ -436,7 +436,13 @@ def main():
     print(f"{'='*50}\n")
 
     # Save outputs
-    base = args.output or f"valuation_{ticker}.csv"
+    import os
+    if args.output:
+        base = args.output
+    else:
+        out_dir = os.path.join("output", ticker)
+        os.makedirs(out_dir, exist_ok=True)
+        base = os.path.join(out_dir, f"valuation_{ticker}.csv")
     save_valuation_template(result, base)
 
     if args.excel:

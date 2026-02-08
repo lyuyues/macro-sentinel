@@ -123,6 +123,12 @@ CASH_TAGS = [
     "CashCashEquivalentsAndShortTermInvestments",
     "Cash",
 ]
+MARKETABLE_SECURITIES_CURRENT_TAGS = [
+    "MarketableSecuritiesCurrent",
+]
+MARKETABLE_SECURITIES_NONCURRENT_TAGS = [
+    "MarketableSecuritiesNoncurrent",
+]
 LONG_TERM_DEBT_TAGS = [
     "LongTermDebt",
     "LongTermDebtNoncurrent",
@@ -132,6 +138,7 @@ SHORT_TERM_DEBT_TAGS = [
     "ShortTermBorrowings",
     "CommercialPaper",
     "LongTermDebtCurrent",
+    "DebtCurrent",
 ]
 TOTAL_ASSETS_TAGS = [
     "Assets",
@@ -278,6 +285,8 @@ def extract_all_financials(facts: dict) -> dict:
         ("income_tax", INCOME_TAX_TAGS),
         ("income_before_tax", INCOME_BEFORE_TAX_TAGS),
         ("cash", CASH_TAGS),
+        ("marketable_securities_current", MARKETABLE_SECURITIES_CURRENT_TAGS),
+        ("marketable_securities_noncurrent", MARKETABLE_SECURITIES_NONCURRENT_TAGS),
         ("long_term_debt", LONG_TERM_DEBT_TAGS),
         ("short_term_debt", SHORT_TERM_DEBT_TAGS),
         ("total_assets", TOTAL_ASSETS_TAGS),
@@ -321,6 +330,15 @@ def extract_all_financials(facts: dict) -> dict:
     ebitda = oi.reindex(idx).fillna(0) + da.reindex(idx).fillna(0)
     ebitda.name = "EBITDA"
     result["ebitda"] = (ebitda, None, {})
+
+    # Derived: Total Cash = Cash & Equiv + Marketable Securities (Current + Noncurrent)
+    c = result["cash"][0]
+    ms_cur = result["marketable_securities_current"][0]
+    ms_nc = result["marketable_securities_noncurrent"][0]
+    idx = c.index.union(ms_cur.index).union(ms_nc.index)
+    total_cash = c.reindex(idx).fillna(0) + ms_cur.reindex(idx).fillna(0) + ms_nc.reindex(idx).fillna(0)
+    total_cash.name = "TotalCash"
+    result["total_cash"] = (total_cash, None, {})
 
     return result
 
@@ -695,14 +713,17 @@ def build_dcf(
 
     revenue, revenue_tag, revenue_periods = all_data["revenue"]
     net_income, net_income_tag, net_income_periods = all_data["net_income"]
-    _, cfo_tag, cfo_periods = all_data["cfo"]
-    _, capex_tag, capex_periods = all_data["capex"]
+    cfo, cfo_tag, cfo_periods = all_data["cfo"]
+    capex, capex_tag, capex_periods = all_data["capex"]
     fcf = all_data["fcf"][0]
 
     # Extra series + per-year tags for 10K output
     gross_profit, gross_profit_tag, _ = all_data["gross_profit"]
     eps_diluted, eps_tag, _ = all_data["eps_diluted"]
     cash, cash_tag, _ = all_data["cash"]
+    total_cash = all_data["total_cash"][0]  # derived: cash + marketable securities
+    ms_cur_tag = all_data["marketable_securities_current"][1]
+    ms_nc_tag = all_data["marketable_securities_noncurrent"][1]
     total_debt = all_data["total_debt"][0]  # derived, no single tag
     long_term_debt_tag = all_data["long_term_debt"][1]
     short_term_debt_tag = all_data["short_term_debt"][1]
@@ -763,10 +784,13 @@ def build_dcf(
         "Gross Margin (%)": [gross_margin_pct(y) for y in years],
         "Net Income (M)": [pick(net_income, y) / 1e6 for y in years],
         "Net Profit Margin (%)": [pick_raw(net_margin, y) * 100 for y in years],
+        "Cash from Operations (M)": [pick(cfo, y) / 1e6 for y in years],
+        "CapEx (M)": [pick(capex, y) / 1e6 for y in years],
         "Free Cash Flow (M)": [pick(fcf, y) / 1e6 for y in years],
         "FCF to Profit Margin (%)": [pick_raw(fcf_to_ni, y) * 100 for y in years],
         "EPS Diluted ($)": [pick(eps_diluted, y) for y in years],
         "Cash (B)": [pick(cash, y) / 1e9 for y in years],
+        "Total Cash (B)": [pick(total_cash, y) / 1e9 for y in years],
         "Total Debt (B)": [pick(total_debt, y) / 1e9 for y in years],
         "Shares Outstanding (M)": [pick(shares_series, y) / 1e6 for y in years],
         # per-year XBRL tags — data source for each value
@@ -777,6 +801,8 @@ def build_dcf(
         "Gross Profit Tag": [pick_tag(gross_profit_tag, y) for y in years],
         "EPS Tag": [pick_tag(eps_tag, y) for y in years],
         "Cash Tag": [pick_tag(cash_tag, y) for y in years],
+        "MS Current Tag": [pick_tag(ms_cur_tag, y) for y in years],
+        "MS Noncurrent Tag": [pick_tag(ms_nc_tag, y) for y in years],
         "LT Debt Tag": [pick_tag(long_term_debt_tag, y) for y in years],
         "ST Debt Tag": [pick_tag(short_term_debt_tag, y) for y in years],
         "Shares Tag": [pick_tag(shares_tag, y) for y in years],
@@ -904,7 +930,10 @@ def main():
 
     ticker_upper = args.ticker.upper()
     currYear = pd.Timestamp.now().year
-    base = f"{currYear}_dcf_{ticker_upper}"
+    import os
+    out_dir = os.path.join("output", ticker_upper)
+    os.makedirs(out_dir, exist_ok=True)
+    base = os.path.join(out_dir, f"{currYear}_dcf_{ticker_upper}")
     # --- Sector inference ---
     if args.sector:  
         # 用户手动指定
@@ -992,7 +1021,10 @@ def run_dcf_once(
     """
     ticker_upper = ticker.upper()
     curr_year = pd.Timestamp.now().year
-    base = f"{curr_year}_dcf_{ticker_upper}"
+    import os
+    out_dir = os.path.join("output", ticker_upper)
+    os.makedirs(out_dir, exist_ok=True)
+    base = os.path.join(out_dir, f"{curr_year}_dcf_{ticker_upper}")
     
     # --- main DCF flow ---
     hist, proj, meta = build_dcf(
