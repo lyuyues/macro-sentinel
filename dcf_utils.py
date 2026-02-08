@@ -115,33 +115,57 @@ def is_true_annual_period(start_date: str, end_date: str) -> bool:
 # =======================================
 
 def get_historical_year_end_prices(ticker: str, start_year: int, end_year: int) -> pd.Series:
-    """Get year-end closing prices for each year using yfinance.
+    """Get year-end UNADJUSTED closing prices for each year using yfinance.
+
+    yfinance always returns split-adjusted prices (even with auto_adjust=False).
+    Since SEC shares outstanding are NOT split-adjusted, we need true unadjusted
+    prices to compute correct Market Cap (Price × Shares).
+
+    We reverse the split adjustment by multiplying split-adjusted prices by the
+    cumulative product of all splits that occurred AFTER each date.
 
     Returns a Series indexed by year (int) with the last trading day's
-    closing price for each year in [start_year, end_year].
+    unadjusted closing price for each year in [start_year, end_year].
     """
     import yfinance as yf
 
-    # Download daily data covering the full range (add buffer for year-end)
     start_date = f"{start_year}-01-01"
-    end_date = f"{end_year + 1}-01-15"  # buffer past Dec 31
+    end_date = f"{end_year + 1}-01-15"
 
     tk = yf.Ticker(ticker)
-    hist = tk.history(start=start_date, end=end_date, auto_adjust=True)
+    hist = tk.history(start=start_date, end=end_date, auto_adjust=False)
 
     if hist.empty:
         return pd.Series(dtype="float64", name="YearEndPrice")
 
     hist.index = pd.to_datetime(hist.index)
-    # If index is tz-aware, strip timezone for groupby
     if hist.index.tz is not None:
         hist.index = hist.index.tz_localize(None)
+
+    # Get split history and compute reverse adjustment factor.
+    # yfinance divides all pre-split prices by the split ratio,
+    # so we multiply back to get the original price.
+    splits = tk.splits
+    if splits is not None and not splits.empty:
+        splits.index = pd.to_datetime(splits.index)
+        if splits.index.tz is not None:
+            splits.index = splits.index.tz_localize(None)
 
     prices = {}
     for year in range(start_year, end_year + 1):
         year_data = hist[hist.index.year == year]
         if not year_data.empty:
-            prices[year] = float(year_data["Close"].iloc[-1])
+            last_date = year_data.index[-1]
+            adj_price = float(year_data["Close"].iloc[-1])
+
+            # Compute cumulative split factor for all splits AFTER this date
+            reverse_factor = 1.0
+            if splits is not None and not splits.empty:
+                future_splits = splits[splits.index > last_date]
+                for ratio in future_splits:
+                    reverse_factor *= ratio
+
+            prices[year] = adj_price * reverse_factor
 
     result = pd.Series(prices, name="YearEndPrice")
     result.index.name = "year"

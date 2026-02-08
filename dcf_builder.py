@@ -106,10 +106,10 @@ CAPEX_TAGS = [
     "PaymentsToAcquireProductiveAssets",
 ]
 SHARE_OUTSTANDING_TAGS = [
+    "WeightedAverageNumberOfDilutedSharesOutstanding",
+    "WeightedAverageNumberOfSharesOutstandingBasic",
     "CommonStockSharesOutstanding",
     "EntityCommonStockSharesOutstanding",
-    "WeightedAverageNumberOfSharesOutstandingBasic",
-    "WeightedAverageNumberOfDilutedSharesOutstanding"
 ]
 GROSS_PROFIT_TAGS = [
     "GrossProfit",
