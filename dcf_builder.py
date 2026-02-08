@@ -170,6 +170,10 @@ DIVIDENDS_PER_SHARE_TAGS = [
     "CommonStockDividendsPerShareDeclared",
     "CommonStockDividendsPerShareCashPaid",
 ]
+RD_EXPENSE_TAGS = [
+    "ResearchAndDevelopmentExpense",
+    "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
+]
 
 
 # =======================================
@@ -284,6 +288,7 @@ def extract_all_financials(facts: dict) -> dict:
         ("interest_expense", INTEREST_EXPENSE_TAGS),
         ("income_tax", INCOME_TAX_TAGS),
         ("income_before_tax", INCOME_BEFORE_TAX_TAGS),
+        ("rd_expense", RD_EXPENSE_TAGS),
         ("cash", CASH_TAGS),
         ("marketable_securities_current", MARKETABLE_SECURITIES_CURRENT_TAGS),
         ("marketable_securities_noncurrent", MARKETABLE_SECURITIES_NONCURRENT_TAGS),
@@ -728,6 +733,16 @@ def build_dcf(
     long_term_debt_tag = all_data["long_term_debt"][1]
     short_term_debt_tag = all_data["short_term_debt"][1]
     shares_tag = all_data["shares_outstanding"][1]
+    operating_income, oi_tag, _ = all_data["operating_income"]
+    da, da_tag, _ = all_data["da"]
+    ebitda = all_data["ebitda"][0]
+    rd_expense, rd_tag, _ = all_data["rd_expense"]
+    interest_expense, interest_tag, _ = all_data["interest_expense"]
+    income_tax, tax_tag, _ = all_data["income_tax"]
+    income_before_tax, ibt_tag, _ = all_data["income_before_tax"]
+    stockholders_equity, equity_tag, _ = all_data["stockholders_equity"]
+    total_assets, assets_tag, _ = all_data["total_assets"]
+    dividends_per_share, dps_tag, _ = all_data["dividends_per_share"]
 
     # 得到net margin & FCF to margin 历史值
     net_margin, fcf_to_ni, avg_net_margin, avg_fcf_to_ni = compute_margins(
@@ -778,33 +793,87 @@ def build_dcf(
             return gp / rev * 100
         return np.nan
 
+    # Ratio helpers
+    def ratio_pct(numerator, denominator, y):
+        n = pick(numerator, y)
+        d = pick(denominator, y)
+        if np.isfinite(n) and np.isfinite(d) and d != 0:
+            return n / d * 100
+        return np.nan
+
+    def roic_pct(y):
+        oi_val = pick(operating_income, y)
+        tax_val = pick(income_tax, y)
+        ibt_val = pick(income_before_tax, y)
+        eq_val = pick(stockholders_equity, y)
+        debt_val = pick(total_debt, y)
+        cash_val = pick(total_cash, y)
+        if not all(np.isfinite(v) for v in [oi_val, eq_val]) or eq_val == 0:
+            return np.nan
+        # Effective tax rate
+        if np.isfinite(tax_val) and np.isfinite(ibt_val) and ibt_val != 0:
+            eff_tax = tax_val / ibt_val
+        else:
+            eff_tax = 0.21  # fallback: US statutory rate
+        nopat = oi_val * (1 - eff_tax)
+        invested_capital = eq_val + (debt_val if np.isfinite(debt_val) else 0) - (cash_val if np.isfinite(cash_val) else 0)
+        if invested_capital == 0:
+            return np.nan
+        return nopat / invested_capital * 100
+
     hist_df = pd.DataFrame({
         "Year": years,
+        # --- Income Statement ---
         "Revenue (M)": [pick(revenue, y) / 1e6 for y in years],
         "Gross Margin (%)": [gross_margin_pct(y) for y in years],
+        "Operating Income (M)": [pick(operating_income, y) / 1e6 for y in years],
+        "Operating Margin (%)": [ratio_pct(operating_income, revenue, y) for y in years],
         "Net Income (M)": [pick(net_income, y) / 1e6 for y in years],
         "Net Profit Margin (%)": [pick_raw(net_margin, y) * 100 for y in years],
+        "D&A (M)": [pick(da, y) / 1e6 for y in years],
+        "EBITDA (M)": [pick(ebitda, y) / 1e6 for y in years],
+        "R&D Expense (M)": [pick(rd_expense, y) / 1e6 for y in years],
+        "Interest Expense (M)": [pick(interest_expense, y) / 1e6 for y in years],
+        "Income Tax (M)": [pick(income_tax, y) / 1e6 for y in years],
+        "Effective Tax Rate (%)": [ratio_pct(income_tax, income_before_tax, y) for y in years],
+        "EPS Diluted ($)": [pick(eps_diluted, y) for y in years],
+        "Dividends Per Share ($)": [pick(dividends_per_share, y) for y in years],
+        # --- Cash Flow ---
         "Cash from Operations (M)": [pick(cfo, y) / 1e6 for y in years],
         "CapEx (M)": [pick(capex, y) / 1e6 for y in years],
         "Free Cash Flow (M)": [pick(fcf, y) / 1e6 for y in years],
         "FCF to Profit Margin (%)": [pick_raw(fcf_to_ni, y) * 100 for y in years],
-        "EPS Diluted ($)": [pick(eps_diluted, y) for y in years],
+        # --- Balance Sheet ---
         "Cash (B)": [pick(cash, y) / 1e9 for y in years],
         "Total Cash (B)": [pick(total_cash, y) / 1e9 for y in years],
         "Total Debt (B)": [pick(total_debt, y) / 1e9 for y in years],
+        "Total Assets (B)": [pick(total_assets, y) / 1e9 for y in years],
+        "Stockholders Equity (B)": [pick(stockholders_equity, y) / 1e9 for y in years],
         "Shares Outstanding (M)": [pick(shares_series, y) / 1e6 for y in years],
-        # per-year XBRL tags — data source for each value
+        # --- Ratios (pure 10-K) ---
+        "ROE (%)": [ratio_pct(net_income, stockholders_equity, y) for y in years],
+        "ROA (%)": [ratio_pct(net_income, total_assets, y) for y in years],
+        "ROIC (%)": [roic_pct(y) for y in years],
+        # --- XBRL Tags ---
         "Revenue Tag": [pick_tag(revenue_tag, y) for y in years],
         "Net Income Tag": [pick_tag(net_income_tag, y) for y in years],
         "CFO Tag": [pick_tag(cfo_tag, y) for y in years],
         "CapEx Tag": [pick_tag(capex_tag, y) for y in years],
         "Gross Profit Tag": [pick_tag(gross_profit_tag, y) for y in years],
+        "Operating Income Tag": [pick_tag(oi_tag, y) for y in years],
+        "D&A Tag": [pick_tag(da_tag, y) for y in years],
+        "R&D Tag": [pick_tag(rd_tag, y) for y in years],
+        "Interest Expense Tag": [pick_tag(interest_tag, y) for y in years],
+        "Income Tax Tag": [pick_tag(tax_tag, y) for y in years],
         "EPS Tag": [pick_tag(eps_tag, y) for y in years],
+        "DPS Tag": [pick_tag(dps_tag, y) for y in years],
         "Cash Tag": [pick_tag(cash_tag, y) for y in years],
         "MS Current Tag": [pick_tag(ms_cur_tag, y) for y in years],
         "MS Noncurrent Tag": [pick_tag(ms_nc_tag, y) for y in years],
         "LT Debt Tag": [pick_tag(long_term_debt_tag, y) for y in years],
         "ST Debt Tag": [pick_tag(short_term_debt_tag, y) for y in years],
+        "Assets Tag": [pick_tag(assets_tag, y) for y in years],
+        "Equity Tag": [pick_tag(equity_tag, y) for y in years],
         "Shares Tag": [pick_tag(shares_tag, y) for y in years],
         "Start": [pick_period(revenue_periods, y)[0] for y in years],
         "End": [pick_period(revenue_periods, y)[1] for y in years],
