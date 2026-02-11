@@ -14,6 +14,9 @@ venv/
 dist/
 build/
 
+# Cache
+.cache/
+
 # Data
 data/raw_financials/
 data/signals/
