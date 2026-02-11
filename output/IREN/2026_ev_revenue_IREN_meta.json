@@ -1,0 +1,73 @@
+{
+  "target_ticker": "IREN",
+  "target_name": "IREN LIMITED",
+  "peer_tickers": [
+    "MARA",
+    "CLSK",
+    "HUT",
+    "CORZ",
+    "RIOT"
+  ],
+  "peer_ev_revenue_median": 9.281342786452244,
+  "peer_ev_revenue_mean": 14.757105423630872,
+  "peer_ev_revenue_min": 4.978836150479576,
+  "peer_ev_revenue_max": 35.33667125023834,
+  "num_valid_peers": 5,
+  "target_revenue": 757102016,
+  "target_ev": 15916698624,
+  "target_ev_revenue": 21.023188801018858,
+  "implied_ev": 7026923334.810052,
+  "implied_price": 19.42663494975469,
+  "current_price": 46.15,
+  "upside_pct": -57.90544972967564,
+  "data_source": "yfinance",
+  "timestamp": "2026-02-09T16:44:54.607771",
+  "errors": [],
+  "peer_details": {
+    "MARA": {
+      "name": "MARA Holdings, Inc.",
+      "ev_revenue": 6.472116917900042,
+      "ev_ebitda": 5.269101866113536,
+      "gross_margin": 0.44869998,
+      "net_margin": 1.00818,
+      "revenue_growth": 0.917,
+      "data_source": "yfinance"
+    },
+    "CLSK": {
+      "name": "CleanSpark, Inc.",
+      "ev_revenue": 4.978836150479576,
+      "ev_ebitda": null,
+      "gross_margin": 0.53077,
+      "net_margin": -0.33245,
+      "revenue_growth": 0.116,
+      "data_source": "yfinance"
+    },
+    "HUT": {
+      "name": "Hut 8 Corp.",
+      "ev_revenue": 35.33667125023834,
+      "ev_ebitda": 12.569171412706538,
+      "gross_margin": 0.47801998,
+      "net_margin": 1.15388,
+      "revenue_growth": 0.909,
+      "data_source": "yfinance"
+    },
+    "CORZ": {
+      "name": "Core Scientific, Inc.",
+      "ev_revenue": 17.716560013084166,
+      "ev_ebitda": null,
+      "gross_margin": 0.10215,
+      "net_margin": -2.29907,
+      "revenue_growth": -0.149,
+      "data_source": "yfinance"
+    },
+    "RIOT": {
+      "name": "Riot Platforms, Inc.",
+      "ev_revenue": 9.281342786452244,
+      "ev_ebitda": 11.627285292930923,
+      "gross_margin": 0.39548,
+      "net_margin": 0.25739,
+      "revenue_growth": 1.126,
+      "data_source": "yfinance"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "Avg Net Profit Margin (%)": "-105.78",
+  "Avg FCF/Net Income (%)": "49.66",
+  "Sector": "CONSUMER",
+  "Growth Model": "3-Stage 10-Year",
+  "Revenue Tag": "Revenues",
+  "Net Income Tag": "NetIncomeLoss",
+  "CFO Tag": "NetCashProvidedByUsedInOperatingActivities",
+  "CapEx Tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+  "Adopted Growth Rate Year1 (%)": "3.00",
+  "Adopted Growth Rate Year10 (%)": "2.50",
+  "Terminal Growth (%)": "2.50",
+  "Required Return (%)": "7.00",
+  "PV Terminal (M)": "-180.64",
+  "Enterprise Value (M)": "-276.29",
+  "Shares Outstanding (M)": "281.01",
+  "Fair Value / Share ": "-0.98",
+  "Currency": "RUB"
+}

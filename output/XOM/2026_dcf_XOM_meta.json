@@ -1,0 +1,19 @@
+{
+  "Avg Net Profit Margin (%)": "5.86",
+  "Avg FCF/Net Income (%)": "90.10",
+  "Sector": "ENERGY",
+  "Growth Model": "3-Stage 10-Year",
+  "Revenue Tag": "Revenues",
+  "Net Income Tag": "NetIncomeLoss",
+  "CFO Tag": "NetCashProvidedByUsedInOperatingActivities",
+  "CapEx Tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+  "Adopted Growth Rate Year1 (%)": "8.00",
+  "Adopted Growth Rate Year10 (%)": "2.00",
+  "Terminal Growth (%)": "2.00",
+  "Required Return (%)": "7.00",
+  "PV Terminal (M)": "512,553.40",
+  "Enterprise Value (M)": "814,550.79",
+  "Shares Outstanding (M)": "4,298.00",
+  "Fair Value / Share ": "189.52",
+  "Currency": "USD"
+}

@@ -174,6 +174,24 @@ RD_EXPENSE_TAGS = [
     "ResearchAndDevelopmentExpense",
     "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
 ]
+SBC_TAGS = [
+    "ShareBasedCompensation",
+    "AllocatedShareBasedCompensationExpense",
+]
+BUYBACK_TAGS = [
+    "PaymentsForRepurchaseOfCommonStock",
+    "PaymentsForRepurchaseOfEquity",
+]
+DIVIDENDS_PAID_TAGS = [
+    "PaymentsOfDividendsCommonStock",
+    "PaymentsOfDividends",
+    "PaymentsOfOrdinaryDividends",
+]
+ACCOUNTS_RECEIVABLE_TAGS = [
+    "AccountsReceivableNetCurrent",
+    "AccountsReceivableNet",
+    "ReceivablesNetCurrent",
+]
 
 
 # =======================================
@@ -289,6 +307,9 @@ def extract_all_financials(facts: dict) -> dict:
         ("income_tax", INCOME_TAX_TAGS),
         ("income_before_tax", INCOME_BEFORE_TAX_TAGS),
         ("rd_expense", RD_EXPENSE_TAGS),
+        ("sbc", SBC_TAGS),
+        ("buyback", BUYBACK_TAGS),
+        ("dividends_paid", DIVIDENDS_PAID_TAGS),
         ("cash", CASH_TAGS),
         ("marketable_securities_current", MARKETABLE_SECURITIES_CURRENT_TAGS),
         ("marketable_securities_noncurrent", MARKETABLE_SECURITIES_NONCURRENT_TAGS),
@@ -296,6 +317,7 @@ def extract_all_financials(facts: dict) -> dict:
         ("short_term_debt", SHORT_TERM_DEBT_TAGS),
         ("total_assets", TOTAL_ASSETS_TAGS),
         ("stockholders_equity", STOCKHOLDERS_EQUITY_TAGS),
+        ("accounts_receivable", ACCOUNTS_RECEIVABLE_TAGS),
     ]:
         s, tag, periods = _series_from_tags(facts, tags, unit="USD")
         result[name] = (s, tag, periods)
@@ -450,8 +472,8 @@ def _series_from_tags(facts: dict, tags: List[str], unit: str = "USD") -> Tuple[
             start = item.get("start")
             end = item.get("end")
 
-            # 只要年报的 Form
-            if form not in ("10-K", "20-F", "40-F"):
+            # 只要年报的 Form（含修正版 /A）
+            if form not in ("10-K", "20-F", "40-F", "10-K/A", "20-F/A", "40-F/A"):
                 continue
 
             # fp 一般是 FY / CY / Q1 等，这里可以保守一点：
@@ -513,6 +535,223 @@ def _series_from_tags(facts: dict, tags: List[str], unit: str = "USD") -> Tuple[
     combined = pd.Series(merged_values).sort_index()
     combined.name = merged_tags.get(max(merged_values.keys())) if merged_values else None
     return combined, merged_tags, merged_periods
+
+
+# -----------------------------------------------
+#  Quarterly variant of _series_from_tags
+# -----------------------------------------------
+
+def _quarterly_series_from_tags(
+    facts: dict,
+    tags: List[str],
+    unit: str = "USD",
+    is_instant: bool = False,
+) -> Tuple[pd.Series, Optional[str], dict]:
+    """Extract quarterly data from companyfacts.
+
+    For *duration* items (income / cash-flow): looks for single-quarter
+    values via the ``CYyyyyQq`` frame pattern (no "I" suffix).
+    For *instant* items (balance sheet): looks for quarter-end snapshots
+    via the ``CYyyyyQqI`` frame pattern.
+
+    Falls back to start/end date analysis when frame is absent.
+
+    Returns a Series indexed by ``"YYYYQn"`` strings, plus per-quarter
+    tag dict and period dict – same shape as the annual helper.
+    """
+    import re
+    from datetime import datetime as _dt
+
+    us_gaap = facts.get("facts", {}).get("us-gaap", {})
+    all_series: list = []
+    tag_names: list = []
+    per_tag_periods: dict = {}
+
+    for tag in tags:
+        tag_info = us_gaap.get(tag)
+        if not tag_info:
+            continue
+        units_dict = tag_info.get("units", {})
+        if unit not in units_dict:
+            continue
+
+        rows: list = []
+        periods: dict = {}
+
+        for item in units_dict[unit]:
+            form = item.get("form", "")
+            frame = item.get("frame") or ""
+            start = item.get("start")
+            end = item.get("end")
+
+            if form not in ("10-Q", "10-K", "20-F", "40-F",
+                            "10-Q/A", "10-K/A", "20-F/A", "40-F/A"):
+                continue
+
+            val = item.get("val")
+            if val is None:
+                continue
+            try:
+                val = float(val)
+            except Exception:
+                continue
+
+            quarter_key = None
+
+            if is_instant:
+                # Balance-sheet snapshot at quarter end: CY2024Q1I
+                m = re.fullmatch(r"CY(\d{4})Q([1-4])I", str(frame))
+                if m:
+                    quarter_key = f"{m.group(1)}Q{m.group(2)}"
+            else:
+                # Single-quarter flow: CY2024Q1
+                m = re.fullmatch(r"CY(\d{4})Q([1-4])", str(frame))
+                if m:
+                    quarter_key = f"{m.group(1)}Q{m.group(2)}"
+                elif start and end:
+                    try:
+                        s_dt = _dt.strptime(start, "%Y-%m-%d")
+                        e_dt = _dt.strptime(end, "%Y-%m-%d")
+                        days = (e_dt - s_dt).days + 1
+                        if 80 <= days <= 100:
+                            # Use midpoint to determine calendar quarter
+                            # (avoids mis-labeling when fiscal quarter
+                            #  end date spills into the next calendar quarter,
+                            #  e.g. AAPL Apr 2 – Jul 1 → midpoint May → Q2)
+                            from datetime import timedelta
+                            mid = s_dt + timedelta(days=days // 2)
+                            q = (mid.month - 1) // 3 + 1
+                            quarter_key = f"{mid.year}Q{q}"
+                    except Exception:
+                        pass
+
+            if quarter_key:
+                rows.append((quarter_key, val))
+                periods[quarter_key] = (start, end)
+
+        if rows:
+            s = (
+                pd.DataFrame(rows, columns=["quarter", "value"])
+                .drop_duplicates("quarter", keep="last")
+                .set_index("quarter")["value"]
+                .sort_index()
+            )
+            s.name = tag
+            all_series.append(s)
+            tag_names.append(tag)
+            per_tag_periods[tag] = periods
+
+    if not all_series:
+        return pd.Series(dtype="float64"), None, {}
+
+    # Priority-merge (same logic as annual)
+    merged_values: dict = {}
+    merged_tags: dict = {}
+    merged_periods: dict = {}
+    tag_to_series = {s.name: s for s in all_series}
+
+    for tag in tags:
+        if tag not in tag_to_series:
+            continue
+        s = tag_to_series[tag]
+        tag_periods = per_tag_periods.get(tag, {})
+        for qk in s.index:
+            if qk not in merged_values:
+                merged_values[qk] = float(s.loc[qk])
+                merged_tags[qk] = tag
+                merged_periods[qk] = tag_periods.get(qk, (None, None))
+
+    combined = pd.Series(merged_values).sort_index()
+    combined.name = (
+        merged_tags.get(max(merged_values.keys())) if merged_values else None
+    )
+    return combined, merged_tags, merged_periods
+
+
+def extract_quarterly_financials(facts: dict) -> dict:
+    """Extract quarterly financial time series from companyfacts.
+
+    Returns dict mapping metric name to ``(series, tag_dict, periods)``
+    tuple.  Series are indexed by ``"YYYYQn"`` strings.
+    """
+    result: dict = {}
+
+    # --- Duration / flow items ---
+    for name, tags in [
+        ("revenue", REVENUE_TAGS),
+        ("net_income", NET_INCOME_TAGS),
+        ("cfo", CFO_TAGS),
+        ("capex", CAPEX_TAGS),
+        ("gross_profit", GROSS_PROFIT_TAGS),
+        ("operating_income", OPERATING_INCOME_TAGS),
+        ("da", DA_TAGS),
+        ("interest_expense", INTEREST_EXPENSE_TAGS),
+        ("income_tax", INCOME_TAX_TAGS),
+        ("income_before_tax", INCOME_BEFORE_TAX_TAGS),
+        ("rd_expense", RD_EXPENSE_TAGS),
+        ("sbc", SBC_TAGS),
+        ("buyback", BUYBACK_TAGS),
+        ("dividends_paid", DIVIDENDS_PAID_TAGS),
+    ]:
+        s, tag, periods = _quarterly_series_from_tags(facts, tags, unit="USD", is_instant=False)
+        result[name] = (s, tag, periods)
+
+    # --- Instant / balance-sheet items ---
+    for name, tags in [
+        ("cash", CASH_TAGS),
+        ("marketable_securities_current", MARKETABLE_SECURITIES_CURRENT_TAGS),
+        ("marketable_securities_noncurrent", MARKETABLE_SECURITIES_NONCURRENT_TAGS),
+        ("long_term_debt", LONG_TERM_DEBT_TAGS),
+        ("short_term_debt", SHORT_TERM_DEBT_TAGS),
+        ("total_assets", TOTAL_ASSETS_TAGS),
+        ("accounts_receivable", ACCOUNTS_RECEIVABLE_TAGS),
+        ("stockholders_equity", STOCKHOLDERS_EQUITY_TAGS),
+    ]:
+        s, tag, periods = _quarterly_series_from_tags(facts, tags, unit="USD", is_instant=True)
+        result[name] = (s, tag, periods)
+
+    # --- Per-share (duration) ---
+    for name, tags in [
+        ("eps_diluted", EPS_DILUTED_TAGS),
+        ("dividends_per_share", DIVIDENDS_PER_SHARE_TAGS),
+    ]:
+        s, tag, periods = _quarterly_series_from_tags(facts, tags, unit="USD/shares", is_instant=False)
+        result[name] = (s, tag, periods)
+
+    # --- Shares outstanding (try duration first, fallback to instant) ---
+    s, tag, periods = _quarterly_series_from_tags(facts, SHARE_OUTSTANDING_TAGS, unit="shares", is_instant=False)
+    if s.empty:
+        s, tag, periods = _quarterly_series_from_tags(facts, SHARE_OUTSTANDING_TAGS, unit="shares", is_instant=True)
+    result["shares_outstanding"] = (s, tag, periods)
+
+    # --- Derived metrics ---
+    cfo = result["cfo"][0]
+    capex = result["capex"][0]
+    idx = cfo.index.intersection(capex.index)
+    fcf = (cfo.reindex(idx) - capex.reindex(idx)).rename("FreeCashFlow")
+    result["fcf"] = (fcf, None, {})
+
+    ltd = result["long_term_debt"][0]
+    std = result["short_term_debt"][0]
+    idx = ltd.index.union(std.index)
+    total_debt = (ltd.reindex(idx).fillna(0) + std.reindex(idx).fillna(0)).rename("TotalDebt")
+    result["total_debt"] = (total_debt, None, {})
+
+    oi = result["operating_income"][0]
+    da = result["da"][0]
+    idx = oi.index.union(da.index)
+    ebitda = (oi.reindex(idx).fillna(0) + da.reindex(idx).fillna(0)).rename("EBITDA")
+    result["ebitda"] = (ebitda, None, {})
+
+    c = result["cash"][0]
+    ms_cur = result["marketable_securities_current"][0]
+    ms_nc = result["marketable_securities_noncurrent"][0]
+    idx = c.index.union(ms_cur.index).union(ms_nc.index)
+    total_cash = (c.reindex(idx).fillna(0) + ms_cur.reindex(idx).fillna(0) + ms_nc.reindex(idx).fillna(0)).rename("TotalCash")
+    result["total_cash"] = (total_cash, None, {})
+
+    return result
+
 
 # =======================================
 #  Calculation layer: pure-ish functions
@@ -597,8 +836,10 @@ def compute_fcf_margin(
     return fcf_margin
 
 # 3.  采用分析师预测或历史 CAGR 作为收入增长率
-def adopt_growth_rate(ticker: str, revenue: pd.Series) -> float:
+def adopt_growth_rate(ticker: str, revenue: pd.Series) -> Tuple[float, str]:
+    """返回 (growth_rate, source)。source 为 'analyst' / 'cagr' / 'default'。"""
     growth = None
+    source = "default"
 
     # 1）尝试 yfinance 分析师预测
     try:
@@ -611,6 +852,8 @@ def adopt_growth_rate(ticker: str, revenue: pd.Series) -> float:
                 growth = float(g.strip("%")) / 100.0
             elif g is not None:
                 growth = float(g)
+            if growth is not None:
+                source = "analyst"
     except Exception:
         growth = None
 
@@ -620,16 +863,22 @@ def adopt_growth_rate(ticker: str, revenue: pd.Series) -> float:
         if len(rev) >= 2 and rev.iloc[0] > 0:
             n = len(rev) - 1
             growth = (rev.iloc[-1] / rev.iloc[0]) ** (1 / n) - 1.0
+            source = "cagr"
 
     # 3）最后兜底一个保守值
     if growth is None:
         growth = 0.05
+        source = "default"
 
-    # 4）给最终增长率加一个合理的区间限制
-    # 比如：-10% ~ +25% 之间，避免 100% 这种长期不现实的增速
-    growth = max(min(growth, 0.25), -0.10)
+    # 4）安全限制：防止极端值
+    #    分析师预测：信任度高，只做宽松 clip（-20% ~ 50%）
+    #    CAGR/默认值：保守 clip（-10% ~ 25%）
+    if source == "analyst":
+        growth = max(min(growth, 0.50), -0.20)
+    else:
+        growth = max(min(growth, 0.25), -0.10)
 
-    return growth
+    return growth, source
 
 # ============================
 #  三阶段增长路径：10 年 + 永续 （根据行业估计10年的growth rate）
@@ -640,37 +889,52 @@ def build_growth_curve(
     revenue: pd.Series,
     perpetual_growth: float,
     avg_years: int = 5,
+    sector: Optional[str] = None,
 ) -> Tuple[list, float]:
     """
     返回：
         growth_path: 长度 10 的 list, 每一年对应的收入增长率
         terminal_g:  永续增长率（会结合 sector 范围修正）
     逻辑：
-        1. 先用 adopt_growth_rate 得到一个“基准增长率” base_g
+        1. 先用 adopt_growth_rate 得到一个"基准增长率" base_g
         2. 用 SIC → sector, 从 SECTOR_GROWTH 里取 fast/stable/terminal 区间
         3. 把 base_g 限制在 fast 区间，用作前 5 年目标
         4. 中间 5 年向 stable 区间收敛
         5. terminal_g 结合参数 perpetual_growth 和 sector 的 terminal 区间
     """
 
-    # 1) 行业识别（需要 ticker）
-    sector = infer_sector_from_facts(facts, ticker)
+    # 1) 行业识别：优先用外部传入的 sector，否则自动推断
+    if not sector:
+        sector = infer_sector_from_facts(facts, ticker)
     ranges = SECTOR_GROWTH.get(sector, SECTOR_GROWTH["CONSUMER"])
     fast_low, fast_high = ranges["fast"]
     stable_low, stable_high = ranges["stable"]
     term_low, term_high = ranges["terminal"]
 
     # 2) 基准增长率（分析师预测 or 历史 CAGR）
-    base_g = adopt_growth_rate(ticker, revenue)  # 👈 注意这里用 ticker + revenue
-    pprint(f"Base growth rate adopted: {base_g:.2%} for sector {sector}")
+    base_g, growth_source = adopt_growth_rate(ticker, revenue)
+    pprint(f"Base growth rate adopted: {base_g:.2%} (source: {growth_source}) for sector {sector}")
 
-    # fast 阶段目标增长率：限制在 fast 范围内
-    g_fast = max(min(base_g, fast_high), fast_low)
-    pprint(f"Fast stage growth rate set to: {g_fast:.2%} (range {fast_low:.2%} - {fast_high:.2%})")
+    # fast 阶段目标增长率：
+    #   - 有分析师预测时：直接用分析师增长率作为第一年，仅做宽松 clip
+    #   - 无分析师预测时：clip 到行业 fast 区间
+    if growth_source == "analyst":
+        # 分析师预测代表近 1-2 年预期，直接作为 fast 阶段起点
+        # 只用行业上限做安全 cap，不用下限抬高
+        g_fast = min(base_g, max(fast_high, base_g * 0.8))  # 允许略超行业上限
+        g_fast = max(g_fast, fast_low)  # 但不低于行业下限
+        pprint(f"Fast stage growth rate set to: {g_fast:.2%} (analyst-driven, sector range {fast_low:.2%} - {fast_high:.2%})")
+    else:
+        g_fast = max(min(base_g, fast_high), fast_low)
+        pprint(f"Fast stage growth rate set to: {g_fast:.2%} (range {fast_low:.2%} - {fast_high:.2%})")
 
-    # stable 阶段目标增长率：可以简单用 stable 区间的中值，
-    # 也可以基于 base_g 调整，这里用中值就好
-    g_stable = 0.5 * (stable_low + stable_high)
+    # stable 阶段目标增长率：
+    #   - 高增长公司（fast > stable 上限的 2 倍）：用 stable 上限
+    #   - 其他：用 stable 区间中值
+    if g_fast > stable_high * 2:
+        g_stable = stable_high
+    else:
+        g_stable = 0.5 * (stable_low + stable_high)
     pprint(f"Stable stage growth rate set to: {g_stable:.2%} (range {stable_low:.2%} - {stable_high:.2%})")
 
 
@@ -737,11 +1001,15 @@ def build_dcf(
     da, da_tag, _ = all_data["da"]
     ebitda = all_data["ebitda"][0]
     rd_expense, rd_tag, _ = all_data["rd_expense"]
+    sbc, sbc_tag, _ = all_data["sbc"]
+    buyback, buyback_tag, _ = all_data["buyback"]
+    dividends_paid, divpaid_tag, _ = all_data["dividends_paid"]
     interest_expense, interest_tag, _ = all_data["interest_expense"]
     income_tax, tax_tag, _ = all_data["income_tax"]
     income_before_tax, ibt_tag, _ = all_data["income_before_tax"]
     stockholders_equity, equity_tag, _ = all_data["stockholders_equity"]
     total_assets, assets_tag, _ = all_data["total_assets"]
+    accounts_receivable, ar_tag, _ = all_data["accounts_receivable"]
     dividends_per_share, dps_tag, _ = all_data["dividends_per_share"]
 
     # 得到net margin & FCF to margin 历史值
@@ -833,6 +1101,7 @@ def build_dcf(
         "D&A (M)": [pick(da, y) / 1e6 for y in years],
         "EBITDA (M)": [pick(ebitda, y) / 1e6 for y in years],
         "R&D Expense (M)": [pick(rd_expense, y) / 1e6 for y in years],
+        "SBC (M)": [pick(sbc, y) / 1e6 for y in years],
         "Interest Expense (M)": [pick(interest_expense, y) / 1e6 for y in years],
         "Income Tax (M)": [pick(income_tax, y) / 1e6 for y in years],
         "Effective Tax Rate (%)": [ratio_pct(income_tax, income_before_tax, y) for y in years],
@@ -843,11 +1112,14 @@ def build_dcf(
         "CapEx (M)": [pick(capex, y) / 1e6 for y in years],
         "Free Cash Flow (M)": [pick(fcf, y) / 1e6 for y in years],
         "FCF to Profit Margin (%)": [pick_raw(fcf_to_ni, y) * 100 for y in years],
+        "Buyback (M)": [pick(buyback, y) / 1e6 for y in years],
+        "Dividends Paid (M)": [pick(dividends_paid, y) / 1e6 for y in years],
         # --- Balance Sheet ---
         "Cash (B)": [pick(cash, y) / 1e9 for y in years],
         "Total Cash (B)": [pick(total_cash, y) / 1e9 for y in years],
         "Total Debt (B)": [pick(total_debt, y) / 1e9 for y in years],
         "Total Assets (B)": [pick(total_assets, y) / 1e9 for y in years],
+        "Accounts Receivable (B)": [pick(accounts_receivable, y) / 1e9 for y in years],
         "Stockholders Equity (B)": [pick(stockholders_equity, y) / 1e9 for y in years],
         "Shares Outstanding (M)": [pick(shares_series, y) / 1e6 for y in years],
         # --- Ratios (pure 10-K) ---
@@ -863,16 +1135,20 @@ def build_dcf(
         "Operating Income Tag": [pick_tag(oi_tag, y) for y in years],
         "D&A Tag": [pick_tag(da_tag, y) for y in years],
         "R&D Tag": [pick_tag(rd_tag, y) for y in years],
+        "SBC Tag": [pick_tag(sbc_tag, y) for y in years],
         "Interest Expense Tag": [pick_tag(interest_tag, y) for y in years],
         "Income Tax Tag": [pick_tag(tax_tag, y) for y in years],
         "EPS Tag": [pick_tag(eps_tag, y) for y in years],
         "DPS Tag": [pick_tag(dps_tag, y) for y in years],
+        "Buyback Tag": [pick_tag(buyback_tag, y) for y in years],
+        "Dividends Paid Tag": [pick_tag(divpaid_tag, y) for y in years],
         "Cash Tag": [pick_tag(cash_tag, y) for y in years],
         "MS Current Tag": [pick_tag(ms_cur_tag, y) for y in years],
         "MS Noncurrent Tag": [pick_tag(ms_nc_tag, y) for y in years],
         "LT Debt Tag": [pick_tag(long_term_debt_tag, y) for y in years],
         "ST Debt Tag": [pick_tag(short_term_debt_tag, y) for y in years],
         "Assets Tag": [pick_tag(assets_tag, y) for y in years],
+        "AR Tag": [pick_tag(ar_tag, y) for y in years],
         "Equity Tag": [pick_tag(equity_tag, y) for y in years],
         "Shares Tag": [pick_tag(shares_tag, y) for y in years],
         "Start": [pick_period(revenue_periods, y)[0] for y in years],
@@ -898,6 +1174,7 @@ def build_dcf(
         revenue=revenue,
         perpetual_growth=perpetual_growth,
         avg_years=avg_years,
+        sector=sector,
     )
 
     # 确保 projection_years 至少 10
@@ -987,11 +1264,21 @@ def build_dcf(
 #  Market data builder (stock market data, separate from 10-K)
 # =======================================
 
-def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
+BASIC_SHARES_TAGS = [
+    "CommonStockSharesOutstanding",
+    "EntityCommonStockSharesOutstanding",
+]
+
+
+def build_market_data(ticker: str, all_data: dict, years: list,
+                      facts: dict = None) -> pd.DataFrame:
     """Build historical + current market data table.
 
     Uses yfinance for year-end prices and current market snapshot.
     Combines with 10-K financial data to compute valuation ratios per year.
+
+    Market Cap uses **basic shares outstanding** (CommonStockSharesOutstanding)
+    per industry convention.  P/E uses diluted EPS (already per-share).
     """
     import yfinance as yf
     from dcf_utils import get_historical_year_end_prices
@@ -1010,16 +1297,28 @@ def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
     except Exception:
         info = {}
 
+    # --- Basic shares outstanding for Market Cap (not diluted) ---
+    if facts is not None:
+        basic_shares, _, _ = _series_from_tags(facts, BASIC_SHARES_TAGS, unit="shares")
+    else:
+        basic_shares = pd.Series(dtype="float64")
+    # Fallback: if no basic shares data, use whatever is in all_data
+    if basic_shares.empty:
+        basic_shares = all_data["shares_outstanding"][0]
+
     # --- Extract financial series for ratio computation ---
     revenue = all_data["revenue"][0]
     net_income = all_data["net_income"][0]
     eps_diluted = all_data["eps_diluted"][0]
-    shares = all_data["shares_outstanding"][0]
     total_debt = all_data["total_debt"][0]
     total_cash = all_data["total_cash"][0]
     stockholders_equity = all_data["stockholders_equity"][0]
     ebitda = all_data["ebitda"][0]
     dividends_per_share = all_data["dividends_per_share"][0]
+    sbc = all_data["sbc"][0]
+    fcf = all_data["fcf"][0]
+    buyback = all_data["buyback"][0]
+    dividends_paid = all_data["dividends_paid"][0]
 
     def _pick(s, y):
         try:
@@ -1034,14 +1333,18 @@ def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
         rev = _pick(revenue, y)
         ni = _pick(net_income, y)
         eps = _pick(eps_diluted, y)
-        sh = _pick(shares, y)
+        sh = _pick(basic_shares, y)  # Basic shares for Market Cap
         debt = _pick(total_debt, y)
         cash = _pick(total_cash, y)
         equity = _pick(stockholders_equity, y)
         ebitda_val = _pick(ebitda, y)
         dps = _pick(dividends_per_share, y)
+        sbc_val = _pick(sbc, y)
+        fcf_val = _pick(fcf, y)
+        buyback_val = _pick(buyback, y)
+        divpaid_val = _pick(dividends_paid, y)
 
-        # Market Cap = Price * Shares
+        # Market Cap = Price * Basic Shares Outstanding
         mkt_cap = price * sh if np.isfinite(price) and np.isfinite(sh) else np.nan
         # Enterprise Value = Market Cap + Debt - Cash
         ev = np.nan
@@ -1058,6 +1361,10 @@ def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
             "EV/Revenue": ev / rev if np.isfinite(ev) and np.isfinite(rev) and rev > 0 else np.nan,
             "EV/EBITDA": ev / ebitda_val if np.isfinite(ev) and np.isfinite(ebitda_val) and ebitda_val > 0 else np.nan,
             "Dividend Yield (%)": dps / price * 100 if np.isfinite(dps) and np.isfinite(price) and price > 0 else np.nan,
+            "SBC/Revenue (%)": sbc_val / rev * 100 if np.isfinite(sbc_val) and np.isfinite(rev) and rev > 0 else np.nan,
+            "FCF Yield (%)": fcf_val / mkt_cap * 100 if np.isfinite(fcf_val) and np.isfinite(mkt_cap) and mkt_cap > 0 else np.nan,
+            "Adjusted FCF Yield (%)": (fcf_val - sbc_val) / mkt_cap * 100 if np.isfinite(fcf_val) and np.isfinite(sbc_val) and np.isfinite(mkt_cap) and mkt_cap > 0 else np.nan,
+            "Shareholder Yield (%)": (buyback_val + divpaid_val) / mkt_cap * 100 if np.isfinite(buyback_val) and np.isfinite(divpaid_val) and np.isfinite(mkt_cap) and mkt_cap > 0 else np.nan,
         }
 
     # Build DataFrame: metrics as rows, years as columns
@@ -1103,6 +1410,295 @@ def build_market_data(ticker: str, all_data: dict, years: list) -> pd.DataFrame:
         market_df.loc[k] = pd.Series(row)
 
     return market_df
+
+
+# =======================================
+#  Quarterly 10-Q table builder
+# =======================================
+
+def _fy_to_cal_quarters(fy_year: int, fy_end_month: int) -> list:
+    """Map a fiscal year to its 4 calendar-quarter keys (FQ1→FQ4)."""
+    result = []
+    for fq in range(1, 5):
+        months_before = 3 * (4 - fq)
+        end_month = fy_end_month - months_before
+        end_year = fy_year
+        while end_month <= 0:
+            end_month += 12
+            end_year -= 1
+        cal_q = (end_month - 1) // 3 + 1
+        result.append(f"{end_year}Q{cal_q}")
+    return result
+
+
+def _fill_fiscal_q4(qdata: dict, adata: dict, fy_end_month: int) -> set:
+    """Derive missing fiscal-Q4 quarters: Q4 = Annual − Q1 − Q2 − Q3.
+
+    Modifies *qdata* series in-place and returns the set of calendar-quarter
+    keys that were calculated (so they can be marked in the output).
+    """
+    calculated: set = set()
+
+    # --- Additive flow metrics ---
+    additive = [
+        "revenue", "net_income", "cfo", "capex", "gross_profit",
+        "operating_income", "da", "interest_expense", "income_tax",
+        "income_before_tax", "rd_expense", "sbc", "buyback", "dividends_paid",
+    ]
+    pershare = ["eps_diluted", "dividends_per_share"]
+
+    for fy_year in sorted(adata["revenue"][0].index):
+        fy_year = int(fy_year)
+        cqs = _fy_to_cal_quarters(fy_year, fy_end_month)
+        q4_key = cqs[3]
+        other_keys = cqs[:3]
+
+        for metric in additive + pershare:
+            q_s = qdata[metric][0]
+            a_s = adata[metric][0]
+            if q4_key in q_s.index or fy_year not in a_s.index:
+                continue
+            if not all(k in q_s.index for k in other_keys):
+                continue
+            q_s.loc[q4_key] = float(a_s.loc[fy_year]) - sum(
+                float(q_s.loc[k]) for k in other_keys
+            )
+            calculated.add(q4_key)
+
+        # Shares (weighted average): Q4 ≈ 4×Annual − Q1 − Q2 − Q3
+        q_s = qdata["shares_outstanding"][0]
+        a_s = adata["shares_outstanding"][0]
+        if q4_key not in q_s.index and fy_year in a_s.index:
+            if all(k in q_s.index for k in other_keys):
+                annual = float(a_s.loc[fy_year])
+                others = sum(float(q_s.loc[k]) for k in other_keys)
+                q_s.loc[q4_key] = 4 * annual - others
+                calculated.add(q4_key)
+
+        # Balance-sheet items: fiscal year-end snapshot = fiscal Q4 snapshot
+        for metric in [
+            "cash", "marketable_securities_current",
+            "marketable_securities_noncurrent",
+            "long_term_debt", "short_term_debt",
+            "total_assets", "accounts_receivable", "stockholders_equity",
+        ]:
+            q_s = qdata[metric][0]
+            a_s = adata[metric][0]
+            if q4_key not in q_s.index and fy_year in a_s.index:
+                q_s.loc[q4_key] = float(a_s.loc[fy_year])
+                calculated.add(q4_key)
+
+    # --- Recompute derived metrics for new quarters ---
+    for q in calculated:
+        cfo_s, capex_s = qdata["cfo"][0], qdata["capex"][0]
+        if q in cfo_s.index and q in capex_s.index:
+            qdata["fcf"][0].loc[q] = cfo_s.loc[q] - capex_s.loc[q]
+
+        oi_s, da_s = qdata["operating_income"][0], qdata["da"][0]
+        oi_v = oi_s.loc[q] if q in oi_s.index else 0
+        da_v = da_s.loc[q] if q in da_s.index else 0
+        if q in oi_s.index or q in da_s.index:
+            qdata["ebitda"][0].loc[q] = oi_v + da_v
+
+        for srcs, dest in [
+            (["long_term_debt", "short_term_debt"], "total_debt"),
+            (["cash", "marketable_securities_current",
+              "marketable_securities_noncurrent"], "total_cash"),
+        ]:
+            vals = [
+                qdata[s][0].loc[q] if q in qdata[s][0].index else 0
+                for s in srcs
+            ]
+            qdata[dest][0].loc[q] = sum(vals)
+
+    return calculated
+
+
+def build_quarterly_table(ticker: str, num_quarters: int = 10) -> pd.DataFrame:
+    """Build a quarterly financial table (last *num_quarters* quarters).
+
+    Structure mirrors the annual 10-K table: metrics as rows, quarters as
+    columns.  Data comes from SEC 10-Q filings, with missing fiscal-Q4
+    derived from 10-K annual data (marked as "Calculated" in the output).
+    """
+    from datetime import datetime as _dt
+
+    cik = fetch_cik(ticker)
+    facts = fetch_companyfacts(cik)
+    qdata = extract_quarterly_financials(facts)
+    adata = extract_all_financials(facts)
+
+    # --- Determine fiscal year-end month ---
+    fy_end_month = 12
+    for year in sorted(adata["revenue"][2].keys(), reverse=True):
+        _, end = adata["revenue"][2][year]
+        if end:
+            fy_end_month = _dt.strptime(end, "%Y-%m-%d").month
+            break
+
+    # --- Fill missing fiscal Q4 ---
+    calculated_quarters = _fill_fiscal_q4(qdata, adata, fy_end_month)
+
+    # Collect all quarter keys and take last N
+    all_quarters: set = set()
+    for _name, (s, _, _) in qdata.items():
+        if not s.empty:
+            all_quarters.update(s.index.tolist())
+    quarters = sorted(all_quarters)[-num_quarters:]
+
+    # --- helpers ---
+    def pick(s: pd.Series, q: str):
+        try:
+            return float(s.loc[q])
+        except Exception:
+            return np.nan
+
+    def pick_tag(tag_dict, q):
+        if isinstance(tag_dict, dict):
+            return tag_dict.get(q, "")
+        return tag_dict or ""
+
+    def pick_period(periods: dict, q: str):
+        p = periods.get(q) if isinstance(periods, dict) else None
+        return p if p else (None, None)
+
+    # --- unpack series ---
+    revenue        = qdata["revenue"][0]
+    gross_profit   = qdata["gross_profit"][0]
+    operating_income = qdata["operating_income"][0]
+    net_income     = qdata["net_income"][0]
+    da             = qdata["da"][0]
+    ebitda         = qdata["ebitda"][0]
+    rd_expense     = qdata["rd_expense"][0]
+    sbc            = qdata["sbc"][0]
+    buyback        = qdata["buyback"][0]
+    dividends_paid_q = qdata["dividends_paid"][0]
+    interest_expense = qdata["interest_expense"][0]
+    income_tax     = qdata["income_tax"][0]
+    income_before_tax = qdata["income_before_tax"][0]
+    eps_diluted    = qdata["eps_diluted"][0]
+    dividends_per_share = qdata["dividends_per_share"][0]
+    cfo            = qdata["cfo"][0]
+    capex          = qdata["capex"][0]
+    fcf            = qdata["fcf"][0]
+    cash           = qdata["cash"][0]
+    total_cash     = qdata["total_cash"][0]
+    total_debt     = qdata["total_debt"][0]
+    total_assets   = qdata["total_assets"][0]
+    accounts_receivable_q = qdata["accounts_receivable"][0]
+    stockholders_equity = qdata["stockholders_equity"][0]
+    shares         = qdata["shares_outstanding"][0]
+
+    # --- ratio helpers ---
+    def ratio_pct(num, den, q):
+        n, d = pick(num, q), pick(den, q)
+        if np.isfinite(n) and np.isfinite(d) and d != 0:
+            return n / d * 100
+        return np.nan
+
+    # --- tags ---
+    rev_tag      = qdata["revenue"][1]
+    ni_tag       = qdata["net_income"][1]
+    cfo_tag_d    = qdata["cfo"][1]
+    capex_tag_d  = qdata["capex"][1]
+    gp_tag       = qdata["gross_profit"][1]
+    oi_tag       = qdata["operating_income"][1]
+    da_tag_d     = qdata["da"][1]
+    rd_tag_d     = qdata["rd_expense"][1]
+    sbc_tag_d    = qdata["sbc"][1]
+    buyback_tag_d = qdata["buyback"][1]
+    divpaid_tag_d = qdata["dividends_paid"][1]
+    int_tag      = qdata["interest_expense"][1]
+    tax_tag_d    = qdata["income_tax"][1]
+    eps_tag_d    = qdata["eps_diluted"][1]
+    dps_tag_d    = qdata["dividends_per_share"][1]
+    cash_tag_d   = qdata["cash"][1]
+    ms_cur_tag   = qdata["marketable_securities_current"][1]
+    ms_nc_tag    = qdata["marketable_securities_noncurrent"][1]
+    lt_debt_tag  = qdata["long_term_debt"][1]
+    st_debt_tag  = qdata["short_term_debt"][1]
+    assets_tag_d = qdata["total_assets"][1]
+    ar_tag_d     = qdata["accounts_receivable"][1]
+    equity_tag_d = qdata["stockholders_equity"][1]
+    shares_tag_d = qdata["shares_outstanding"][1]
+    rev_periods  = qdata["revenue"][2]
+
+    # --- build DataFrame ---
+    df = pd.DataFrame({
+        "Quarter": quarters,
+        # Data source marker
+        "Data Source": [
+            "10-K Derived" if q in calculated_quarters else "10-Q"
+            for q in quarters
+        ],
+        # Income Statement
+        "Revenue (M)":           [pick(revenue, q) / 1e6 for q in quarters],
+        "Gross Margin (%)":      [ratio_pct(gross_profit, revenue, q) for q in quarters],
+        "Operating Income (M)":  [pick(operating_income, q) / 1e6 for q in quarters],
+        "Operating Margin (%)":  [ratio_pct(operating_income, revenue, q) for q in quarters],
+        "Net Income (M)":        [pick(net_income, q) / 1e6 for q in quarters],
+        "Net Profit Margin (%)": [ratio_pct(net_income, revenue, q) for q in quarters],
+        "D&A (M)":               [pick(da, q) / 1e6 for q in quarters],
+        "EBITDA (M)":            [pick(ebitda, q) / 1e6 for q in quarters],
+        "R&D Expense (M)":       [pick(rd_expense, q) / 1e6 for q in quarters],
+        "SBC (M)":               [pick(sbc, q) / 1e6 for q in quarters],
+        "Interest Expense (M)":  [pick(interest_expense, q) / 1e6 for q in quarters],
+        "Income Tax (M)":        [pick(income_tax, q) / 1e6 for q in quarters],
+        "Effective Tax Rate (%)": [ratio_pct(income_tax, income_before_tax, q) for q in quarters],
+        "EPS Diluted ($)":       [pick(eps_diluted, q) for q in quarters],
+        "Dividends Per Share ($)": [pick(dividends_per_share, q) for q in quarters],
+        # Cash Flow
+        "Cash from Operations (M)": [pick(cfo, q) / 1e6 for q in quarters],
+        "CapEx (M)":                [pick(capex, q) / 1e6 for q in quarters],
+        "Free Cash Flow (M)":      [pick(fcf, q) / 1e6 for q in quarters],
+        "FCF to Profit Margin (%)": [
+            (pick(fcf, q) / pick(net_income, q) * 100)
+            if np.isfinite(pick(net_income, q)) and abs(pick(net_income, q)) > 1e-6
+            else np.nan
+            for q in quarters
+        ],
+        "Buyback (M)":              [pick(buyback, q) / 1e6 for q in quarters],
+        "Dividends Paid (M)":       [pick(dividends_paid_q, q) / 1e6 for q in quarters],
+        # Balance Sheet
+        "Cash (B)":                 [pick(cash, q) / 1e9 for q in quarters],
+        "Total Cash (B)":          [pick(total_cash, q) / 1e9 for q in quarters],
+        "Total Debt (B)":          [pick(total_debt, q) / 1e9 for q in quarters],
+        "Total Assets (B)":        [pick(total_assets, q) / 1e9 for q in quarters],
+        "Accounts Receivable (B)": [pick(accounts_receivable_q, q) / 1e9 for q in quarters],
+        "Stockholders Equity (B)": [pick(stockholders_equity, q) / 1e9 for q in quarters],
+        "Shares Outstanding (M)":  [pick(shares, q) / 1e6 for q in quarters],
+        # Tags
+        "Revenue Tag":           [pick_tag(rev_tag, q) for q in quarters],
+        "Net Income Tag":        [pick_tag(ni_tag, q) for q in quarters],
+        "CFO Tag":               [pick_tag(cfo_tag_d, q) for q in quarters],
+        "CapEx Tag":             [pick_tag(capex_tag_d, q) for q in quarters],
+        "Gross Profit Tag":      [pick_tag(gp_tag, q) for q in quarters],
+        "Operating Income Tag":  [pick_tag(oi_tag, q) for q in quarters],
+        "D&A Tag":               [pick_tag(da_tag_d, q) for q in quarters],
+        "R&D Tag":               [pick_tag(rd_tag_d, q) for q in quarters],
+        "SBC Tag":               [pick_tag(sbc_tag_d, q) for q in quarters],
+        "Interest Expense Tag":  [pick_tag(int_tag, q) for q in quarters],
+        "Income Tax Tag":        [pick_tag(tax_tag_d, q) for q in quarters],
+        "EPS Tag":               [pick_tag(eps_tag_d, q) for q in quarters],
+        "DPS Tag":               [pick_tag(dps_tag_d, q) for q in quarters],
+        "Buyback Tag":           [pick_tag(buyback_tag_d, q) for q in quarters],
+        "Dividends Paid Tag":    [pick_tag(divpaid_tag_d, q) for q in quarters],
+        "Cash Tag":              [pick_tag(cash_tag_d, q) for q in quarters],
+        "MS Current Tag":        [pick_tag(ms_cur_tag, q) for q in quarters],
+        "MS Noncurrent Tag":     [pick_tag(ms_nc_tag, q) for q in quarters],
+        "LT Debt Tag":           [pick_tag(lt_debt_tag, q) for q in quarters],
+        "ST Debt Tag":           [pick_tag(st_debt_tag, q) for q in quarters],
+        "Assets Tag":            [pick_tag(assets_tag_d, q) for q in quarters],
+        "AR Tag":                [pick_tag(ar_tag_d, q) for q in quarters],
+        "Equity Tag":            [pick_tag(equity_tag_d, q) for q in quarters],
+        "Shares Tag":            [pick_tag(shares_tag_d, q) for q in quarters],
+        "Start":                 [pick_period(rev_periods, q)[0] for q in quarters],
+        "End":                   [pick_period(rev_periods, q)[1] for q in quarters],
+    })
+
+    df = df.set_index("Quarter").T
+    df.index.name = None
+    return df
 
 
 #python dcf_builder.py --ticker GOOGL --required 0.07 --perp 0.025 --avg-years 5
@@ -1163,10 +1759,16 @@ def main():
     facts = fetch_companyfacts(cik)
     all_data = extract_all_financials(facts)
     years = [int(c) for c in hist.columns if str(c).isdigit()]
-    market_df = build_market_data(args.ticker, all_data, years)
+    market_df = build_market_data(args.ticker, all_data, years, facts=facts)
     market_base = os.path.join(out_dir, f"{currYear}_market_{ticker_upper}")
     market_df.to_csv(market_base + ".csv", index=True)
     print(f"[Saved] {market_base}.csv")
+
+    # --- Build & save quarterly table (last 10 quarters) ---
+    quarterly_df = build_quarterly_table(args.ticker, num_quarters=10)
+    quarterly_path = os.path.join(out_dir, f"{currYear}_quarterly_{ticker_upper}.csv")
+    quarterly_df.to_csv(quarterly_path, index=True)
+    print(f"[Saved] {quarterly_path}")
 
     # --- Save raw companyfacts JSON ---
     if not args.no_raw_json:
@@ -1253,10 +1855,16 @@ def run_dcf_once(
     facts = fetch_companyfacts(cik)
     all_data = extract_all_financials(facts)
     years = [int(c) for c in hist.columns if str(c).isdigit()]
-    market_df = build_market_data(ticker, all_data, years)
+    market_df = build_market_data(ticker, all_data, years, facts=facts)
     market_base = os.path.join(out_dir, f"{curr_year}_market_{ticker_upper}")
     market_df.to_csv(market_base + ".csv", index=True)
     print(f"[Saved] {market_base}.csv")
+
+    # --- Build & save quarterly table ---
+    quarterly_df = build_quarterly_table(ticker, num_quarters=10)
+    quarterly_path = os.path.join(out_dir, f"{curr_year}_quarterly_{ticker_upper}.csv")
+    quarterly_df.to_csv(quarterly_path, index=True)
+    print(f"[Saved] {quarterly_path}")
 
     # --- 保存原始 companyfacts JSON ---
     if save_raw_json:

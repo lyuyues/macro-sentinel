@@ -1,0 +1,19 @@
+{
+  "Avg Net Profit Margin (%)": "25.96",
+  "Avg FCF/Net Income (%)": "nan",
+  "Sector": "BANK",
+  "Growth Model": "3-Stage 10-Year",
+  "Revenue Tag": "InterestAndDividendIncomeOperating",
+  "Net Income Tag": "NetIncomeLoss",
+  "CFO Tag": "NetCashProvidedByUsedInOperatingActivities",
+  "CapEx Tag": "",
+  "Adopted Growth Rate Year1 (%)": "6.00",
+  "Adopted Growth Rate Year10 (%)": "2.00",
+  "Terminal Growth (%)": "2.00",
+  "Required Return (%)": "7.00",
+  "PV Terminal (M)": "194,267.49",
+  "Enterprise Value (M)": "310,726.75",
+  "Shares Outstanding (M)": "3,467.60",
+  "Fair Value / Share ": "89.61",
+  "Currency": "USD"
+}

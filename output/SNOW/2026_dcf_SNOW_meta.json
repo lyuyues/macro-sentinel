@@ -1,0 +1,19 @@
+{
+  "Avg Net Profit Margin (%)": "-69.37",
+  "Avg FCF/Net Income (%)": "-21.10",
+  "Sector": "CONSUMER",
+  "Growth Model": "3-Stage 10-Year",
+  "Revenue Tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+  "Net Income Tag": "NetIncomeLoss",
+  "CFO Tag": "NetCashProvidedByUsedInOperatingActivities",
+  "CapEx Tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+  "Adopted Growth Rate Year1 (%)": "10.00",
+  "Adopted Growth Rate Year10 (%)": "2.50",
+  "Terminal Growth (%)": "2.50",
+  "Required Return (%)": "7.00",
+  "PV Terminal (M)": "-293.75",
+  "Enterprise Value (M)": "-446.41",
+  "Shares Outstanding (M)": "328.00",
+  "Fair Value / Share ": "-1.36",
+  "Currency": "N/A"
+}

@@ -1,0 +1,10 @@
+{
+  "Ticker": "ASML",
+  "Company": "ASML Holding NV",
+  "Currency": "EUR (reports in EUR, trades in USD)",
+  "Note": "DCF model not run via SEC XBRL (foreign issuer). Data from yfinance.",
+  "Current Price (USD)": 1435.63,
+  "Market Cap (B USD)": 557.24,
+  "Forward P/E": 32.49,
+  "Sector": "Technology / Semiconductor Equipment"
+}

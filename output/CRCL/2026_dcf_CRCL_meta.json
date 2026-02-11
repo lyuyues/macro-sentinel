@@ -1,0 +1,20 @@
+{
+  "Ticker": "CRCL",
+  "Company": "Circle Internet Group Inc",
+  "Sector": "Fintech / Stablecoin",
+  "IPO Date": "2025-06-05",
+  "IPO Price": "$31.00",
+  "Avg Net Profit Margin (%)": "-21.43",
+  "Growth Model": "N/A (DCF model failed - insufficient SEC XBRL data)",
+  "Fair Value / Share": "N/A",
+  "Current Price": "$57.61",
+  "Market Cap (B)": "$14.66",
+  "Shares Outstanding (M)": "216.5",
+  "Forward P/E": "50.134453",
+  "P/S (TTM)": "6.08",
+  "Revenue (TTM, M)": "$2411.8",
+  "USDC Circulation (B)": "~$77",
+  "Revenue Concentration": "96% Reserve Income (Treasury interest)",
+  "Key Risk": "Interest rate sensitivity - each 100bps rate cut reduces annual revenue by ~$770M",
+  "Note": "Circle IPO'd June 2025. SEC XBRL data insufficient for automated DCF. Data sourced from yfinance."
+}

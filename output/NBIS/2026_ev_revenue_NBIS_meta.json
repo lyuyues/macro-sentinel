@@ -1,0 +1,75 @@
+{
+  "target_ticker": "NBIS",
+  "target_name": "Nebius Group N.V.",
+  "peer_tickers": [
+    "CRWV",
+    "SMCI",
+    "VRT",
+    "NET",
+    "SNOW"
+  ],
+  "peer_ev_revenue_median": 13.573370856703738,
+  "peer_ev_revenue_mean": 13.500051950668691,
+  "peer_ev_revenue_min": 0.7570887018588212,
+  "peer_ev_revenue_max": 29.95942960678979,
+  "num_valid_peers": 5,
+  "target_revenue": 363300000,
+  "target_ev": 23162054656,
+  "target_ev_revenue": 63.754623330580785,
+  "implied_ev": 4931205632.240468,
+  "implied_price": 23.63879789042448,
+  "current_price": 92.88,
+  "upside_pct": -74.54909787852661,
+  "data_source": "yfinance",
+  "timestamp": "2026-02-09T18:38:13.190131",
+  "errors": [],
+  "forward_implied_price": 50.057417712702346,
+  "forward_upside_pct": -46.10527808709911,
+  "peer_details": {
+    "CRWV": {
+      "name": "CoreWeave, Inc.",
+      "ev_revenue": 15.11656765563564,
+      "ev_ebitda": 29.80574704519906,
+      "gross_margin": 0.73853,
+      "net_margin": -0.17802,
+      "revenue_growth": 1.337,
+      "data_source": "yfinance"
+    },
+    "SMCI": {
+      "name": "Super Micro Computer, Inc.",
+      "ev_revenue": 0.7570887018588212,
+      "ev_ebitda": 19.365825731165305,
+      "gross_margin": 0.0802,
+      "net_margin": 0.03111,
+      "revenue_growth": 1.234,
+      "data_source": "yfinance"
+    },
+    "VRT": {
+      "name": "Vertiv Holdings, LLC",
+      "ev_revenue": 8.093802932355466,
+      "ev_ebitda": 38.43099890396747,
+      "gross_margin": 0.35724998,
+      "net_margin": 0.10666,
+      "revenue_growth": 0.29,
+      "data_source": "yfinance"
+    },
+    "NET": {
+      "name": "Cloudflare, Inc.",
+      "ev_revenue": 29.95942960678979,
+      "ev_ebitda": null,
+      "gross_margin": 0.75203,
+      "net_margin": -0.05118,
+      "revenue_growth": 0.307,
+      "data_source": "yfinance"
+    },
+    "SNOW": {
+      "name": "Snowflake Inc.",
+      "ev_revenue": 13.573370856703738,
+      "ev_ebitda": null,
+      "gross_margin": 0.67243,
+      "net_margin": -0.30764,
+      "revenue_growth": 0.287,
+      "data_source": "yfinance"
+    }
+  }
+}

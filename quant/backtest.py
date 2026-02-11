@@ -1,6 +1,7 @@
 """Monthly rebalancing backtest engine."""
 import numpy as np
 import pandas as pd
+from quant.config import BacktestConfig
 from quant.data_loader import get_monthly_rebalance_dates
 from quant.factors import (
     factor_trend_confirmation,
@@ -45,6 +46,7 @@ class Backtester:
         yield_spread: pd.Series = None,
         fundamental_data: dict = None,
         universe_func: callable = None,
+        config: BacktestConfig = None,
     ):
         self.prices = prices
         self.universe = universe
@@ -55,6 +57,7 @@ class Backtester:
         self.yield_spread = yield_spread
         self.fundamental_data = fundamental_data or {}
         self.universe_func = universe_func
+        self.config = config or BacktestConfig()
 
     def run(self) -> dict:
         """Execute the backtest and return results."""
@@ -117,6 +120,7 @@ class Backtester:
             "benchmark_nav": bench_nav,
             "trades": pd.DataFrame(trade_log) if trade_log else pd.DataFrame(),
             "metrics": metrics,
+            "config": self.config,
         }
 
     def _rebalance(self, date, cash, positions):
@@ -152,7 +156,7 @@ class Backtester:
             spread_hist = pd.Series([1.0], index=[date])
 
         regime = compute_macro_regime(spy_hist, vix_hist, spread_hist)
-        weights_config = REGIME_WEIGHTS[regime]
+        weights_config = self.config.factor_weights or REGIME_WEIGHTS[regime]
         max_exposure = REGIME_MAX_EXPOSURE[regime]
 
         # Per-stock factors
@@ -177,12 +181,12 @@ class Backtester:
             f2 = factor_relative_valuation(current_price, one_year)
 
             # F3: Trend confirmation
-            f3_series = factor_trend_confirmation(ticker_prices)
+            f3_series = factor_trend_confirmation(ticker_prices, sma_window=self.config.sma_window)
             f3 = bool(f3_series.iloc[-1]) if len(f3_series) > 0 else False
             trend_flags[ticker] = f3
 
             # F4: Momentum
-            f4 = factor_momentum(ticker_prices)
+            f4 = factor_momentum(ticker_prices, lookback=self.config.momentum_lookback)
 
             # F6: Industry cycle (use price growth as proxy)
             if len(ticker_prices) >= 252:
@@ -212,6 +216,10 @@ class Backtester:
             vol = float(returns.iloc[-60:].std() * np.sqrt(252)) if len(returns) >= 60 else 0.20
             volatilities[ticker] = vol
 
+        # Override trend filter if disabled
+        if self.config.disable_trend_filter:
+            trend_flags = {t: True for t in trend_flags}
+
         # Signal generation
         selected = generate_signals(
             composite_scores, trend_flags, regime, len(current_universe)
@@ -231,6 +239,7 @@ class Backtester:
                 fair_value=fv,
                 in_top_n=(ticker in selected),
                 trend_confirmed=trend_flags.get(ticker, False),
+                stop_loss_pct=self.config.stop_loss_pct,
             )
 
             if should_sell:
@@ -269,7 +278,7 @@ class Backtester:
         if selected:
             sel_vols = {t: volatilities.get(t, 0.20) for t in selected}
             target_weights = compute_risk_parity_weights(sel_vols)
-            target_weights = apply_position_limits(target_weights, max_weight=0.20)
+            target_weights = apply_position_limits(target_weights, max_weight=self.config.max_position_weight)
 
             # Total portfolio value
             port_value = cash + sum(
