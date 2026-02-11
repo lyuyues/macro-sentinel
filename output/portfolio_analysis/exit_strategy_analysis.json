@@ -1,0 +1,1934 @@
+{
+  "generated": "2026-02-11 15:21:02",
+  "total_cost_basis": 128237,
+  "strategies": {
+    "actual": {
+      "label": "你的实际操作",
+      "total_value": 180774.08,
+      "total_pnl": 52537.08,
+      "return_pct": 41.0,
+      "positions": {
+        "TSLA": {
+          "ticker": "TSLA",
+          "type": "core",
+          "account": "Y",
+          "cost": 26533,
+          "final_value": 37333.45,
+          "pnl": 10800.45,
+          "return_pct": 40.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "IBIT": {
+          "ticker": "IBIT",
+          "type": "speculative",
+          "account": "Y",
+          "cost": 10500,
+          "final_value": 7131.96,
+          "pnl": -3368.04,
+          "return_pct": -32.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOOGL_Y": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Y",
+          "cost": 6230,
+          "final_value": 7786.92,
+          "pnl": 1556.92,
+          "return_pct": 25.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FCX": {
+          "ticker": "FCX",
+          "type": "cyclical",
+          "account": "Y",
+          "cost": 7355,
+          "final_value": 7875.55,
+          "pnl": 520.55,
+          "return_pct": 7.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "V": {
+          "ticker": "V",
+          "type": "core",
+          "account": "Y",
+          "cost": 2003,
+          "final_value": 1877.98,
+          "pnl": -125.02,
+          "return_pct": -6.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "NVDA": {
+          "ticker": "NVDA",
+          "type": "core",
+          "account": "Z",
+          "cost": 21006,
+          "final_value": 24900.94,
+          "pnl": 3894.94,
+          "return_pct": 18.5,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOOGL_Z": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Z",
+          "cost": 8878,
+          "final_value": 13439.82,
+          "pnl": 4561.82,
+          "return_pct": 51.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "AAPL": {
+          "ticker": "AAPL",
+          "type": "core",
+          "account": "Z",
+          "cost": 11912,
+          "final_value": 16661.2,
+          "pnl": 4749.2,
+          "return_pct": 39.9,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOLD": {
+          "ticker": "GOLD",
+          "type": "value",
+          "account": "Z",
+          "cost": 5398,
+          "final_value": 15340.36,
+          "pnl": 9942.36,
+          "return_pct": 184.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "WFC": {
+          "ticker": "WFC",
+          "type": "value",
+          "account": "Z",
+          "cost": 3379,
+          "final_value": 5729.58,
+          "pnl": 2350.58,
+          "return_pct": 69.6,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "XOM": {
+          "ticker": "XOM",
+          "type": "value",
+          "account": "Z",
+          "cost": 2587,
+          "final_value": 4141.64,
+          "pnl": 1554.64,
+          "return_pct": 60.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "VDE": {
+          "ticker": "VDE",
+          "type": "value",
+          "account": "Z",
+          "cost": 2213,
+          "final_value": 3105.37,
+          "pnl": 892.37,
+          "return_pct": 40.3,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BRK-B": {
+          "ticker": "BRK-B",
+          "type": "value",
+          "account": "Z",
+          "cost": 2902,
+          "final_value": 2988.48,
+          "pnl": 86.48,
+          "return_pct": 3.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "DAL": {
+          "ticker": "DAL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 753,
+          "final_value": 1179.75,
+          "pnl": 426.75,
+          "return_pct": 56.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "ITA": {
+          "ticker": "ITA",
+          "type": "value",
+          "account": "Z",
+          "cost": 396,
+          "final_value": 742.09,
+          "pnl": 346.09,
+          "return_pct": 87.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BA": {
+          "ticker": "BA",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4000,
+          "final_value": 6940.0,
+          "pnl": 2940.0,
+          "return_pct": 73.5,
+          "sold": true,
+          "sell_date": "2024-12-30",
+          "sell_reason": "实际卖出"
+        },
+        "CCL": {
+          "ticker": "CCL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 6000,
+          "final_value": 14209.0,
+          "pnl": 8209.0,
+          "return_pct": 136.8,
+          "sold": true,
+          "sell_date": "2024-10-29",
+          "sell_reason": "实际卖出"
+        },
+        "FTNT": {
+          "ticker": "FTNT",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4544,
+          "final_value": 7523.0,
+          "pnl": 2979.0,
+          "return_pct": 65.6,
+          "sold": true,
+          "sell_date": "2026-01-20",
+          "sell_reason": "实际卖出"
+        },
+        "METV": {
+          "ticker": "METV",
+          "type": "speculative",
+          "account": "Z",
+          "cost": 1648,
+          "final_value": 1866.99,
+          "pnl": 218.99,
+          "return_pct": 13.3,
+          "sold": true,
+          "sell_date": "2026-01-20",
+          "sell_reason": "实际卖出"
+        }
+      },
+      "trades": [
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2024-12-30",
+          "action": "实际卖出",
+          "shares": 40,
+          "price": 173.5,
+          "proceeds": 6940.0
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2024-10-29",
+          "action": "实际卖出",
+          "shares": 650,
+          "price": 21.86,
+          "proceeds": 14209.0
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2026-01-20",
+          "action": "实际卖出",
+          "shares": 100,
+          "price": 75.23,
+          "proceeds": 7523.0
+        },
+        {
+          "ticker": "METV",
+          "key": "METV",
+          "date": "2026-01-20",
+          "action": "实际卖出",
+          "shares": 100.43,
+          "price": 18.59,
+          "proceeds": 1866.99
+        }
+      ],
+      "key_differences_vs_actual": []
+    },
+    "hold_all": {
+      "label": "买入持有不卖",
+      "total_value": 191671.39,
+      "total_pnl": 63434.39,
+      "return_pct": 49.5,
+      "positions": {
+        "TSLA": {
+          "ticker": "TSLA",
+          "type": "core",
+          "account": "Y",
+          "cost": 26533,
+          "final_value": 37333.45,
+          "pnl": 10800.45,
+          "return_pct": 40.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "IBIT": {
+          "ticker": "IBIT",
+          "type": "speculative",
+          "account": "Y",
+          "cost": 10500,
+          "final_value": 7131.96,
+          "pnl": -3368.04,
+          "return_pct": -32.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOOGL_Y": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Y",
+          "cost": 6230,
+          "final_value": 7786.92,
+          "pnl": 1556.92,
+          "return_pct": 25.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FCX": {
+          "ticker": "FCX",
+          "type": "cyclical",
+          "account": "Y",
+          "cost": 7355,
+          "final_value": 7875.55,
+          "pnl": 520.55,
+          "return_pct": 7.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "V": {
+          "ticker": "V",
+          "type": "core",
+          "account": "Y",
+          "cost": 2003,
+          "final_value": 1877.98,
+          "pnl": -125.02,
+          "return_pct": -6.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "NVDA": {
+          "ticker": "NVDA",
+          "type": "core",
+          "account": "Z",
+          "cost": 21006,
+          "final_value": 24900.94,
+          "pnl": 3894.94,
+          "return_pct": 18.5,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOOGL_Z": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Z",
+          "cost": 8878,
+          "final_value": 13439.82,
+          "pnl": 4561.82,
+          "return_pct": 51.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "AAPL": {
+          "ticker": "AAPL",
+          "type": "core",
+          "account": "Z",
+          "cost": 11912,
+          "final_value": 16661.2,
+          "pnl": 4749.2,
+          "return_pct": 39.9,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOLD": {
+          "ticker": "GOLD",
+          "type": "value",
+          "account": "Z",
+          "cost": 5398,
+          "final_value": 15340.36,
+          "pnl": 9942.36,
+          "return_pct": 184.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "WFC": {
+          "ticker": "WFC",
+          "type": "value",
+          "account": "Z",
+          "cost": 3379,
+          "final_value": 5729.58,
+          "pnl": 2350.58,
+          "return_pct": 69.6,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "XOM": {
+          "ticker": "XOM",
+          "type": "value",
+          "account": "Z",
+          "cost": 2587,
+          "final_value": 4141.64,
+          "pnl": 1554.64,
+          "return_pct": 60.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "VDE": {
+          "ticker": "VDE",
+          "type": "value",
+          "account": "Z",
+          "cost": 2213,
+          "final_value": 3105.37,
+          "pnl": 892.37,
+          "return_pct": 40.3,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BRK-B": {
+          "ticker": "BRK-B",
+          "type": "value",
+          "account": "Z",
+          "cost": 2902,
+          "final_value": 2988.48,
+          "pnl": 86.48,
+          "return_pct": 3.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "DAL": {
+          "ticker": "DAL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 753,
+          "final_value": 1179.75,
+          "pnl": 426.75,
+          "return_pct": 56.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "ITA": {
+          "ticker": "ITA",
+          "type": "value",
+          "account": "Z",
+          "cost": 396,
+          "final_value": 742.09,
+          "pnl": 346.09,
+          "return_pct": 87.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BA": {
+          "ticker": "BA",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4000,
+          "final_value": 9788.4,
+          "pnl": 5788.4,
+          "return_pct": 144.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "CCL": {
+          "ticker": "CCL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 6000,
+          "final_value": 21326.5,
+          "pnl": 15326.5,
+          "return_pct": 255.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FTNT": {
+          "ticker": "FTNT",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4544,
+          "final_value": 8593.0,
+          "pnl": 4049.0,
+          "return_pct": 89.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "METV": {
+          "ticker": "METV",
+          "type": "speculative",
+          "account": "Z",
+          "cost": 1648,
+          "final_value": 1728.4,
+          "pnl": 80.4,
+          "return_pct": 4.9,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        }
+      },
+      "trades": [],
+      "key_differences_vs_actual": [
+        {
+          "ticker": "BA",
+          "diff": 2848.4,
+          "strategy_action": null,
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "CCL",
+          "diff": 7117.5,
+          "strategy_action": null,
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "FTNT",
+          "diff": 1070.0,
+          "strategy_action": null,
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "METV",
+          "diff": -138.59,
+          "strategy_action": null,
+          "actual_action": "实际卖出"
+        }
+      ]
+    },
+    "categorized": {
+      "label": "分类策略",
+      "total_value": 187641.04,
+      "total_pnl": 59404.04,
+      "return_pct": 46.3,
+      "positions": {
+        "TSLA": {
+          "ticker": "TSLA",
+          "type": "core",
+          "account": "Y",
+          "cost": 26533,
+          "final_value": 37333.45,
+          "pnl": 10800.45,
+          "return_pct": 40.7,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "IBIT": {
+          "ticker": "IBIT",
+          "type": "speculative",
+          "account": "Y",
+          "cost": 10500,
+          "final_value": 9496.83,
+          "pnl": -1003.17,
+          "return_pct": -9.6,
+          "sold": true,
+          "sell_date": "2025-02-24",
+          "sell_reason": "投机仓-跌破50MA"
+        },
+        "GOOGL_Y": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Y",
+          "cost": 6230,
+          "final_value": 7786.92,
+          "pnl": 1556.92,
+          "return_pct": 25.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FCX": {
+          "ticker": "FCX",
+          "type": "cyclical",
+          "account": "Y",
+          "cost": 7355,
+          "final_value": 7875.55,
+          "pnl": 520.55,
+          "return_pct": 7.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "V": {
+          "ticker": "V",
+          "type": "core",
+          "account": "Y",
+          "cost": 2003,
+          "final_value": 1877.98,
+          "pnl": -125.02,
+          "return_pct": -6.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "NVDA": {
+          "ticker": "NVDA",
+          "type": "core",
+          "account": "Z",
+          "cost": 21006,
+          "final_value": 24900.94,
+          "pnl": 3894.94,
+          "return_pct": 18.5,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOOGL_Z": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Z",
+          "cost": 8878,
+          "final_value": 13439.82,
+          "pnl": 4561.82,
+          "return_pct": 51.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "AAPL": {
+          "ticker": "AAPL",
+          "type": "core",
+          "account": "Z",
+          "cost": 11912,
+          "final_value": 16661.2,
+          "pnl": 4749.2,
+          "return_pct": 39.9,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "GOLD": {
+          "ticker": "GOLD",
+          "type": "value",
+          "account": "Z",
+          "cost": 5398,
+          "final_value": 15340.36,
+          "pnl": 9942.36,
+          "return_pct": 184.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "WFC": {
+          "ticker": "WFC",
+          "type": "value",
+          "account": "Z",
+          "cost": 3379,
+          "final_value": 5729.58,
+          "pnl": 2350.58,
+          "return_pct": 69.6,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "XOM": {
+          "ticker": "XOM",
+          "type": "value",
+          "account": "Z",
+          "cost": 2587,
+          "final_value": 4141.64,
+          "pnl": 1554.64,
+          "return_pct": 60.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "VDE": {
+          "ticker": "VDE",
+          "type": "value",
+          "account": "Z",
+          "cost": 2213,
+          "final_value": 3105.37,
+          "pnl": 892.37,
+          "return_pct": 40.3,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BRK-B": {
+          "ticker": "BRK-B",
+          "type": "value",
+          "account": "Z",
+          "cost": 2902,
+          "final_value": 2988.48,
+          "pnl": 86.48,
+          "return_pct": 3.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "DAL": {
+          "ticker": "DAL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 753,
+          "final_value": 678.9,
+          "pnl": -74.1,
+          "return_pct": -9.8,
+          "sold": true,
+          "sell_date": "2023-10-13",
+          "sell_reason": "周期股-25%追踪止损"
+        },
+        "ITA": {
+          "ticker": "ITA",
+          "type": "value",
+          "account": "Z",
+          "cost": 396,
+          "final_value": 742.09,
+          "pnl": 346.09,
+          "return_pct": 87.4,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "BA": {
+          "ticker": "BA",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4000,
+          "final_value": 6609.33,
+          "pnl": 2609.33,
+          "return_pct": 65.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "CCL": {
+          "ticker": "CCL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 6000,
+          "final_value": 19961.5,
+          "pnl": 13961.5,
+          "return_pct": 232.7,
+          "sold": true,
+          "sell_date": "2021-07-13",
+          "sell_reason": "周期股-25%追踪止损"
+        },
+        "FTNT": {
+          "ticker": "FTNT",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4544,
+          "final_value": 7492.0,
+          "pnl": 2948.0,
+          "return_pct": 64.9,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "METV": {
+          "ticker": "METV",
+          "type": "speculative",
+          "account": "Z",
+          "cost": 1648,
+          "final_value": 1479.1,
+          "pnl": -168.9,
+          "return_pct": -10.2,
+          "sold": true,
+          "sell_date": "2021-12-16",
+          "sell_reason": "投机仓-跌破50MA"
+        }
+      },
+      "trades": [
+        {
+          "ticker": "IBIT",
+          "key": "IBIT",
+          "date": "2025-02-24",
+          "action": "投机仓-跌破50MA",
+          "shares": 177.81,
+          "price": 53.41,
+          "proceeds": 9496.83
+        },
+        {
+          "ticker": "DAL",
+          "key": "DAL",
+          "date": "2024-11-11",
+          "action": "分批卖出(涨30%)",
+          "shares": 5.24,
+          "price": 62.81,
+          "proceeds": 329.31
+        },
+        {
+          "ticker": "DAL",
+          "key": "DAL",
+          "date": "2023-10-13",
+          "action": "周期股-25%追踪止损",
+          "shares": 10.49,
+          "price": 33.34,
+          "proceeds": 349.59
+        },
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2022-06-01",
+          "action": "分批卖出(涨30%)",
+          "shares": 13.33,
+          "price": 130.65,
+          "proceeds": 1742.0
+        },
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2022-07-21",
+          "action": "分批卖出(涨60%)",
+          "shares": 13.33,
+          "price": 161.41,
+          "proceeds": 2152.13
+        },
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2023-01-04",
+          "action": "分批卖出(涨100%)",
+          "shares": 13.33,
+          "price": 203.64,
+          "proceeds": 2715.2
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-06-01",
+          "action": "分批卖出(涨30%)",
+          "shares": 216.67,
+          "price": 30.15,
+          "proceeds": 6532.5
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-06-02",
+          "action": "分批卖出(涨60%)",
+          "shares": 216.67,
+          "price": 31.31,
+          "proceeds": 6783.83
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-06-03",
+          "action": "分批卖出(涨100%)",
+          "shares": 216.67,
+          "price": 30.67,
+          "proceeds": 6645.17
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-07-13",
+          "action": "周期股-25%追踪止损",
+          "shares": 0.0,
+          "price": 22.85,
+          "proceeds": 0.0
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2022-06-24",
+          "action": "分批卖出(涨30%)",
+          "shares": 33.33,
+          "price": 59.13,
+          "proceeds": 1971.0
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2023-06-15",
+          "action": "分批卖出(涨60%)",
+          "shares": 33.33,
+          "price": 73.59,
+          "proceeds": 2453.0
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2024-11-08",
+          "action": "分批卖出(涨100%)",
+          "shares": 33.33,
+          "price": 92.04,
+          "proceeds": 3068.0
+        },
+        {
+          "ticker": "METV",
+          "key": "METV",
+          "date": "2021-12-16",
+          "action": "投机仓-跌破50MA",
+          "shares": 100.43,
+          "price": 14.73,
+          "proceeds": 1479.1
+        }
+      ],
+      "key_differences_vs_actual": [
+        {
+          "ticker": "IBIT",
+          "diff": 2364.87,
+          "strategy_action": "投机仓-跌破50MA",
+          "actual_action": null
+        },
+        {
+          "ticker": "DAL",
+          "diff": -500.85,
+          "strategy_action": "周期股-25%追踪止损",
+          "actual_action": null
+        },
+        {
+          "ticker": "BA",
+          "diff": -330.67,
+          "strategy_action": null,
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "CCL",
+          "diff": 5752.5,
+          "strategy_action": "周期股-25%追踪止损",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "METV",
+          "diff": -387.89,
+          "strategy_action": "投机仓-跌破50MA",
+          "actual_action": "实际卖出"
+        }
+      ]
+    },
+    "trailing_15": {
+      "label": "15% trailing stop",
+      "total_value": 110249.28,
+      "total_pnl": -17987.72,
+      "return_pct": -14.0,
+      "positions": {
+        "TSLA": {
+          "ticker": "TSLA",
+          "type": "core",
+          "account": "Y",
+          "cost": 26533,
+          "final_value": 19322.47,
+          "pnl": -7210.53,
+          "return_pct": -27.2,
+          "sold": true,
+          "sell_date": "2024-07-24",
+          "sell_reason": "15% trailing stop"
+        },
+        "IBIT": {
+          "ticker": "IBIT",
+          "type": "speculative",
+          "account": "Y",
+          "cost": 10500,
+          "final_value": 7985.45,
+          "pnl": -2514.55,
+          "return_pct": -23.9,
+          "sold": true,
+          "sell_date": "2025-03-10",
+          "sell_reason": "15% trailing stop"
+        },
+        "GOOGL_Y": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Y",
+          "cost": 6230,
+          "final_value": 7786.92,
+          "pnl": 1556.92,
+          "return_pct": 25.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FCX": {
+          "ticker": "FCX",
+          "type": "cyclical",
+          "account": "Y",
+          "cost": 7355,
+          "final_value": 7875.55,
+          "pnl": 520.55,
+          "return_pct": 7.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "V": {
+          "ticker": "V",
+          "type": "core",
+          "account": "Y",
+          "cost": 2003,
+          "final_value": 1877.98,
+          "pnl": -125.02,
+          "return_pct": -6.2,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "NVDA": {
+          "ticker": "NVDA",
+          "type": "core",
+          "account": "Z",
+          "cost": 21006,
+          "final_value": 9979.4,
+          "pnl": -11026.6,
+          "return_pct": -52.5,
+          "sold": true,
+          "sell_date": "2024-04-19",
+          "sell_reason": "15% trailing stop"
+        },
+        "GOOGL_Z": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Z",
+          "cost": 8878,
+          "final_value": 6557.35,
+          "pnl": -2320.65,
+          "return_pct": -26.1,
+          "sold": true,
+          "sell_date": "2024-08-05",
+          "sell_reason": "15% trailing stop"
+        },
+        "AAPL": {
+          "ticker": "AAPL",
+          "type": "core",
+          "account": "Z",
+          "cost": 11912,
+          "final_value": 8953.38,
+          "pnl": -2958.62,
+          "return_pct": -24.8,
+          "sold": true,
+          "sell_date": "2022-03-14",
+          "sell_reason": "15% trailing stop"
+        },
+        "GOLD": {
+          "ticker": "GOLD",
+          "type": "value",
+          "account": "Z",
+          "cost": 5398,
+          "final_value": 3045.47,
+          "pnl": -2352.53,
+          "return_pct": -43.6,
+          "sold": true,
+          "sell_date": "2021-02-10",
+          "sell_reason": "15% trailing stop"
+        },
+        "WFC": {
+          "ticker": "WFC",
+          "type": "value",
+          "account": "Z",
+          "cost": 3379,
+          "final_value": 2356.37,
+          "pnl": -1022.63,
+          "return_pct": -30.3,
+          "sold": true,
+          "sell_date": "2021-09-01",
+          "sell_reason": "15% trailing stop"
+        },
+        "XOM": {
+          "ticker": "XOM",
+          "type": "value",
+          "account": "Z",
+          "cost": 2587,
+          "final_value": 1236.39,
+          "pnl": -1350.61,
+          "return_pct": -52.2,
+          "sold": true,
+          "sell_date": "2021-08-19",
+          "sell_reason": "15% trailing stop"
+        },
+        "VDE": {
+          "ticker": "VDE",
+          "type": "value",
+          "account": "Z",
+          "cost": 2213,
+          "final_value": 1148.81,
+          "pnl": -1064.19,
+          "return_pct": -48.1,
+          "sold": true,
+          "sell_date": "2021-07-19",
+          "sell_reason": "15% trailing stop"
+        },
+        "BRK-B": {
+          "ticker": "BRK-B",
+          "type": "value",
+          "account": "Z",
+          "cost": 2902,
+          "final_value": 2988.48,
+          "pnl": 86.48,
+          "return_pct": 3.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "DAL": {
+          "ticker": "DAL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 753,
+          "final_value": 596.37,
+          "pnl": -156.63,
+          "return_pct": -20.8,
+          "sold": true,
+          "sell_date": "2023-09-18",
+          "sell_reason": "15% trailing stop"
+        },
+        "ITA": {
+          "ticker": "ITA",
+          "type": "value",
+          "account": "Z",
+          "cost": 396,
+          "final_value": 290.9,
+          "pnl": -105.1,
+          "return_pct": -26.5,
+          "sold": true,
+          "sell_date": "2021-12-01",
+          "sell_reason": "15% trailing stop"
+        },
+        "BA": {
+          "ticker": "BA",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4000,
+          "final_value": 4634.4,
+          "pnl": 634.4,
+          "return_pct": 15.9,
+          "sold": true,
+          "sell_date": "2022-06-13",
+          "sell_reason": "15% trailing stop"
+        },
+        "CCL": {
+          "ticker": "CCL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 6000,
+          "final_value": 16997.5,
+          "pnl": 10997.5,
+          "return_pct": 183.3,
+          "sold": true,
+          "sell_date": "2021-06-28",
+          "sell_reason": "15% trailing stop"
+        },
+        "FTNT": {
+          "ticker": "FTNT",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4544,
+          "final_value": 5261.0,
+          "pnl": 717.0,
+          "return_pct": 15.8,
+          "sold": true,
+          "sell_date": "2022-08-04",
+          "sell_reason": "15% trailing stop"
+        },
+        "METV": {
+          "ticker": "METV",
+          "type": "speculative",
+          "account": "Z",
+          "cost": 1648,
+          "final_value": 1355.09,
+          "pnl": -292.91,
+          "return_pct": -17.8,
+          "sold": true,
+          "sell_date": "2022-01-18",
+          "sell_reason": "15% trailing stop"
+        }
+      },
+      "trades": [
+        {
+          "ticker": "TSLA",
+          "key": "TSLA",
+          "date": "2024-07-24",
+          "action": "15% trailing stop",
+          "shares": 89.46,
+          "price": 215.99,
+          "proceeds": 19322.47
+        },
+        {
+          "ticker": "IBIT",
+          "key": "IBIT",
+          "date": "2025-03-10",
+          "action": "15% trailing stop",
+          "shares": 177.81,
+          "price": 44.91,
+          "proceeds": 7985.45
+        },
+        {
+          "ticker": "NVDA",
+          "key": "NVDA",
+          "date": "2024-04-19",
+          "action": "15% trailing stop",
+          "shares": 131.03,
+          "price": 76.16,
+          "proceeds": 9979.4
+        },
+        {
+          "ticker": "GOOGL",
+          "key": "GOOGL_Z",
+          "date": "2024-08-05",
+          "action": "15% trailing stop",
+          "shares": 41.44,
+          "price": 158.24,
+          "proceeds": 6557.35
+        },
+        {
+          "ticker": "AAPL",
+          "key": "AAPL",
+          "date": "2022-03-14",
+          "action": "15% trailing stop",
+          "shares": 60.67,
+          "price": 147.58,
+          "proceeds": 8953.38
+        },
+        {
+          "ticker": "GOLD",
+          "key": "GOLD",
+          "date": "2021-02-10",
+          "action": "15% trailing stop",
+          "shares": 239.17,
+          "price": 12.73,
+          "proceeds": 3045.47
+        },
+        {
+          "ticker": "WFC",
+          "key": "WFC",
+          "date": "2021-09-01",
+          "action": "15% trailing stop",
+          "shares": 60.56,
+          "price": 38.91,
+          "proceeds": 2356.37
+        },
+        {
+          "ticker": "XOM",
+          "key": "XOM",
+          "date": "2021-08-19",
+          "action": "15% trailing stop",
+          "shares": 27.39,
+          "price": 45.14,
+          "proceeds": 1236.39
+        },
+        {
+          "ticker": "VDE",
+          "key": "VDE",
+          "date": "2021-07-19",
+          "action": "15% trailing stop",
+          "shares": 20.53,
+          "price": 55.96,
+          "proceeds": 1148.81
+        },
+        {
+          "ticker": "DAL",
+          "key": "DAL",
+          "date": "2023-09-18",
+          "action": "15% trailing stop",
+          "shares": 15.73,
+          "price": 37.91,
+          "proceeds": 596.37
+        },
+        {
+          "ticker": "ITA",
+          "key": "ITA",
+          "date": "2021-12-01",
+          "action": "15% trailing stop",
+          "shares": 3.16,
+          "price": 92.06,
+          "proceeds": 290.9
+        },
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2022-06-13",
+          "action": "15% trailing stop",
+          "shares": 40,
+          "price": 115.86,
+          "proceeds": 4634.4
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-06-28",
+          "action": "15% trailing stop",
+          "shares": 650,
+          "price": 26.15,
+          "proceeds": 16997.5
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2022-08-04",
+          "action": "15% trailing stop",
+          "shares": 100,
+          "price": 52.61,
+          "proceeds": 5261.0
+        },
+        {
+          "ticker": "METV",
+          "key": "METV",
+          "date": "2022-01-18",
+          "action": "15% trailing stop",
+          "shares": 100.43,
+          "price": 13.49,
+          "proceeds": 1355.09
+        }
+      ],
+      "key_differences_vs_actual": [
+        {
+          "ticker": "TSLA",
+          "diff": -18010.98,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "IBIT",
+          "diff": 853.49,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "NVDA",
+          "diff": -14921.54,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "GOOGL",
+          "diff": -6882.47,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "AAPL",
+          "diff": -7707.82,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "GOLD",
+          "diff": -12294.89,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "WFC",
+          "diff": -3373.21,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "XOM",
+          "diff": -2905.25,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "VDE",
+          "diff": -1956.56,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "DAL",
+          "diff": -583.38,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "ITA",
+          "diff": -451.19,
+          "strategy_action": "15% trailing stop",
+          "actual_action": null
+        },
+        {
+          "ticker": "BA",
+          "diff": -2305.6,
+          "strategy_action": "15% trailing stop",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "CCL",
+          "diff": 2788.5,
+          "strategy_action": "15% trailing stop",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "FTNT",
+          "diff": -2262.0,
+          "strategy_action": "15% trailing stop",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "METV",
+          "diff": -511.9,
+          "strategy_action": "15% trailing stop",
+          "actual_action": "实际卖出"
+        }
+      ]
+    },
+    "ma50_exit": {
+      "label": "跌破50日均线卖",
+      "total_value": 115573.31,
+      "total_pnl": -12663.69,
+      "return_pct": -9.9,
+      "positions": {
+        "TSLA": {
+          "ticker": "TSLA",
+          "type": "core",
+          "account": "Y",
+          "cost": 26533,
+          "final_value": 18578.16,
+          "pnl": -7954.84,
+          "return_pct": -30.0,
+          "sold": true,
+          "sell_date": "2024-08-02",
+          "sell_reason": "跌破50日均线"
+        },
+        "IBIT": {
+          "ticker": "IBIT",
+          "type": "speculative",
+          "account": "Y",
+          "cost": 10500,
+          "final_value": 9496.83,
+          "pnl": -1003.17,
+          "return_pct": -9.6,
+          "sold": true,
+          "sell_date": "2025-02-24",
+          "sell_reason": "跌破50日均线"
+        },
+        "GOOGL_Y": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Y",
+          "cost": 6230,
+          "final_value": 7786.92,
+          "pnl": 1556.92,
+          "return_pct": 25.0,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "FCX": {
+          "ticker": "FCX",
+          "type": "cyclical",
+          "account": "Y",
+          "cost": 7355,
+          "final_value": 7875.55,
+          "pnl": 520.55,
+          "return_pct": 7.1,
+          "sold": false,
+          "sell_date": null,
+          "sell_reason": null
+        },
+        "V": {
+          "ticker": "V",
+          "type": "core",
+          "account": "Y",
+          "cost": 2003,
+          "final_value": 2034.12,
+          "pnl": 31.12,
+          "return_pct": 1.6,
+          "sold": true,
+          "sell_date": "2025-07-24",
+          "sell_reason": "跌破50日均线"
+        },
+        "NVDA": {
+          "ticker": "NVDA",
+          "type": "core",
+          "account": "Z",
+          "cost": 21006,
+          "final_value": 9979.4,
+          "pnl": -11026.6,
+          "return_pct": -52.5,
+          "sold": true,
+          "sell_date": "2024-04-19",
+          "sell_reason": "跌破50日均线"
+        },
+        "GOOGL_Z": {
+          "ticker": "GOOGL",
+          "type": "core",
+          "account": "Z",
+          "cost": 8878,
+          "final_value": 7316.64,
+          "pnl": -1561.36,
+          "return_pct": -17.6,
+          "sold": true,
+          "sell_date": "2024-07-18",
+          "sell_reason": "跌破50日均线"
+        },
+        "AAPL": {
+          "ticker": "AAPL",
+          "type": "core",
+          "account": "Z",
+          "cost": 11912,
+          "final_value": 8658.64,
+          "pnl": -3253.36,
+          "return_pct": -27.3,
+          "sold": true,
+          "sell_date": "2021-09-17",
+          "sell_reason": "跌破50日均线"
+        },
+        "GOLD": {
+          "ticker": "GOLD",
+          "type": "value",
+          "account": "Z",
+          "cost": 5398,
+          "final_value": 4579.19,
+          "pnl": -818.81,
+          "return_pct": -15.2,
+          "sold": true,
+          "sell_date": "2021-06-29",
+          "sell_reason": "跌破50日均线"
+        },
+        "WFC": {
+          "ticker": "WFC",
+          "type": "value",
+          "account": "Z",
+          "cost": 3379,
+          "final_value": 2310.52,
+          "pnl": -1068.48,
+          "return_pct": -31.6,
+          "sold": true,
+          "sell_date": "2021-06-17",
+          "sell_reason": "跌破50日均线"
+        },
+        "XOM": {
+          "ticker": "XOM",
+          "type": "value",
+          "account": "Z",
+          "cost": 2587,
+          "final_value": 1258.75,
+          "pnl": -1328.25,
+          "return_pct": -51.3,
+          "sold": true,
+          "sell_date": "2021-04-20",
+          "sell_reason": "跌破50日均线"
+        },
+        "VDE": {
+          "ticker": "VDE",
+          "type": "value",
+          "account": "Z",
+          "cost": 2213,
+          "final_value": 1143.9,
+          "pnl": -1069.1,
+          "return_pct": -48.3,
+          "sold": true,
+          "sell_date": "2021-04-12",
+          "sell_reason": "跌破50日均线"
+        },
+        "BRK-B": {
+          "ticker": "BRK-B",
+          "type": "value",
+          "account": "Z",
+          "cost": 2902,
+          "final_value": 2902.98,
+          "pnl": 0.98,
+          "return_pct": 0.0,
+          "sold": true,
+          "sell_date": "2026-01-21",
+          "sell_reason": "跌破50日均线"
+        },
+        "DAL": {
+          "ticker": "DAL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 753,
+          "final_value": 677.34,
+          "pnl": -75.66,
+          "return_pct": -10.0,
+          "sold": true,
+          "sell_date": "2023-08-11",
+          "sell_reason": "跌破50日均线"
+        },
+        "ITA": {
+          "ticker": "ITA",
+          "type": "value",
+          "account": "Z",
+          "cost": 396,
+          "final_value": 310.27,
+          "pnl": -85.73,
+          "return_pct": -21.6,
+          "sold": true,
+          "sell_date": "2021-05-12",
+          "sell_reason": "跌破50日均线"
+        },
+        "BA": {
+          "ticker": "BA",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4000,
+          "final_value": 5226.0,
+          "pnl": 1226.0,
+          "return_pct": 30.6,
+          "sold": true,
+          "sell_date": "2022-06-01",
+          "sell_reason": "跌破50日均线"
+        },
+        "CCL": {
+          "ticker": "CCL",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 6000,
+          "final_value": 18239.0,
+          "pnl": 12239.0,
+          "return_pct": 204.0,
+          "sold": true,
+          "sell_date": "2021-06-22",
+          "sell_reason": "跌破50日均线"
+        },
+        "FTNT": {
+          "ticker": "FTNT",
+          "type": "cyclical",
+          "account": "Z",
+          "cost": 4544,
+          "final_value": 5680.0,
+          "pnl": 1136.0,
+          "return_pct": 25.0,
+          "sold": true,
+          "sell_date": "2022-06-23",
+          "sell_reason": "跌破50日均线"
+        },
+        "METV": {
+          "ticker": "METV",
+          "type": "speculative",
+          "account": "Z",
+          "cost": 1648,
+          "final_value": 1519.1,
+          "pnl": -128.9,
+          "return_pct": -7.8,
+          "sold": true,
+          "sell_date": "2021-12-03",
+          "sell_reason": "跌破50日均线"
+        }
+      },
+      "trades": [
+        {
+          "ticker": "TSLA",
+          "key": "TSLA",
+          "date": "2024-08-02",
+          "action": "跌破50日均线",
+          "shares": 89.46,
+          "price": 207.67,
+          "proceeds": 18578.16
+        },
+        {
+          "ticker": "IBIT",
+          "key": "IBIT",
+          "date": "2025-02-24",
+          "action": "跌破50日均线",
+          "shares": 177.81,
+          "price": 53.41,
+          "proceeds": 9496.83
+        },
+        {
+          "ticker": "V",
+          "key": "V",
+          "date": "2025-07-24",
+          "action": "跌破50日均线",
+          "shares": 5.78,
+          "price": 351.92,
+          "proceeds": 2034.12
+        },
+        {
+          "ticker": "NVDA",
+          "key": "NVDA",
+          "date": "2024-04-19",
+          "action": "跌破50日均线",
+          "shares": 131.03,
+          "price": 76.16,
+          "proceeds": 9979.4
+        },
+        {
+          "ticker": "GOOGL",
+          "key": "GOOGL_Z",
+          "date": "2024-07-18",
+          "action": "跌破50日均线",
+          "shares": 41.44,
+          "price": 176.56,
+          "proceeds": 7316.64
+        },
+        {
+          "ticker": "AAPL",
+          "key": "AAPL",
+          "date": "2021-09-17",
+          "action": "跌破50日均线",
+          "shares": 60.67,
+          "price": 142.72,
+          "proceeds": 8658.64
+        },
+        {
+          "ticker": "GOLD",
+          "key": "GOLD",
+          "date": "2021-06-29",
+          "action": "跌破50日均线",
+          "shares": 239.17,
+          "price": 19.15,
+          "proceeds": 4579.19
+        },
+        {
+          "ticker": "WFC",
+          "key": "WFC",
+          "date": "2021-06-17",
+          "action": "跌破50日均线",
+          "shares": 60.56,
+          "price": 38.15,
+          "proceeds": 2310.52
+        },
+        {
+          "ticker": "XOM",
+          "key": "XOM",
+          "date": "2021-04-20",
+          "action": "跌破50日均线",
+          "shares": 27.39,
+          "price": 45.96,
+          "proceeds": 1258.75
+        },
+        {
+          "ticker": "VDE",
+          "key": "VDE",
+          "date": "2021-04-12",
+          "action": "跌破50日均线",
+          "shares": 20.53,
+          "price": 55.72,
+          "proceeds": 1143.9
+        },
+        {
+          "ticker": "BRK-B",
+          "key": "BRK-B",
+          "date": "2026-01-21",
+          "action": "跌破50日均线",
+          "shares": 6.0,
+          "price": 483.83,
+          "proceeds": 2902.98
+        },
+        {
+          "ticker": "DAL",
+          "key": "DAL",
+          "date": "2023-08-11",
+          "action": "跌破50日均线",
+          "shares": 15.73,
+          "price": 43.06,
+          "proceeds": 677.34
+        },
+        {
+          "ticker": "ITA",
+          "key": "ITA",
+          "date": "2021-05-12",
+          "action": "跌破50日均线",
+          "shares": 3.16,
+          "price": 98.19,
+          "proceeds": 310.27
+        },
+        {
+          "ticker": "BA",
+          "key": "BA",
+          "date": "2022-06-01",
+          "action": "跌破50日均线",
+          "shares": 40,
+          "price": 130.65,
+          "proceeds": 5226.0
+        },
+        {
+          "ticker": "CCL",
+          "key": "CCL",
+          "date": "2021-06-22",
+          "action": "跌破50日均线",
+          "shares": 650,
+          "price": 28.06,
+          "proceeds": 18239.0
+        },
+        {
+          "ticker": "FTNT",
+          "key": "FTNT",
+          "date": "2022-06-23",
+          "action": "跌破50日均线",
+          "shares": 100,
+          "price": 56.8,
+          "proceeds": 5680.0
+        },
+        {
+          "ticker": "METV",
+          "key": "METV",
+          "date": "2021-12-03",
+          "action": "跌破50日均线",
+          "shares": 100.43,
+          "price": 15.13,
+          "proceeds": 1519.1
+        }
+      ],
+      "key_differences_vs_actual": [
+        {
+          "ticker": "TSLA",
+          "diff": -18755.29,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "IBIT",
+          "diff": 2364.87,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "V",
+          "diff": 156.14,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "NVDA",
+          "diff": -14921.54,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "GOOGL",
+          "diff": -6123.18,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "AAPL",
+          "diff": -8002.56,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "GOLD",
+          "diff": -10761.17,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "WFC",
+          "diff": -3419.06,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "XOM",
+          "diff": -2882.89,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "VDE",
+          "diff": -1961.47,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "DAL",
+          "diff": -502.41,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "ITA",
+          "diff": -431.82,
+          "strategy_action": "跌破50日均线",
+          "actual_action": null
+        },
+        {
+          "ticker": "BA",
+          "diff": -1714.0,
+          "strategy_action": "跌破50日均线",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "CCL",
+          "diff": 4030.0,
+          "strategy_action": "跌破50日均线",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "FTNT",
+          "diff": -1843.0,
+          "strategy_action": "跌破50日均线",
+          "actual_action": "实际卖出"
+        },
+        {
+          "ticker": "METV",
+          "diff": -347.89,
+          "strategy_action": "跌破50日均线",
+          "actual_action": "实际卖出"
+        }
+      ]
+    }
+  },
+  "ftnt_aapl_swap": {
+    "swap_date": "2026-01-20",
+    "ftnt_sold": {
+      "shares": 100,
+      "avg_price": 75.23,
+      "proceeds": 7525.4
+    },
+    "aapl_bought": {
+      "shares": 30,
+      "price": 246.96,
+      "cost": 7408.8
+    },
+    "ftnt_current_price": 85.93,
+    "aapl_current_price": 274.62,
+    "if_held_ftnt": 8593.0,
+    "aapl_current_value": 8238.6,
+    "swap_net_effect": -237.8,
+    "verdict": "FTNT略优（差额$238，仅3周，尚无定论）"
+  },
+  "conclusion": {
+    "best_strategy": "buy_and_hold",
+    "best_return_pct": 49.5,
+    "actual_return_pct": 41.0,
+    "opportunity_cost": 10897.31,
+    "key_findings": [
+      "买入持有(+49.5%)是回测期间最佳策略，比实际操作(+41.0%)多赚$10,897",
+      "分类策略(+46.3%)第二，主要在IBIT止损上比实际操作多保住$2,365",
+      "CCL卖早损失最大($7,118)，BA卖早损失$2,848",
+      "METV和AMD卖出时机正确，分别多赚$139和$472",
+      "Trailing stop和MA exit策略均为负收益，完全不适合DCA入场的持仓",
+      "选股能力强(9/11跑赢SPY)，收益损失全部来自过早卖出"
+    ],
+    "recommendations": [
+      "核心仓位(TSLA/NVDA/GOOGL/AAPL): 不卖，仓位超40%时rebalance",
+      "价值仓位(GOLD/WFC/XOM/BRK-B/ITA): 不卖，靠分红回收成本",
+      "投机仓位(IBIT/DXYZ): 跌破50MA或亏20%必须止损",
+      "周期仓位(FCX/DAL): 到目标价分批卖1/3，不要一次全出",
+      "FTNT→AAPL换仓: 长期看AAPL更稳定，合理决定"
+    ]
+  }
+}
