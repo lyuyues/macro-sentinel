@@ -44,6 +44,7 @@ class Backtester:
         vix: pd.Series = None,
         yield_spread: pd.Series = None,
         fundamental_data: dict = None,
+        universe_func: callable = None,
     ):
         self.prices = prices
         self.universe = universe
@@ -53,6 +54,7 @@ class Backtester:
         self.vix = vix
         self.yield_spread = yield_spread
         self.fundamental_data = fundamental_data or {}
+        self.universe_func = universe_func
 
     def run(self) -> dict:
         """Execute the backtest and return results."""
@@ -121,6 +123,13 @@ class Backtester:
         """Execute monthly rebalance logic."""
         new_trades = []
 
+        # Resolve current universe and fair values
+        if self.universe_func is not None:
+            current_universe, current_fair_values = self.universe_func(date)
+        else:
+            current_universe = self.universe
+            current_fair_values = self.fair_values
+
         # Price history up to this date
         hist = self.prices.loc[:date]
 
@@ -151,7 +160,7 @@ class Backtester:
         trend_flags = {}
         volatilities = {}
 
-        for ticker in self.universe:
+        for ticker in current_universe:
             if ticker not in hist.columns:
                 continue
             ticker_prices = hist[ticker].dropna()
@@ -160,7 +169,7 @@ class Backtester:
 
             # F1: DCF discount
             current_price = ticker_prices.iloc[-1]
-            fv = self.fair_values.get(ticker, np.nan)
+            fv = current_fair_values.get(ticker, np.nan)
             f1 = factor_dcf_discount(fv, current_price)
 
             # F2: Relative valuation (price percentile in 1-year history as proxy)
@@ -205,7 +214,7 @@ class Backtester:
 
         # Signal generation
         selected = generate_signals(
-            composite_scores, trend_flags, regime, len(self.universe)
+            composite_scores, trend_flags, regime, len(current_universe)
         )
 
         # Sell check for current positions
@@ -214,7 +223,7 @@ class Backtester:
                 continue
             current_price = hist[ticker].dropna().iloc[-1]
             pos = positions[ticker]
-            fv = self.fair_values.get(ticker, np.nan)
+            fv = current_fair_values.get(ticker, np.nan)
 
             should_sell, reason = check_sell_conditions(
                 entry_price=pos["entry_price"],
@@ -235,6 +244,24 @@ class Backtester:
                     "price": current_price,
                     "value": sell_value,
                     "reason": reason,
+                })
+                del positions[ticker]
+
+        # Forced sell: positions not in current universe
+        for ticker in list(positions.keys()):
+            if ticker not in current_universe and ticker in hist.columns:
+                current_price = hist[ticker].dropna().iloc[-1]
+                pos = positions[ticker]
+                sell_value = pos["shares"] * current_price * (1 - COST_PER_SIDE)
+                cash += sell_value
+                new_trades.append({
+                    "date": date,
+                    "ticker": ticker,
+                    "action": "sell",
+                    "shares": pos["shares"],
+                    "price": current_price,
+                    "value": sell_value,
+                    "reason": "universe_exit",
                 })
                 del positions[ticker]
 
