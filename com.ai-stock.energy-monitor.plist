@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Energy Cycle Monitor — launchd template
+
+  This is a reference file. Use `python energy_monitor.py --install` to
+  generate and install the actual plist with correct paths to
+  ~/Library/LaunchAgents/com.ai-stock.energy-monitor.plist
+
+  Manual install:
+    1. Copy to ~/Library/LaunchAgents/
+    2. Edit ProgramArguments paths to match your system
+    3. launchctl load ~/Library/LaunchAgents/com.ai-stock.energy-monitor.plist
+
+  Manual uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.ai-stock.energy-monitor.plist
+-->
+<dict>
+    <key>Label</key>
+    <string>com.ai-stock.energy-monitor</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/PATH/TO/energy_monitor.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/PATH/TO/AI_stock_analysis</string>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>0</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/PATH/TO/AI_stock_analysis/output/energy_cycle/monitor.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/PATH/TO/AI_stock_analysis/output/energy_cycle/monitor.log</string>
+
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

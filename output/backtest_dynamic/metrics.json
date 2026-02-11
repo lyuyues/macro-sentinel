@@ -1,0 +1,13 @@
+{
+  "total_return": 12.9686,
+  "cagr": 0.2992,
+  "max_drawdown": 0.4193,
+  "volatility": 0.2368,
+  "sharpe": 1.0946,
+  "sortino": 1.3106,
+  "calmar": 0.7136,
+  "alpha": 0.1355,
+  "beta": 0.9975,
+  "benchmark_return": 3.0615,
+  "benchmark_cagr": 0.1493
+}

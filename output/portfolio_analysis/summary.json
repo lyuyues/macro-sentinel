@@ -1,0 +1,273 @@
+{
+  "generated": "2026-02-10T18:09:11.065095",
+  "accounts": [
+    {
+      "name": "Y Account (Brokerage)",
+      "total_cost_basis": 52970.62,
+      "total_market_value": 62352.53,
+      "total_gain": 9381.91,
+      "simple_return_pct": 17.71,
+      "xirr": 0.5089,
+      "holdings": [
+        {
+          "ticker": "TSLA",
+          "shares": 89.46,
+          "avg_cost": 296.6,
+          "current_price": 417.32,
+          "cost_basis": 26533.22,
+          "market_value": 37332.61,
+          "gain_loss": 10799.39,
+          "gain_loss_pct": 40.7,
+          "weight": 59.87
+        },
+        {
+          "ticker": "IBIT",
+          "shares": 177.81,
+          "avg_cost": 59.05,
+          "current_price": 40.11,
+          "cost_basis": 10499.5,
+          "market_value": 7132.0,
+          "gain_loss": -3367.5,
+          "gain_loss_pct": -32.07,
+          "weight": 11.44
+        },
+        {
+          "ticker": "FCX",
+          "shares": 123.81,
+          "avg_cost": 59.41,
+          "current_price": 63.61,
+          "cost_basis": 7354.75,
+          "market_value": 7875.3,
+          "gain_loss": 520.55,
+          "gain_loss_pct": 7.08,
+          "weight": 12.63
+        },
+        {
+          "ticker": "GOOGL",
+          "shares": 24.01,
+          "avg_cost": 259.45,
+          "current_price": 324.32,
+          "cost_basis": 6230.4,
+          "market_value": 7788.22,
+          "gain_loss": 1557.82,
+          "gain_loss_pct": 25.0,
+          "weight": 12.49
+        },
+        {
+          "ticker": "V",
+          "shares": 5.78,
+          "avg_cost": 346.66,
+          "current_price": 325.58,
+          "cost_basis": 2003.0,
+          "market_value": 1881.2,
+          "gain_loss": -121.8,
+          "gain_loss_pct": -6.08,
+          "weight": 3.02
+        },
+        {
+          "ticker": "EXLS",
+          "shares": 10.0,
+          "avg_cost": 32.0,
+          "current_price": 31.1,
+          "cost_basis": 320.0,
+          "market_value": 311.0,
+          "gain_loss": -9.0,
+          "gain_loss_pct": -2.81,
+          "weight": 0.5
+        },
+        {
+          "ticker": "DXYZ",
+          "shares": 1.0,
+          "avg_cost": 29.75,
+          "current_price": 32.2,
+          "cost_basis": 29.75,
+          "market_value": 32.2,
+          "gain_loss": 2.45,
+          "gain_loss_pct": 8.24,
+          "weight": 0.05
+        }
+      ]
+    },
+    {
+      "name": "Z Individual (TOD)",
+      "total_cost_basis": 441797.34,
+      "total_market_value": 561647.25,
+      "total_gain": 119849.91,
+      "simple_return_pct": 27.13,
+      "xirr": 0.1362,
+      "holdings": [
+        {
+          "ticker": "MSFT",
+          "shares": 1144.03,
+          "avg_cost": 334.21,
+          "current_price": 413.6,
+          "cost_basis": 382350.75,
+          "market_value": 473172.01,
+          "gain_loss": 90821.26,
+          "gain_loss_pct": 23.75,
+          "weight": 84.25
+        },
+        {
+          "ticker": "NVDA",
+          "shares": 131.03,
+          "avg_cost": 160.31,
+          "current_price": 190.04,
+          "cost_basis": 21006.01,
+          "market_value": 24901.51,
+          "gain_loss": 3895.5,
+          "gain_loss_pct": 18.54,
+          "weight": 4.43
+        },
+        {
+          "ticker": "AAPL",
+          "shares": 60.67,
+          "avg_cost": 196.33,
+          "current_price": 274.62,
+          "cost_basis": 11911.22,
+          "market_value": 16660.65,
+          "gain_loss": 4749.43,
+          "gain_loss_pct": 39.87,
+          "weight": 2.97
+        },
+        {
+          "ticker": "GOOGL",
+          "shares": 41.44,
+          "avg_cost": 214.23,
+          "current_price": 324.32,
+          "cost_basis": 8878.0,
+          "market_value": 13440.47,
+          "gain_loss": 4562.47,
+          "gain_loss_pct": 51.39,
+          "weight": 2.39
+        },
+        {
+          "ticker": "GOLD",
+          "shares": 239.17,
+          "avg_cost": 21.98,
+          "current_price": 64.14,
+          "cost_basis": 5255.71,
+          "market_value": 15340.17,
+          "gain_loss": 10084.46,
+          "gain_loss_pct": 191.88,
+          "weight": 2.73
+        },
+        {
+          "ticker": "WFC",
+          "shares": 60.56,
+          "avg_cost": 55.79,
+          "current_price": 94.61,
+          "cost_basis": 3378.64,
+          "market_value": 5729.96,
+          "gain_loss": 2351.32,
+          "gain_loss_pct": 69.59,
+          "weight": 1.02
+        },
+        {
+          "ticker": "BRK-B",
+          "shares": 6.0,
+          "avg_cost": 483.69,
+          "current_price": 498.08,
+          "cost_basis": 2902.14,
+          "market_value": 2988.48,
+          "gain_loss": 86.34,
+          "gain_loss_pct": 2.98,
+          "weight": 0.53
+        },
+        {
+          "ticker": "XOM",
+          "shares": 27.39,
+          "avg_cost": 94.43,
+          "current_price": 151.21,
+          "cost_basis": 2586.92,
+          "market_value": 4142.25,
+          "gain_loss": 1555.33,
+          "gain_loss_pct": 60.12,
+          "weight": 0.74
+        },
+        {
+          "ticker": "VDE",
+          "shares": 20.53,
+          "avg_cost": 107.81,
+          "current_price": 151.26,
+          "cost_basis": 2213.17,
+          "market_value": 3105.07,
+          "gain_loss": 891.9,
+          "gain_loss_pct": 40.3,
+          "weight": 0.55
+        },
+        {
+          "ticker": "DAL",
+          "shares": 15.73,
+          "avg_cost": 47.88,
+          "current_price": 75.0,
+          "cost_basis": 753.01,
+          "market_value": 1179.6,
+          "gain_loss": 426.59,
+          "gain_loss_pct": 56.65,
+          "weight": 0.21
+        },
+        {
+          "ticker": "ITA",
+          "shares": 3.16,
+          "avg_cost": 125.22,
+          "current_price": 234.84,
+          "cost_basis": 395.56,
+          "market_value": 741.86,
+          "gain_loss": 346.3,
+          "gain_loss_pct": 87.55,
+          "weight": 0.13
+        },
+        {
+          "ticker": "B",
+          "shares": 4.63,
+          "avg_cost": 30.53,
+          "current_price": 46.63,
+          "cost_basis": 141.43,
+          "market_value": 216.04,
+          "gain_loss": 74.61,
+          "gain_loss_pct": 52.75,
+          "weight": 0.04
+        },
+        {
+          "ticker": "JETS",
+          "shares": 0.94,
+          "avg_cost": 26.31,
+          "current_price": 30.99,
+          "cost_basis": 24.78,
+          "market_value": 29.19,
+          "gain_loss": 4.41,
+          "gain_loss_pct": 17.81,
+          "weight": 0.01
+        }
+      ]
+    },
+    {
+      "name": "Z HSA",
+      "total_cost_basis": 14316.98,
+      "total_market_value": 14316.11,
+      "total_gain": -0.87,
+      "simple_return_pct": -0.01,
+      "xirr": null,
+      "holdings": [
+        {
+          "ticker": "QQQ",
+          "shares": 23.3,
+          "avg_cost": 614.36,
+          "current_price": 614.32,
+          "cost_basis": 14316.98,
+          "market_value": 14316.11,
+          "gain_loss": -0.87,
+          "gain_loss_pct": -0.01,
+          "weight": 100.0
+        }
+      ]
+    }
+  ],
+  "combined": {
+    "total_cost_basis": 509084.94,
+    "total_market_value": 638315.9,
+    "total_gain": 129230.96,
+    "simple_return_pct": 25.38,
+    "total_401k_contributions": 170728.29
+  }
+}

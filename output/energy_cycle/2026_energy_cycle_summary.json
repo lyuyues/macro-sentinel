@@ -1,0 +1,79 @@
+{
+  "description": "20-year energy cycle data (2005-2026)",
+  "data_sources": [
+    "Yahoo Finance (CL=F, BZ=F, NG=F, XOM, CVX, XLE, SPY)"
+  ],
+  "cycle_summary": {
+    "complete_cycles": 3,
+    "cycle_1": {
+      "period": "2005-2009",
+      "type": "China supercycle -> GFC crash",
+      "WTI_peak": 147,
+      "WTI_trough": 34
+    },
+    "cycle_2": {
+      "period": "2010-2016",
+      "type": "Shale revolution -> OPEC price war",
+      "WTI_peak": 114,
+      "WTI_trough": 26
+    },
+    "cycle_3": {
+      "period": "2020-2025",
+      "type": "COVID crash -> Russia-Ukraine war -> normalization",
+      "WTI_peak": 124,
+      "WTI_trough": -37.63
+    }
+  },
+  "key_rules": {
+    "buy_signals": [
+      "WTI < $40-45",
+      "XOM P/E > 25x or negative earnings",
+      "XOM dividend yield > 4.5%",
+      "Baker Hughes rig count dropping sharply",
+      "Media headlines: 'oil is dead', 'peak oil demand'",
+      "OPEC emergency production cuts"
+    ],
+    "sell_signals": [
+      "WTI > $90-100",
+      "XOM P/E < 10x",
+      "XOM dividend yield < 2.5%",
+      "Rig count rising rapidly",
+      "Media headlines: 'oil supercycle', '$200 oil'",
+      "OPEC discussing production increases"
+    ],
+    "current_status_2026_feb": {
+      "WTI": 64,
+      "XOM_PE": 22.6,
+      "XOM_div_yield_pct": 2.7,
+      "XOM_price": 151.59,
+      "assessment": "Mid-to-late cycle. Stock price diverging from oil price. P/E elevated. Consider reducing 25-50%."
+    }
+  },
+  "tracking_indicators": [
+    {
+      "name": "WTI/Brent Price",
+      "frequency": "daily",
+      "source": "TradingView / Yahoo Finance"
+    },
+    {
+      "name": "Baker Hughes Rig Count",
+      "frequency": "weekly (Friday)",
+      "source": "bakerhughes.com"
+    },
+    {
+      "name": "EIA Crude Inventory",
+      "frequency": "weekly (Wednesday)",
+      "source": "eia.gov"
+    },
+    {
+      "name": "OPEC+ Meeting Decisions",
+      "frequency": "monthly",
+      "source": "opec.org"
+    },
+    {
+      "name": "XOM/CVX Quarterly Earnings",
+      "frequency": "quarterly",
+      "source": "SEC EDGAR / Investor Relations"
+    }
+  ]
+}
