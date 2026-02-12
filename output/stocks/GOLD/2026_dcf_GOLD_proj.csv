@@ -1,0 +1,11 @@
+,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035
+Revenue (M),12030.81984369955,13015.916093526992,13899.966289690232,14650.013369816677,15236.013904609345,15845.454460793719,16419.85218499749,16953.497381009907,17440.910430713942,17876.93319148179
+Free Cash Flow (M),-12.343103819284375,-13.353770211232339,-14.260767697227948,-15.030283748471964,-15.631495098410843,-16.256754902347275,-16.846062267557365,-17.393559291252977,-17.893624120876503,-18.34096472389841
+Growth Rate (%),9.584140982637246,8.188105736977933,6.792070491318623,5.396035245659311,4.0,4.0,3.6250000000000004,3.25,2.875,2.5
+Discount Factor,1.07,1.14,1.23,1.31,1.4,1.5,1.61,1.72,1.84,1.97
+PV of Future Cash Flow (M),-11.535611046060161,-11.66370007095147,-11.641034394080817,-11.466531507424989,-11.145039969833633,-10.832562213670073,-10.490880928893095,-10.123209868301046,-9.732945936462338,-9.323616434461583
+Revenue Tag,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment
+Base Start,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01,2024-07-01
+Base End,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30,2025-06-30

@@ -1,0 +1,56 @@
+,2023Q2,2023Q3,2023Q4,2024Q1,2024Q2,2024Q3,2024Q4,2025Q1,2025Q2,2025Q3
+Data Source,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q
+Revenue (M),20830.0,22093.0,22839.0,22840.0,22884.0,22998.0,22055.0,20973.0,21320.0,22419.0
+Gross Margin (%),,,,,,,,,,
+Operating Income (M),,,,,,,,,,
+Operating Margin (%),,,,,,,,,,
+Net Income (M),4938.0,5767.0,3446.0,4619.0,4910.0,5114.0,5079.0,4894.0,5494.0,5589.0
+Net Profit Margin (%),23.70619299087854,26.103290635042775,15.08822627960944,20.223292469352014,21.45603915399406,22.23671623619445,23.028791657220584,23.334763743861156,25.769230769230766,24.92974708952228
+D&A (M),,,,,,,,,,
+EBITDA (M),,,,,,,,,,
+R&D Expense (M),,,,,,,,,,
+SBC (M),,,,,,,,,,
+Interest Expense (M),7667.0,8988.0,10068.0,10613.0,10961.0,,,,,
+Income Tax (M),930.0,811.0,-100.0,964.0,1251.0,1064.0,120.0,522.0,916.0,1300.0
+Effective Tax Rate (%),15.943768215326589,12.387352986100504,-2.932551319648094,17.25434043314838,20.308441558441558,17.067693294834775,2.229240200631618,9.800976342470898,14.228021124572848,18.81603705311912
+EPS Diluted ($),1.25,1.48,0.8700000000000001,1.2,1.33,1.42,1.42,1.39,1.6,1.66
+Dividends Per Share ($),0.3,0.35,0.3500000000000001,0.35,0.35,0.4,0.3999999999999999,0.4,0.4,0.45
+Cash from Operations (M),,,,-12125.0,,,,-11037.0,,
+CapEx (M),,,,,,,,,,
+Free Cash Flow (M),,,,,,,,,,
+FCF to Profit Margin (%),,,,,,,,,,
+Buyback (M),,,,6001.0,,,,3500.0,,
+Dividends Paid (M),,,,1247.0,,,,1318.0,,
+Cash (B),,,,,,,,,,
+Total Cash (B),,,0.0,,,,0.0,,,
+Total Debt (B),254.887,283.365,297.147,296.778,297.97,293.909,281.884,313.436,364.232,408.422
+Total Assets (B),1876.32,1909.261,1932.468,1959.153,1940.073,1922.125,1929.845,1950.311,1981.269,2062.926
+Accounts Receivable (B),30.599,28.34,30.541,32.44,21.243,28.977,19.608,28.596,34.809,20.882
+Stockholders Equity (B),180.191,180.715,185.735,180.943,176.43,183.265,179.12,181.09,181.111,181.154
+Shares Outstanding (M),3724.9,3680.6,3657.4,3600.1,3486.2,3425.1,3359.0,3321.6,3267.0,3223.5
+Revenue Tag,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating
+Net Income Tag,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss
+CFO Tag,,,,NetCashProvidedByUsedInOperatingActivities,,,,NetCashProvidedByUsedInOperatingActivities,,
+CapEx Tag,,,,,,,,,,
+Gross Profit Tag,,,,,,,,,,
+Operating Income Tag,,,,,,,,,,
+D&A Tag,,,,,,,,,,
+R&D Tag,,,,,,,,,,
+SBC Tag,,,,,,,,,,
+Interest Expense Tag,InterestExpense,InterestExpense,,InterestExpense,InterestExpense,,,,,
+Income Tax Tag,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit
+EPS Tag,EarningsPerShareDiluted,EarningsPerShareDiluted,,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted
+DPS Tag,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared,,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared,,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared
+Buyback Tag,,,,PaymentsForRepurchaseOfCommonStock,,,,PaymentsForRepurchaseOfCommonStock,,
+Dividends Paid Tag,,,,PaymentsOfDividendsCommonStock,,,,PaymentsOfDividendsCommonStock,,
+Cash Tag,,,,,,,,,,
+MS Current Tag,,,,,,,,,,
+MS Noncurrent Tag,,,,,,,,,,
+LT Debt Tag,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt,LongTermDebt
+ST Debt Tag,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings,ShortTermBorrowings
+Assets Tag,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets
+AR Tag,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet,AccountsReceivableNet
+Equity Tag,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity
+Shares Tag,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding
+Start,2023-04-01,2023-07-01,,2024-01-01,2024-04-01,2024-07-01,,2025-01-01,2025-04-01,2025-07-01
+End,2023-06-30,2023-09-30,,2024-03-31,2024-06-30,2024-09-30,,2025-03-31,2025-06-30,2025-09-30

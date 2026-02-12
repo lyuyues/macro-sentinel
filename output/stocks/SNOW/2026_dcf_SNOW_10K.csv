@@ -1,0 +1,58 @@
+,2018,2019,2020,2021,2022,2023,2024
+Revenue (M),96.666,264.748,264.748,592.049,1219.327,2065.659,2806.489
+Gross Margin (%),46.46204456582459,55.97436052396997,55.97436052396997,59.025688752113425,62.40278448685217,65.26338567982421,67.98284261937246
+Operating Income (M),-185.465,-358.088,-358.088,-543.937,-715.036,-842.267,-1094.773
+Operating Margin (%),-191.86166801150353,-135.25616812969315,-135.25616812969315,-91.8736455935235,-58.64185735245755,-40.77473581070254,-39.00863320682889
+Net Income (M),-178.028,-348.535,-348.535,-539.102,-679.948,-796.705,-836.097
+Net Profit Margin (%),-184.16816667701156,-131.6478311450889,-131.6478311450889,-91.05699021533691,-55.76420435207291,-38.56904745652598,-29.791565190528097
+D&A (M),1.362,3.522,3.522,9.826,21.498,63.535,119.903
+EBITDA (M),-184.103,-354.566,-354.566,-534.111,-693.538,-778.732,-974.87
+R&D Expense (M),68.681,105.16,105.16,237.946,466.932,788.058,1287.949
+SBC (M),22.409,78.399,78.399,301.441,605.095,861.533,1168.015
+Interest Expense (M),,,,,,,
+Income Tax (M),0.82,0.993,0.993,2.062,2.988,-18.467,-11.233
+Effective Tax Rate (%),-0.46273305945555504,-0.28572086251445866,-0.28572086251445866,-0.3839565023089528,-0.4413850153627984,2.263132159221954,1.3227385504160862
+EPS Diluted ($),-4.67,-7.77,-3.81,-3.81,-2.26,-2.5,-2.55
+Dividends Per Share ($),,,,,,,
+Cash from Operations (M),-143.982,-176.558,-176.558,-45.417,110.179,545.639,848.122
+CapEx (M),2.058,18.583,18.583,35.037,16.221,25.128,35.086
+Free Cash Flow (M),-146.04,-195.141,-195.141,-80.454,93.958,520.511,813.036
+FCF to Profit Margin (%),82.03203990383535,55.98892507208745,55.98892507208745,14.923706460002004,-13.818409643090353,-65.33296515021244,-97.24182720425979
+Buyback (M),29.644,0.0,0.0,0.0,0.0,0.0,591.732
+Dividends Paid (M),,,,,,,
+Cash (B),,,,0.127206,0.820177,1.085729,0.939902
+Total Cash (B),,,,0.127206,0.820177,1.085729,0.939902
+Total Debt (B),,,,,,,
+Total Assets (B),,,,5.921739,6.649698,7.722322,8.223383
+Accounts Receivable (B),,,,0.294017,0.545629,0.715821,0.926902
+Stockholders Equity (B),,,,-0.312467,4.936471,5.456436,5.180308
+Shares Outstanding (M),,44.847442,141.613,141.613196,300.273227,318.73,328.001
+ROE (%),,,,172.53085925873773,-13.77396929912077,-14.60119755825964,-16.139909055600555
+ROA (%),,,,-9.103778467777794,-10.225246319456915,-10.316909862085524,-10.167311920167164
+ROIC (%),,,,124.18899533971026,-17.44754047593417,-18.834604668226127,-25.476145809845878
+Revenue Tag,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax
+Net Income Tag,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment
+Gross Profit Tag,GrossProfit,GrossProfit,GrossProfit,GrossProfit,GrossProfit,GrossProfit,GrossProfit
+Operating Income Tag,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss
+D&A Tag,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization
+R&D Tag,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense,ResearchAndDevelopmentExpense
+SBC Tag,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation
+Interest Expense Tag,,,,,,,
+Income Tax Tag,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit
+EPS Tag,EarningsPerShareBasicAndDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted
+DPS Tag,,,,,,,
+Buyback Tag,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock,PaymentsForRepurchaseOfCommonStock
+Dividends Paid Tag,,,,,,,
+Cash Tag,,,,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue
+MS Current Tag,,,,,,,
+MS Noncurrent Tag,,,,,,,
+LT Debt Tag,,,,,,,
+ST Debt Tag,,,,,,,
+Assets Tag,,,,Assets,Assets,Assets,Assets
+AR Tag,,,,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent
+Equity Tag,,,,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity
+Shares Tag,,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding
+Start,2018-02-01,2019-02-01,2020-02-01,2021-02-01,2022-02-01,2023-02-01,2024-02-01
+End,2019-01-31,2020-01-31,2021-01-31,2022-01-31,2023-01-31,2024-01-31,2025-01-31

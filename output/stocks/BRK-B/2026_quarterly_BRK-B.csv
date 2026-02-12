@@ -1,0 +1,56 @@
+,2023Q2,2023Q3,2023Q4,2024Q1,2024Q2,2024Q3,2024Q4,2025Q1,2025Q2,2025Q3
+Data Source,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q
+Revenue (M),65383.0,65197.0,64581.0,61291.0,63519.0,62048.0,62856.0,59357.0,61406.0,63747.0
+Gross Margin (%),,,,,,,,,,
+Operating Income (M),,,,,,,,,,
+Operating Margin (%),,,,,,,,,,
+Net Income (M),35912.0,-12767.0,37574.0,12702.0,30348.0,26251.0,19694.0,4603.0,12370.0,30796.0
+Net Profit Margin (%),54.925592279338666,-19.582189364541314,58.181198804601976,20.724086733778204,47.7778302555141,42.30756833419289,31.331933307878323,7.75477197297707,20.144611275771098,48.30972437918647
+D&A (M),,,,3168.0,3198.0,3206.0,3283.0,3265.0,3329.0,3333.0
+EBITDA (M),,,,3168.0,3198.0,3206.0,3283.0,3265.0,3329.0,3333.0
+R&D Expense (M),,,,,,,,,,
+SBC (M),,,,,,,,,,
+Interest Expense (M),,,,1316.0,1230.0,1214.0,1440.0,1257.0,1253.0,1261.0
+Income Tax (M),9236.0,-4392.0,9180.0,2874.0,7639.0,6028.0,4274.0,476.0,2293.0,7241.0
+Effective Tax Rate (%),20.327941014636295,25.89775340527154,19.557714431803657,18.298739335285877,20.030416655741142,18.543127845453427,17.789802289281997,9.246309246309247,15.545762711864406,19.002755543891876
+EPS Diluted ($),,,,,,,,,,
+Dividends Per Share ($),,,,,,,,,,
+Cash from Operations (M),,,,10566.0,,,,10903.0,,
+CapEx (M),,,,4393.0,,,,4281.0,,
+Free Cash Flow (M),,,,6173.0,,,,6622.0,,
+FCF to Profit Margin (%),,,,48.598645882538186,,,,143.8626982402781,,
+Buyback (M),,,,2562.0,,,,,,
+Dividends Paid (M),,,,,,,,,,
+Cash (B),,,,,,,,,,
+Total Cash (B),,,0.0,,,,0.0,,,
+Total Debt (B),,,0.0,,,,0.0,,,
+Total Assets (B),1041.573,1019.933,1069.978,1070.035,1108.86,1147.251,1153.881,1164.532,1163.968,1225.963
+Accounts Receivable (B),,,,,,,,,,
+Stockholders Equity (B),539.883,525.33,561.273,571.49,601.697,629.069,649.368,654.471,667.989,698.155
+Shares Outstanding (M),,,,,,,,,,
+Revenue Tag,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax
+Net Income Tag,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss
+CFO Tag,,,,NetCashProvidedByUsedInOperatingActivities,,,,NetCashProvidedByUsedInOperatingActivities,,
+CapEx Tag,,,,PaymentsToAcquirePropertyPlantAndEquipment,,,,PaymentsToAcquirePropertyPlantAndEquipment,,
+Gross Profit Tag,,,,,,,,,,
+Operating Income Tag,,,,,,,,,,
+D&A Tag,,,,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization
+R&D Tag,,,,,,,,,,
+SBC Tag,,,,,,,,,,
+Interest Expense Tag,,,,InterestExpense,InterestExpense,InterestExpense,,InterestExpense,InterestExpense,InterestExpense
+Income Tax Tag,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit
+EPS Tag,,,,,,,,,,
+DPS Tag,,,,,,,,,,
+Buyback Tag,,,,PaymentsForRepurchaseOfCommonStock,,,,,,
+Dividends Paid Tag,,,,,,,,,,
+Cash Tag,,,,,,,,,,
+MS Current Tag,,,,,,,,,,
+MS Noncurrent Tag,,,,,,,,,,
+LT Debt Tag,,,,,,,,,,
+ST Debt Tag,,,,,,,,,,
+Assets Tag,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets
+AR Tag,,,,,,,,,,
+Equity Tag,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity
+Shares Tag,,,,,,,,,,
+Start,2023-04-01,2023-07-01,,2024-01-01,2024-04-01,2024-07-01,,2025-01-01,2025-04-01,2025-07-01
+End,2023-06-30,2023-09-30,,2024-03-31,2024-06-30,2024-09-30,,2025-03-31,2025-06-30,2025-09-30

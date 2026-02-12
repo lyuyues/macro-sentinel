@@ -1,0 +1,56 @@
+,2023Q2,2023Q3,2023Q4,2024Q1,2024Q2,2024Q3,2024Q4,2025Q1,2025Q2,2025Q3
+Data Source,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q,10-K Derived,10-Q,10-Q,10-Q
+Revenue (M),486.0,467.0,471.0,618.0,682.0,637.0,1014.0,927.0,989.0,1274.0
+Gross Margin (%),,,,,,,,,,
+Operating Income (M),,,,,,,,,,
+Operating Margin (%),,,,,,,,,,
+Net Income (M),25.0,-85.0,30.0,157.0,188.0,150.0,916.0,336.0,386.0,556.0
+Net Profit Margin (%),5.1440329218107,-18.201284796573873,6.369426751592357,25.40453074433657,27.56598240469208,23.547880690737834,90.3353057199211,36.24595469255664,39.02932254802831,43.64207221350079
+D&A (M),,,,17.0,,,,20.0,,
+EBITDA (M),,,,17.0,,,,20.0,,
+R&D Expense (M),,,,,,,,,,
+SBC (M),109.0,83.0,81.0,62.0,86.0,79.0,77.0,73.0,78.0,78.0
+Interest Expense (M),,,,,,,,,,
+Income Tax (M),-3.0,10.0,-1.0,5.0,3.0,3.0,-358.0,35.0,56.0,78.0
+Effective Tax Rate (%),-13.636363636363635,-13.333333333333334,-3.4482758620689653,3.0864197530864197,1.5706806282722512,1.9607843137254901,-64.15770609318996,9.433962264150944,12.669683257918551,12.302839116719243
+EPS Diluted ($),0.03,-0.09,0.019999999999999907,0.18,0.21,0.17,1.0,0.37,0.42,0.61
+Dividends Per Share ($),,,,,,,,,,
+Cash from Operations (M),,,,-623.0,,,,642.0,,
+CapEx (M),,,,,,,,,,
+Free Cash Flow (M),,,,,,,,,,
+FCF to Profit Margin (%),,,,,,,,,,
+Buyback (M),,,,0.0,,,,322.0,,
+Dividends Paid (M),,,,,,,,,,
+Cash (B),5.829,4.889,4.835,4.717,4.524,4.611,4.332,4.416,4.162,4.331
+Total Cash (B),5.829,4.889,4.835,4.717,4.524,4.611,4.332,4.416,4.162,4.331
+Total Debt (B),,,0.0,,,,0.0,,,
+Total Assets (B),28.66,26.318,17.624,46.088,41.346,43.245,26.187,27.517,35.324,41.452
+Accounts Receivable (B),,,,,,,,,,
+Stockholders Equity (B),7.187,6.574,6.696,6.885,7.122,7.208,7.972,7.953,8.072,8.567
+Shares Outstanding (M),921.269749,895.10879,850.127402,895.779155,904.490572,905.54475,918.871539,909.241619,909.127658,917.94066
+Revenue Tag,Revenues,Revenues,,Revenues,Revenues,Revenues,,Revenues,Revenues,Revenues
+Net Income Tag,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss,,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss
+CFO Tag,,,,NetCashProvidedByUsedInOperatingActivities,,,,NetCashProvidedByUsedInOperatingActivities,,
+CapEx Tag,,,,,,,,,,
+Gross Profit Tag,,,,,,,,,,
+Operating Income Tag,,,,,,,,,,
+D&A Tag,,,,DepreciationDepletionAndAmortization,,,,DepreciationDepletionAndAmortization,,
+R&D Tag,,,,,,,,,,
+SBC Tag,AllocatedShareBasedCompensationExpense,AllocatedShareBasedCompensationExpense,,ShareBasedCompensation,AllocatedShareBasedCompensationExpense,AllocatedShareBasedCompensationExpense,,ShareBasedCompensation,AllocatedShareBasedCompensationExpense,AllocatedShareBasedCompensationExpense
+Interest Expense Tag,,,,,,,,,,
+Income Tax Tag,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit
+EPS Tag,EarningsPerShareDiluted,EarningsPerShareDiluted,,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted,,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted
+DPS Tag,,,,,,,,,,
+Buyback Tag,,,,PaymentsForRepurchaseOfCommonStock,,,,PaymentsForRepurchaseOfCommonStock,,
+Dividends Paid Tag,,,,,,,,,,
+Cash Tag,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue
+MS Current Tag,,,,,,,,,,
+MS Noncurrent Tag,,,,,,,,,,
+LT Debt Tag,,,,,,,,,,
+ST Debt Tag,,,,,,,,,,
+Assets Tag,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets
+AR Tag,,,,,,,,,,
+Equity Tag,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity
+Shares Tag,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding
+Start,2023-04-01,2023-07-01,,2024-01-01,2024-04-01,2024-07-01,,2025-01-01,2025-04-01,2025-07-01
+End,2023-06-30,2023-09-30,,2024-03-31,2024-06-30,2024-09-30,,2025-03-31,2025-06-30,2025-09-30

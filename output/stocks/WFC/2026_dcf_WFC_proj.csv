@@ -1,0 +1,11 @@
+,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034
+Revenue (M),96223.62,101155.080525,105454.1714473125,109013.2497336593,111738.58097700076,114532.04550142576,117252.18158208462,119890.35566768152,122438.02572561975,124886.78624013215
+Free Cash Flow (M),14433.543,15173.26207875,15818.125717096875,16351.987460048893,16760.787146550112,17179.806825213862,17587.827237312693,17983.553350152226,18365.70385884296,18733.01793601982
+Growth Rate (%),6.0,5.125,4.25,3.375,2.5,2.5,2.375,2.25,2.125,2.0
+Discount Factor,1.07,1.14,1.23,1.31,1.4,1.5,1.61,1.72,1.84,1.97
+PV of Future Cash Flow (M),13489.292523364486,13252.914733819547,12912.302439258763,12474.852940732471,11950.209592757737,11447.630684651102,10952.814872347259,10466.59178221969,9989.726035132577,9522.916407322644
+Revenue Tag,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating,InterestAndDividendIncomeOperating
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,,,,,,,,,,
+Base Start,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01
+Base End,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31

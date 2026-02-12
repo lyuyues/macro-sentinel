@@ -1,0 +1,30 @@
+Metric,NBIS (Target),CRWV,SMCI,VRT,NET,SNOW,Peer Stats
+Company Name,Nebius Group N.V.,"CoreWeave, Inc.","Super Micro Computer, Inc.","Vertiv Holdings, LLC","Cloudflare, Inc.",Snowflake Inc.,
+Data Source,yfinance,yfinance,yfinance,yfinance,yfinance,yfinance,
+Sector,Communication Services,Technology,Technology,Industrials,Technology,Technology,
+Revenue TTM ($B),0.36,4.31,28.06,9.70,2.01,4.39,
+Enterprise Value ($B),23.16,65.10,21.24,78.48,60.32,59.54,
+Market Cap ($B),23.39,50.45,20.08,77.23,60.86,60.21,
+EV/Revenue,63.75,15.12,0.76,8.09,29.96,13.57,Median: 13.57
+EV/EBITDA,N/A,29.81,19.37,38.43,N/A,N/A,Median: 29.81
+Gross Margin (%),59.1,73.9,8.0,35.7,75.2,67.2,Median: 67.2%
+Net Margin (%),60.0,-17.8,3.1,10.7,-5.1,-30.8,Median: -5.1%
+FCF Margin (%),-567.9,-161.4,0.4,5.5,17.7,29.3,
+Revenue Growth (%),355.1,133.7,123.4,29.0,30.7,28.7,Median: 30.7%
+Price ($),92.88,96.79,33.53,202.00,173.75,175.95,
+
+Implied Valuation
+Peer Median EV/Revenue,13.57
+Target Revenue ($B),0.36
+Implied EV ($B),4.93
+Implied Equity ($B),5.16
+Implied Price ($),23.64
+Current Price ($),92.88
+Upside/Downside (%),-74.5%
+
+Forward Implied Valuation
+Peer Median EV/Fwd Revenue,6.468364422608319
+Forward Revenue ($B),1.65
+Implied EV ($B),10.69
+Implied Price ($),50.06
+Upside/Downside (%),-46.1%

@@ -1,0 +1,11 @@
+,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035
+Revenue (M),44000.0,47630.0,50725.95,53135.43262500001,54729.49560375001,56371.38047186251,57992.05766042856,59586.83924609035,61150.99377630022,62679.76862070773
+Free Cash Flow (M),22000.0,23815.0,25362.975,26567.716312500004,27364.747801875004,28185.690235931255,28996.02883021428,29793.419623045174,30575.49688815011,31339.884310353864
+Growth Rate (%),10.0,8.25,6.5,4.75,3.0,3.0,2.875,2.75,2.6250000000000004,2.5
+Discount Factor,1.07,1.14,1.23,1.31,1.4,1.5,1.61,1.72,1.84,1.97
+PV of Future Cash Flow (M),20560.7476635514,20800.943313826534,20703.742644135753,20268.383569843183,19510.686987792968,18781.315511613793,18057.2694696941,17340.04147673896,16631.044453741455,15931.608004752326
+Revenue Tag,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets,PaymentsToAcquireProductiveAssets
+Base Start,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01,2024-10-01
+Base End,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30,2025-09-30

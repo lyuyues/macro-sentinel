@@ -1,0 +1,11 @@
+,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034
+Revenue (M),121.025,124.65575,128.3954225,132.247285175,136.21470373025,140.30114484215753,144.33480275636956,148.30400983216975,152.1969900902642,156.0019148425208
+Free Cash Flow (M),-12.1025,-12.465575,-12.83954225,-13.224728517500001,-13.621470373025,-14.030114484215751,-14.433480275636956,-14.830400983216975,-15.21969900902642,-15.60019148425208
+Growth Rate (%),3.0,3.0,3.0,3.0,3.0,3.0,2.875,2.75,2.6250000000000004,2.5
+Discount Factor,1.07,1.14,1.23,1.31,1.4,1.5,1.61,1.72,1.84,1.97
+PV of Future Cash Flow (M),-11.310747663551401,-10.88791597519434,-10.480891078925392,-10.089082066629116,-9.711920120213072,-9.348857685812582,-8.988446116149248,-8.631428396582574,-8.278507842983988,-7.9303462981855946
+Revenue Tag,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues,Revenues
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment
+Base Start,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01,2024-01-01
+Base End,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31,2024-12-31

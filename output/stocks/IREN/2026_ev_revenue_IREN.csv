@@ -1,0 +1,23 @@
+Metric,IREN (Target),MARA,CLSK,HUT,CORZ,RIOT,Peer Stats
+Company Name,IREN LIMITED,"MARA Holdings, Inc.","CleanSpark, Inc.",Hut 8 Corp.,"Core Scientific, Inc.","Riot Platforms, Inc.",
+Data Source,yfinance,yfinance,yfinance,yfinance,yfinance,yfinance,
+Sector,Financial Services,Financial Services,Financial Services,Financial Services,Technology,Financial Services,
+Revenue TTM ($B),0.76,0.92,0.79,0.18,0.33,0.64,
+Enterprise Value ($B),15.92,5.95,3.91,6.30,5.92,5.91,
+Market Cap ($B),15.31,3.05,2.61,6.15,5.75,5.57,
+EV/Revenue,21.02,6.47,4.98,35.34,17.72,9.28,Median: 9.28
+EV/EBITDA,81.94,5.27,N/A,12.57,N/A,11.63,Median: 11.63
+Gross Margin (%),68.1,44.9,53.1,47.8,10.2,39.5,Median: 44.9%
+Net Margin (%),51.5,100.8,-33.2,115.4,-229.9,25.7,Median: 25.7%
+FCF Margin (%),-165.1,24.0,-39.2,78.3,-114.0,12.6,
+Revenue Growth (%),59.0,91.7,11.6,90.9,-14.9,112.6,Median: 90.9%
+Price ($),46.15,8.06,10.19,56.89,18.55,14.97,
+
+Implied Valuation
+Peer Median EV/Revenue,9.28
+Target Revenue ($B),0.76
+Implied EV ($B),7.03
+Implied Equity ($B),6.44
+Implied Price ($),19.43
+Current Price ($),46.15
+Upside/Downside (%),-57.9%

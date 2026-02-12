@@ -1,0 +1,58 @@
+,2023,2024,2025
+Revenue (M),75.509,187.192,501.023
+Gross Margin (%),,,
+Operating Income (M),-157.241,-27.234,17.327
+Operating Margin (%),-208.2414016872161,-14.548698662335996,3.458324268546554
+Net Income (M),-171.827,-28.92,86.941
+Net Profit Margin (%),-227.55830430809573,-15.44937817855464,17.352696383199973
+D&A (M),30.673,50.47,181.136
+EBITDA (M),-126.568,23.236,198.463
+R&D Expense (M),,,
+SBC (M),14.356,23.636,42.642
+Interest Expense (M),,,
+Income Tax (M),2.39,3.453,6.56
+Effective Tax Rate (%),-1.4105537751494657,-13.558723053363176,7.015967743660495
+EPS Diluted ($),-3.14,-0.29,0.39
+Dividends Per Share ($),0.0,0.0,0.0
+Cash from Operations (M),5.729,52.219,245.886
+CapEx (M),116.064,141.855,35.84
+Free Cash Flow (M),-110.335,-89.636,210.046
+FCF to Profit Margin (%),64.21284198641656,150.0,150.0
+Buyback (M),,,
+Dividends Paid (M),,,
+Cash (B),,,0.564526
+Total Cash (B),,,0.564526
+Total Debt (B),,,
+Total Assets (B),,,2.940323
+Accounts Receivable (B),,,0.001564
+Stockholders Equity (B),,,1.097471
+Shares Outstanding (M),54.775771,99.64092,223.245651
+ROE (%),,,7.9219405341917914
+ROA (%),,,2.956852019318966
+ROIC (%),,,3.0230780416470644
+Revenue Tag,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax,RevenueFromContractWithCustomerExcludingAssessedTax
+Net Income Tag,NetIncomeLoss,NetIncomeLoss,NetIncomeLoss
+CFO Tag,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities,NetCashProvidedByUsedInOperatingActivities
+CapEx Tag,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment,PaymentsToAcquirePropertyPlantAndEquipment
+Gross Profit Tag,,,
+Operating Income Tag,OperatingIncomeLoss,OperatingIncomeLoss,OperatingIncomeLoss
+D&A Tag,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization,DepreciationDepletionAndAmortization
+R&D Tag,,,
+SBC Tag,ShareBasedCompensation,ShareBasedCompensation,ShareBasedCompensation
+Interest Expense Tag,,,
+Income Tax Tag,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit,IncomeTaxExpenseBenefit
+EPS Tag,EarningsPerShareDiluted,EarningsPerShareDiluted,EarningsPerShareDiluted
+DPS Tag,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared,CommonStockDividendsPerShareDeclared
+Buyback Tag,,,
+Dividends Paid Tag,,,
+Cash Tag,,,CashAndCashEquivalentsAtCarryingValue
+MS Current Tag,,,
+MS Noncurrent Tag,,,
+LT Debt Tag,,,
+ST Debt Tag,,,
+Assets Tag,,,Assets
+AR Tag,,,AccountsReceivableNetCurrent
+Equity Tag,,,StockholdersEquity
+Shares Tag,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding,WeightedAverageNumberOfDilutedSharesOutstanding
+Start,2022-07-01,2023-07-01,2024-07-01
+End,2023-06-30,2024-06-30,2025-06-30

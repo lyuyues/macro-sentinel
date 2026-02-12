@@ -1,0 +1,56 @@
+,2015Q4,2016Q4,2017Q4,2018Q4,2019Q4,2020Q4,2021Q4,2022Q4,2023Q4,2024Q4
+Data Source,10-Q,10-Q,10-Q,10-Q,10-Q,10-Q,10-Q,10-Q,10-Q,10-Q
+Revenue (M),,,,,,,,,,
+Gross Margin (%),,,,,,,,,,
+Operating Income (M),,,,,,,,,,
+Operating Margin (%),,,,,,,,,,
+Net Income (M),,,,,,,,,,
+Net Profit Margin (%),,,,,,,,,,
+D&A (M),,,,,,,,,,
+EBITDA (M),,,,,,,,,,
+R&D Expense (M),,,,,,,,,,
+SBC (M),,,,,,,,,,
+Interest Expense (M),,,,,,,,,,
+Income Tax (M),,,,,,,,,,
+Effective Tax Rate (%),,,,,,,,,,
+EPS Diluted ($),,,,,,,,,,
+Dividends Per Share ($),,,,,,,,,,
+Cash from Operations (M),,,,,,,,,,
+CapEx (M),,,,,,,,,,
+Free Cash Flow (M),,,,,,,,,,
+FCF to Profit Margin (%),,,,,,,,,,
+Buyback (M),,,,,,,,,,
+Dividends Paid (M),,,,,,,,,,
+Cash (B),0.3996,0.4901,0.6141,0.8725,0.7636,1.7821,1.1271,0.2885,0.1161,2.4496
+Total Cash (B),0.3996,0.4901,0.6141,0.8725,0.7636,1.7821,1.1816,0.2885,0.1161,2.4496
+Total Debt (B),,,,,,,,1.0307,1.5843,0.0061
+Total Assets (B),1.5342,1.8812,2.2664,3.4791,3.6922,6.9795,6.9387,8.768,8.7551,3.5486
+Accounts Receivable (B),0.0766,0.1276,0.1693,0.2097,0.2262,0.3444,0.5864,0.8248,0.0041,0.0131
+Stockholders Equity (B),0.9618,1.2709,1.4379,2.5917,2.4721,4.4128,3.4751,4.497,3.2937,3.2537
+Shares Outstanding (M),,,,,,,,,,235.7536
+Revenue Tag,,,,,,,,,,
+Net Income Tag,,,,,,,,,,
+CFO Tag,,,,,,,,,,
+CapEx Tag,,,,,,,,,,
+Gross Profit Tag,,,,,,,,,,
+Operating Income Tag,,,,,,,,,,
+D&A Tag,,,,,,,,,,
+R&D Tag,,,,,,,,,,
+SBC Tag,,,,,,,,,,
+Interest Expense Tag,,,,,,,,,,
+Income Tax Tag,,,,,,,,,,
+EPS Tag,,,,,,,,,,
+DPS Tag,,,,,,,,,,
+Buyback Tag,,,,,,,,,,
+Dividends Paid Tag,,,,,,,,,,
+Cash Tag,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue,CashAndCashEquivalentsAtCarryingValue
+MS Current Tag,,,,,,,MarketableSecuritiesCurrent,,,
+MS Noncurrent Tag,,,,,,,,,,
+LT Debt Tag,,,,,,,,LongTermDebt,LongTermDebt,
+ST Debt Tag,,,,,,,,LongTermDebtCurrent,LongTermDebtCurrent,LongTermDebtCurrent
+Assets Tag,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets,Assets
+AR Tag,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent,AccountsReceivableNetCurrent
+Equity Tag,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity,StockholdersEquity
+Shares Tag,,,,,,,,,,CommonStockSharesOutstanding
+Start,,,,,,,,,,
+End,,,,,,,,,,
