@@ -1,0 +1,2 @@
+Date,WTI,Brent,NatGas,WTI_WoW%,XOM_Price,XOM_PE,XOM_FwdPE,XOM_DivYield%,XOM_52wHigh,XOM_52wLow,CVX_Price,CVX_PE,CVX_DivYield%,XLE_Price,SPY_Price,XLE_vs_SPY_1m%,Signal_Count,Signals
+2026-02-10,64.29,69.11,3.16,1.71,151.59,22.63,18.14,2.72,151.78,97.80,182.26,27.49,3.90,53.58,692.12,14.72,1,SELL:XOM_dist_52w_high
