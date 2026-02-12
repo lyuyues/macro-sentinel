@@ -1,0 +1,39 @@
+{
+  "generated": "2026-02-11T16:05:53.145290",
+  "scenarios": {
+    "actual": {
+      "total_return": 3.0078,
+      "cagr": 0.3745,
+      "max_drawdown": 0.1808,
+      "volatility": 0.2416,
+      "sharpe": 1.3847,
+      "sortino": 2.0736,
+      "calmar": 2.0714,
+      "alpha": 0.1943,
+      "beta": 1.1337
+    },
+    "spy_buyhold": {
+      "total_return": 2.7874,
+      "cagr": 0.3568,
+      "max_drawdown": 0.1633,
+      "volatility": 0.1891,
+      "sharpe": 1.6758,
+      "sortino": 2.4346,
+      "calmar": 2.1856,
+      "alpha": 0.1865,
+      "beta": 1.0122
+    },
+    "sell_rules": {
+      "total_return": 2.306,
+      "cagr": 0.3152,
+      "max_drawdown": 0.0657,
+      "volatility": 0.0925,
+      "sharpe": 2.9761,
+      "sortino": 5.3947,
+      "calmar": 4.7941,
+      "alpha": 0.2615,
+      "beta": 0.1341
+    }
+  },
+  "sell_signals": 137
+}
