@@ -1,88 +1,108 @@
-# 宏观市场情绪监控 — 2026-02-24
+# Macro Market Sentiment Monitor — 2026-02-24
 
-## 下次美联储会议
+## Next Fed Meeting
 
-**2026-03-18** — 22天后 **📊 含经济预测摘要(SEP)**
+**2026-03-18** — 22 days away **📊 with Summary of Economic Projections (SEP)**
 
-## 五问速览
+## Six-Question Dashboard
 
-| # | 问题 | 上期 | 本期 | 变化 | 关键数据 |
+| # | Question | Previous | Current | Change | Key Data |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 服务通胀粘性 | — | → 不变 | — | 服务CPI YoY 3.6%, 3M年化 3.9%, 住房3M年化 3.4% |
-| 2 | 通胀预期锚定 | — | → 改善 | — | 5Y BEI 2.40%, 5Y5Y Fwd 2.12%, 3M变化 +0.06pp |
-| 3 | 工资-物价螺旋 | — | → 不变 | — | 工资YoY 3.7%, 核心CPI YoY 2.9%, 差值 +0.8pp, ECI YoY 3.4% |
-| 4 | 失业恶化趋势 | — | → 不变 | — | U-3 4.3%, U-6 8.0%, 3M变化 -0.1pp, ICSA加速 +5385 |
-| 5 | 金融条件收紧 | — | ↓ 改善 | — | NFCI -0.57, HY利差 295bp, 10Y-2Y +0.60%, HY 3M变化 -5bp |
+| 1 | Services Sticky | — | → Flat | — | Svc CPI YoY 3.6%, 3M ann. 3.9%, Shelter 3M ann. 3.4% |
+| 2 | Expect. Anchor | — | → Better | — | 5Y BEI 2.40%, 5Y5Y Fwd 2.12%, 3M chg +0.06pp |
+| 3 | Wage-Price | — | → Flat | — | Wages YoY 3.7%, Core CPI YoY 2.9%, Gap +0.8pp, ECI YoY 3.4% |
+| 4 | Unemployment | — | → Flat | — | U-3 4.3%, U-6 8.0%, 3M chg -0.1pp, ICSA accel +5385 |
+| 5 | Fin. Conditions | — | ↓ Better | — | NFCI -0.57, HY Spread 295bp, 10Y-2Y +0.60%, VIX 21.0, VIX 20d avg 18.8, HY 3M chg -5bp |
+| 6 | Econ. Momentum | — | → Better | — | Sentiment 56.4 (3M +2.8), Mfg IP YoY 2.6%, Recess. Prob 1% |
 
-## 综合判断
+## Overall Assessment
 
-**🟢 低风险** (0/5 项恶化)
+**🟢 Low Risk** (0/6 deteriorating)
 
-通胀、就业和金融条件均未显示恶化信号，宏观环境有利。
+Inflation, employment, financial conditions, and leading indicators show no deterioration. Macro environment is favorable.
 
-## 详细数据
+## Detailed Data
 
-### 1. 通胀
+### 1. Inflation
 
-**核心 CPI (CPILFESL) — YoY%**
+**Core CPI (CPILFESL) — YoY%**
 
 | 2025-07 | 2025-08 | 2025-09 | 2025-11 | 2025-12 | 2026-01 |
 | --- | --- | --- | --- | --- | --- |
 | 3.1% | 3.1% | 3.0% | 2.9% | 2.8% | 2.9% |
 
-**服务 CPI (CUSR0000SAS) — YoY%**
+**Services CPI (CUSR0000SAS) — YoY%**
 
 | 2025-07 | 2025-08 | 2025-09 | 2025-11 | 2025-12 | 2026-01 |
 | --- | --- | --- | --- | --- | --- |
 | 3.8% | 3.8% | 3.6% | 3.5% | 3.5% | 3.6% |
 
-**住房 CPI (CUSR0000SAH1) — YoY%**
+**Shelter CPI (CUSR0000SAH1) — YoY%**
 
 | 2025-07 | 2025-08 | 2025-09 | 2025-11 | 2025-12 | 2026-01 |
 | --- | --- | --- | --- | --- | --- |
 | 3.7% | 3.6% | 3.6% | 3.4% | 3.4% | 3.4% |
 
-**通胀预期**
+**Inflation Expectations**
 
 - 5Y Breakeven: 2.40%
 - 5Y5Y Forward: 2.12%
 
-### 2. 就业
+### 2. Employment
 
-**失业率**
+**Unemployment Rate**
 
 | 2025-07 | 2025-08 | 2025-09 | 2025-11 | 2025-12 | 2026-01 |
 | --- | --- | --- | --- | --- | --- |
 | 4.3% | 4.3% | 4.4% | 4.5% | 4.4% | 4.3% |
 
-- U-6 (最新): 8.0%
+- U-6 (latest): 8.0%
 
-- 劳动参与率 (最新): 62.5%
+- Labor Force Participation (latest): 62.5%
 
-**工资**
+**Wages**
 
-- 平均时薪 YoY: 3.7%
-- ECI 工资成本 YoY: 3.4%
+- Avg Hourly Earnings YoY: 3.7%
+- ECI Wages YoY: 3.4%
 
-**初次申领失业金 (ICSA)**
+**Initial Jobless Claims (ICSA)**
 
-- 最新: 206,000
-- 4周均线: 219,000
-- 13周均线: 213,615
+- Latest: 206,000
+- 4-week MA: 219,000
+- 13-week MA: 213,615
 
-### 3. 金融条件
+### 3. Financial Conditions
 
-**NFCI (芝加哥联储金融条件指数)**
+**NFCI (Chicago Fed National Financial Conditions Index)**
 
 | 2025-09 | 2025-10 | 2025-11 | 2025-12 | 2026-01 | 2026-02 |
 | --- | --- | --- | --- | --- | --- |
 | -0.53 | -0.51 | -0.51 | -0.54 | -0.57 | -0.57 |
 
-**高收益债利差**: 295bp (2.95%)
+**HY Spread**: 295bp (2.95%)
 
-**联邦基金利率**: 3.64%
+**Fed Funds Rate**: 3.64%
 
-**10Y-2Y 利差**: +0.60%
+**10Y-2Y Spread**: +0.60%
+
+**VIX**: 21.0 (20-day avg: 18.8)
+
+
+### 4. Leading Indicators
+
+**U. Michigan Consumer Sentiment**
+
+| 2025-08 | 2025-09 | 2025-10 | 2025-11 | 2025-12 | 2026-01 |
+| --- | --- | --- | --- | --- | --- |
+| 58.2 | 55.1 | 53.6 | 51.0 | 52.9 | 56.4 |
+
+**Manufacturing Industrial Production — YoY%**
+
+| 2025-08 | 2025-09 | 2025-10 | 2025-11 | 2025-12 | 2026-01 |
+| --- | --- | --- | --- | --- | --- |
+| 1.5% | 2.1% | 2.0% | 2.0% | 1.6% | 2.6% |
+
+**Smoothed Recession Probability**: 0.8%
 
 
 ---
